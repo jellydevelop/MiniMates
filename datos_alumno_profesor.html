@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATOS ALUMNOS</title>
+
+
+</head>
+<!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+
+<body>
+
+    <h1>GESTIÓN DE DATOS DE ALUMNOS</h1>
+
+    <h3>Por favor marque qué acción desea realizar:</h3>
+
+<!--FORMULARIO ELECCIÓN ---------------------------->
+    <form id="formEleccion"   > 
+
+        <h2>Dar de alta a un alumno</h2>
+
+        <br><br>
+            <input type="radio"  name="radio" id="radioAlta">Dar de Alta a un  Alumno
+        <br><br>
+            <input type="radio" name="radio"  id="radioBaja">Dar de Baja a un  Alumno
+        <br><br>
+            <input type="radio"  name="radio" id="radioMod" >Modificar Datos de un Alumno
+        <br><br>
+    
+        <button type="submit" id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
+    </form>
+<!----------------------------------------------->
+
+
+<!--FORMULARIO ALTA ---------------------------->
+    <form id="formAlta" hidden  > 
+
+        <h2>Dar de alta a un alumno</h2>
+
+                EMAIL DEL ALUMNO:
+        <br><br>
+                <input type="email" name="mailAlum" id="mailAlum" placeholder="Tu mail de usuario" maxlength="20" required autocomplete="off">
+        <br><br>
+                NOMBRE DEL ALUMNO:
+        <br><br>
+                <input type="text" name="nameAlum" id="nameAlum" placeholder="Aquí el nombre del alumno" maxlength="10" required autocomplete="off">
+         <br><br>
+
+        <button type="submit" id="botonEnviarAlta">DAMOS DE ALTA</button>
+    </form>
+<!----------------------------------------------->
+
+<!--FORMULARIO BAJA ---------------------------->
+    <form id="formBaja" hidden> 
+        <h2>Dar de baja a un alumno</h2>
+
+
+                EMAIL DEL ALUMNO:
+        <br><br>
+                <input type="email" name="mailAlum" id="mailAlum" placeholder="Tu mail de usuario" maxlength="20" required autocomplete="off">
+        <br><br>
+        
+                <button type="submit" id="botonEnviarBaja">DAMOS DE BAJA</button>
+        <br>
+
+    </form>
+<!----------------------------------------------->
+
+<!--FORMULARIO MODIFICACIÓN ---------------------------->
+    <form id="formModificacion" hidden> 
+        <h2>Modificamos datos de un alumno</h2>
+
+
+            EMAIL DEL ALUMNO:
+        <br><br>
+                <input type="email" name="mailUser" id="mailUser" placeholder="El email a modificar" maxlength="20" required autocomplete="off">
+        <br><br>
+                NOMBRE DEL ALUMNO:
+        <br><br>
+                <input type="text" name="nameAlum" id="nameAlum" placeholder="El nombre a modificar" maxlength="10" required autocomplete="off">
+        <br><br>
+        
+
+        <button type="submit" id="botonEnviarModificacion">PASAMOS A MODIFICAR</button>
+    </form>
+<!----------------------------------------------->
+
+
+<!-- ENLACE A JS-->
+<script src="datos_alumno_profesor_eventos.js"></script>
+<script src="peticiones_app.js"></script>
+</body>
+</html>
