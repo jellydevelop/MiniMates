@@ -1,2 +1,2 @@
 # MiniMates
-Se trata del proyecto de final de ciclo de 2DAW
+Contiene el desarrollo del proyecto de final de ciclo de 2DAW
