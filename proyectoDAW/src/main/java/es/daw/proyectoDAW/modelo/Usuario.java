@@ -2,6 +2,7 @@ package es.daw.proyectoDAW.modelo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +17,7 @@ import lombok.Data;
 //------------------------------------
 //------------------------------------
 @Data
-@Entity(name="USUARIOS")///GENERA LA TABLA USUARIOS
+@Entity(name="USUARIO")///GENERA LA TABLA USUARIOS
 public class Usuario {
 	
 	@Id@GeneratedValue
@@ -27,6 +28,12 @@ public class Usuario {
 	
 	@Column(name="MAIL_USUARIO",nullable=false, columnDefinition="varchar(25)")
     private String mailUsuario;
+	
+	
+	@Column(name="PASS_USUARIO",nullable=false, columnDefinition="varchar(10)")
+	
+	private String passUsuario;
+	
 	
 	@Column(name="ROL_USUARIO",nullable=false, columnDefinition="varchar(8)")
     private String rolUsuario;
@@ -62,6 +69,10 @@ public class Usuario {
     public String getRolUsuario() {
 		return rolUsuario;
 	}
+    
+    public String getPassUsuario() {
+		return passUsuario;
+	}
 	/*}public List<Reto> getRetos() {
 		return retos;
 	}*/
@@ -80,6 +91,9 @@ public class Usuario {
 	}
 	public void setRolUsuario(String rolUsuario) {
 		this.rolUsuario = rolUsuario;
+	}
+	public void setMailUsuario(String mailUsuario) {
+		this.mailUsuario = mailUsuario;
 	}
 	/*public void setRetos(List<Reto> retos) {
 		this.retos = retos;

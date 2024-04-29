@@ -1,9 +1,19 @@
 package es.daw.proyectoDAW.controladores;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +28,7 @@ import es.daw.proyectoDAW.servicio.ServicioUsuario;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost")
 public class ControladorUsuario {
 
 
@@ -25,6 +36,14 @@ public class ControladorUsuario {
 	@Autowired
 		private ServicioUsuario repoUsuario ;
 	
+	///METODO PARA ACCEDER AUTOMATICAMENTE AL INICIO DE LA APP
+			public class accesoAPP {
+			    @RequestMapping("/")
+				    public String index() {
+				        return "index";
+				    }
+			}
+			
 	
 	//----------------------------------------------------------------------------CREATE
 		/*///añadir alumno y asociarlo a grupo 
@@ -63,7 +82,10 @@ public class ControladorUsuario {
 			
 	//----------------------------------------------------------------------------READ
 		
-		///obtener todos los alumnos
+		
+
+			
+			///obtener todos los alumnos
 			@GetMapping("/todousuarios")
 				public ResponseEntity<?> obtenerUsuarios(){
 				
@@ -80,27 +102,68 @@ public class ControladorUsuario {
 			}
 			
 		//-----------------------------------------------------------------
-			 @GetMapping("/redireccionar")
-			    public ResponseEntity<String> redireccionarUsuario(@RequestParam("nombreUsuario") String nombreUsuario) {
-			       
-				 String rol = repoUsuario.obtenerRolUsuario(nombreUsuario);
-				 
-			        if ("profesor".equals(rol)) {
-			        	
-			            return ResponseEntity.ok("redirect:/profesor.html");
-			            
-			            
-			        } else if ("alumno".equals(rol)) {
-			        	
-			            return ResponseEntity.ok("redirect:/alumno.html");
-			            
-			        } else {
-			        	
-			            return ResponseEntity.ok("redirect:/redi.html");
-
-			        }
-			    }
+			/*@GetMapping("/redireccion/{idUsuario}")
 			
+		    public ResponseEntity<String> redireccionarUsuario(@PathVariable Long idUsuario) {
+		       
+				String rol = repoUsuario.obtenerRolUsuario(idUsuario);
+		       
+				if (rol.equals("alumno")) {
+		        
+					return ResponseEntity.ok("redirect:/alumno.html");
+		       
+				} else if (rol.equals("profesor")) {
+		          
+					return ResponseEntity.ok("redirect:/profesor.html");
+		       
+				} else {
+		            
+					return ResponseEntity.ok("redirect:/redi.html");
+		        }
+		    }*/
+			
+		//-----------------------------------------------------------------
+			@PostMapping("/verificacion")
+			public ResponseEntity<?> validarUserAndPass(@RequestBody Usuario user) {
+				
+			    Optional<Usuario> usuarioChecked = repoUsuario.findByMail(user.getMail());
+
+			    if (usuarioChecked.isPresent()) {
+			    	
+			        Usuario usuario = usuarioChecked.get();
+
+			        // Verificar contraseña
+			        if (!usuario.getPassUsuario().equals(user.getPassUsuario())) {
+			        	
+			            return ResponseEntity.badRequest().body("La contraseña es incorrecta");
+			        }
+
+			        // URL de redirección según el rol del usuario
+			        String redirectUrl = "";
+			        
+				        switch (usuario.getRolUsuario()) {
+				            case "alumno":
+				                redirectUrl = "/alumno";
+				                break;
+				            case "profesor":
+				            	  redirectUrl = "/profesor";
+				                break;
+				            default:
+				            	  redirectUrl = "/redi";
+				                break;
+				        }
+
+				     return ResponseEntity.ok(redirectUrl);
+			   
+			    } else {
+			        return ResponseEntity.badRequest().body("El correo electrónico del usuario es incorrecto");
+			    }
+			}
+
+		
+				       
+				
+				
 			
 			
 }//-----------FIN CONTROLADOR ControladorUsuario
