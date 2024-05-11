@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFESOR</title>
+
+
+</head>
+<body>
+
+    <h1>MENÚ DE PROFESOR</h1>
+
+    <h3>Elige que quieres hacer hoy</h3>
+
+<!--ZONA ELECCION DE ACTIVIDAD ---------------------------->
+    <form action="/redireccion_menu__profesor" method="get">
+    
+		    <input type="radio" id="estadisticas" name="opcion" value="estadisticas" required>
+		    	<label for="estadisticas">Ir a Estadísticas de tus Alumnos</label><br>
+		    	
+		    <input type="radio" id="datosAlumno" name="opcion" value="datosAlumno" required>
+		    	<label for="datosAlumno">Gestionar Datos de tus Alumnos</label><br><br>
+		    	
+		    <input type="submit" value="Enviar">
+	</form>
+
+<!-- ENLACE A JS-->
+<script src="profesor_eventos.js"></script>
+</body>
+</html>
