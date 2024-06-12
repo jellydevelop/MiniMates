@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos_P1_M1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> <!-- Enlace para importar la fuente Montserrat -->
+
+    <title>PANTALLA 1_COFRE</title>
+
+
+</head>
+
+
+<!--INICIO BODY -->
+ 
+<body>
+   
+    <h2>Relaciona los números de la tabla con la lista de audios sorpresa</h2>
+        <div id="explicamos"> 
+        <p>Si al marcar el audio con su número aciertas => el audio y el número se pondrán de color = <i style="background-color: rgb(57, 199, 57);"> verde</i></p>
+        <p>Si al marcar el audio con su número fallas 1 a 3 veces => el audio y el número se pondrán de color = <i style="background-color: rgb(215, 144, 3);"> naranja</i></p>
+        <p>Si al marcar el audio con su número fallas 3 veces => el audio y el número se pondrán de color = <i style="background-color: rgb(3, 151, 215);"> azul</i> y te daremos la solución<u>(no te olvides de marcarla tu también)</u></p>
+        </div>
+    <!-- ISLA -->
+    <div>
+
+        <img id="isla" src="img/coconut-7751862_1280.png" alt="isla">
+        <img id="cofre_cerrado" src="img/chest-145753_1280.png" alt="cofre">
+        <div id="tierra"></div>
+        <div>
+            <img id="ola1" src="img/olas_login.png" alt="olas">
+            <img id="ola2" src="img/olas_login.png" alt="olas">
+            <img id="ola3" src="img/olas_login.png" alt="olas">
+
+        </div>
+
+    </div>
+
+    <!--BOTON AUDIO------------------------------------->
+
+    <div id="audioCofre" onclick="audioPlay()">
+        <img src="/img/volume-up_4178625.png" alt="Icono de audio">
+        <audio id="audio"> 
+            <source src="/audios/collect-points-190037.mp3" type="audio/mp3">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div>
+
+    <!--BOTON INICIO------------------------------------->
+
+    <button id="iniciarJuego">Iniciar Juego</button>
+    <!-- / ISLA -------------->
+
+    <!-- TABLA DE NUMEROS -->
+    <table id="tabla_numeros">
+        <tr>
+            <td><button class="numero" id="A1"></button></td>
+            <td><button class="numero" id="A2"></button></td>
+            <td><button class="numero" id="A3"></button></td>
+            <td><button class="numero" id="A4"></button></td>
+            <td><button class="numero" id="A5"></button></td>
+        </tr>
+        <tr>
+            <td><button class="numero" id="A6"></button></td>
+            <td><button class="numero" id="A7"></button></td>
+            <td><button class="numero" id="A8"></button></td>
+            <td><button class="numero" id="A9"></button></td>
+            <td><button class="numero" id="A10"></button></td>
+        </tr>
+    </table>
+    <!-- / TABLA DE NUMEROS -------------->
+
+
+    <!-- LISTA DE AUDIOS -------------->
+     <ul id="lista_audios">
+        <li class="numeroL" id="B1"><button onclick="seleccionarAudio(1)">AUDIO 1</button></li>
+        <li class="numeroL" id="B2"><button onclick="seleccionarAudio(2)">AUDIO 2</button></li>
+        <li class="numeroL" id="B3"><button onclick="seleccionarAudio(3)">AUDIO 3</button></li>
+        <li class="numeroL" id="B4"><button onclick="seleccionarAudio(4)">AUDIO 4</button></li>
+        <li class="numeroL" id="B5"><button onclick="seleccionarAudio(5)">AUDIO 5</button></li>
+        <li class="numeroL" id="B7"><button onclick="seleccionarAudio(6)">AUDIO 6</button></li>
+        <li class="numeroL" id="B7"><button onclick="seleccionarAudio(7)">AUDIO 7</button></li>
+        <li class="numeroL" id="B8"><button onclick="seleccionarAudio(8)">AUDIO 8</button></li>
+        <li class="numeroL" id="B9"><button onclick="seleccionarAudio(9)">AUDIO 9</button></li>
+        <li class="numeroL" id="B10"><button onclick="seleccionarAudio(10)">AUDIO 10</button></li>
+     </ul>
+
+
+<!-- ENLACE A JS-->
+<script src="/scripts/script_P1M1.js"></script>
+</body>
+</html>
