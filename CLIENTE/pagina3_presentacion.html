@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <!-- FUENTE PARA LA WEB  -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+       
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/estilos_pag3.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRESENTACIÓN</title>
+</head>
+
+<!-- INICIO A BODY ------------------------------------->
+
+<body>
+    
+<!--IMAGEN DE MATI  + -------------------------------------->
+    <div id="mati">
+
+        <img src="/img/mati_1.png" alt="titulo_app">
+
+    </div>
+
+    <p id="titulo_mati">MATI</p>
+
+<!--BOTON AUDIO------------------------------------->
+
+<div id="audio_mati" onclick="audioPlay()">
+    <img src="/img/volume-up_4178625.png" alt="Icono de audio">
+    <audio id="audio"> 
+        <source src="/audios/pruebaAudio (online-audio-converter.com).mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+</div>
+
+<!--AUDIO AYUDA  + TEXTO-------------------------------------->
+
+<div id="presentacion">
+ <h2>BIENVENIDOS A MINIMATES</h2>
+</div>
+
+<div id="intro">
+    <h4><strong>Soy MATI</strong></h4>
+    <h4>Vamos a descubrir mundos mágicos</h4>
+    <h3>¡ Acompáñame !</h3>
+</div>
+
+<!--BOTON CONTINUAR------------------------------------->
+
+<button id="btn_continuar" >CONTINUAR</button>
+
+
+    <!-- ENLACE A SCRIPT-->
+    <script src="/scripts/script_presentacion.js"></script>
+</body>
+</html>

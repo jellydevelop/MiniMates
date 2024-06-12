@@ -1,0 +1,55 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    background-color: #86e3e3;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+h1{
+    position: absolute;
+    left:460px;
+   top: 50px;
+}
+
+h3{
+    position: absolute;
+    left:420px;
+    top: 150px;
+
+}
+
+
+/*** BOTON A LOGIN *******************************/
+
+#btn {
+
+        position: absolute;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        letter-spacing: 2px;
+        bottom: 325px;
+        left: 630px;
+        width: 300px;
+        height: 60px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: #E3E386;
+        border: 3px grey solid;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    
+    }
+    
+ #btn:hover{
+        background-color:  #a861f8;
+ }
+
+
+button:hover {
+    background-color: #d6a40e;
+}

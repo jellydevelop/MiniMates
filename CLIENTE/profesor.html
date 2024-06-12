@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <!-- FUENTE PARA LA NUBE-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+        
+    <!-- FUENTE PARA EL TITULO  -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+       
+       
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/estilos_profesor.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>PROFESOR</title>
+
+
+    </head>
+
+    <!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+    <body>
+    
+    <!--TITULOS PARA PROFESOR ---------------------------->
+
+        <h1>MENÚ DE PROFESOR</h1>
+    
+        <h3>Elige qué quieres hacer hoy</h3>
+    
+    <!--ZONA ELECCION DE ACTIVIDAD ---------------------------->
+        <form  id=form action="" method="post">
+    
+            
+            <input type="radio" name="stats" id="stats">  ESTADÍSTICAS
+            
+            <input type="radio" name="dataAlum" id="dataAlum">  GESTIÓN DE DATOS DE ALUMNOS
+     
+      
+        </form>
+
+    <!--ENLACE A SCRIPT-->
+    <script src="/scripts/script_profesor.js"></script>
+</body>
+</html>
+

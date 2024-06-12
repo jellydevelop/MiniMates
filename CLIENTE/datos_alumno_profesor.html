@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+    <!-- FUENTE PARA EL TITULO  -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+       
+       
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/estilos_datosProfesor.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DATOS ALUMNOS</title>
+
+
+</head>
+<!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+
+<body>
+
+    <h1>GESTIÓN DE DATOS DE ALUMNOS</h1>
+
+    <h3>Por favor marque qué acción desea realizar:</h3>
+
+<!--FORMULARIO ELECCIÓN ---------------------------->
+    <form id="formEleccion"   > 
+
+        <br><br>
+            <input type="radio"  name="radio" id="radioAlta" required>Dar de Alta a un  Alumno
+        <br><br>
+            <input type="radio" name="radio"  id="radioBaja" required>Dar de Baja a un  Alumno
+        <br><br>
+            <input type="radio"  name="radio" id="radioMod" required>Modificar Datos de un Alumno
+        <br><br>
+    
+        <button type="submit" id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
+    </form>
+<!----------------------------------------------->
+
+
+<!--FORMULARIO ALTA ---------------------------->
+    <form id="formAlta"  action="/aniadiralumno"   method="post" hidden  > 
+
+        <h3>Dar de alta a un alumno</h3>
+
+                EMAIL DEL ALUMNO:
+        <br><br>
+                <input type="email" name="mailAlum" id="mailAlum" placeholder="Tu mail de usuario" maxlength="20" required />
+        <br><br>
+                NOMBRE DEL ALUMNO:
+        <br><br>
+                <input type="text" name="nameAlum" id="nameAlum" placeholder="Aquí el nombre del alumno" maxlength="10" required/>
+         <br><br>
+
+        <button type="submit" id="botonEnviarAlta">DAMOS DE ALTA</button>
+    </form>
+<!----------------------------------------------->
+
+<!--FORMULARIO BAJA ---------------------------->
+    <form id="formBaja"  action="/borrar_usuario_mail/mailUsuario" hidden> 
+        <h3>Dar de baja a un alumno</h3>
+
+
+                EMAIL DEL ALUMNO:
+        <br><br>
+                <input type="email" name="mailAlum" id="mailLog" placeholder="Tu mail de usuario" maxlength="20" required>
+        <br><br> 
+        
+                      <!-- >  ID DEL ALUMNO:
+        
+         <input type="text" name="idAlum" id="idAlum" placeholder="ID del alumno" maxlength="20"  >
+               
+         <br><br>  -->
+                <button type="submit" id="botonEnviarBaja">DAMOS DE BAJA</button>
+        <br>
+
+    </form>
+<!----------------------------------------------->
+
+<!--FORMULARIO MODIFICACIÓN ---------------------------->
+   
+
+<form id="formModificacion" hidden> 
+    <h3>Modificamos datos de un alumno</h3>
+
+    EMAIL DEL ALUMNO A MODIFICAR
+    <br><br>
+    <input type="email" name="mailUser" id="mailUserUp" placeholder="El email a modificar" maxlength="20" required>
+    <br><br>
+    
+     NUEVO NOMBRE DEL ALUMNO 
+    <br><br>
+    <input type="text" name="nameAlum" id="nameAlumUp" placeholder="El nombre NUEVO" maxlength="10">
+    <br><br>
+    
+     NUEVO MAIL DEL ALUMNO 
+    <br><br>
+    <input type="email" name="emailAlum" id="emailAlumUp" placeholder="El MAIL NUEVO" maxlength="20">
+    <br><br>
+
+    <p><strong>Selecciona qué deseas modificar:</strong></p>
+    <input type="radio" id="modificarNombre" name="modificacion" value="nombre">
+    <label for="modificarNombre">Modificar Nombre</label><br>
+    <input type="radio" id="modificarEmail" name="modificacion" value="email">
+    <label for="modificarEmail">Modificar Email</label><br>
+    <input type="radio" id="modificarAmbos" name="modificacion" value="ambos">
+    <label for="modificarAmbos">Modificar Ambos</label><br><br>
+    
+    <button type="submit" id="botonEnviarModificacion">PASAMOS A MODIFICAR</button>
+</form>
+<!----------------------------------------------->
+
+
+<!-- ENLACE A JS-->
+<script src="scripts/datos_alumno_profesor_eventos.js"></script>
+</body>
+</html>
