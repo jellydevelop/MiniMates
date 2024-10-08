@@ -1,0 +1,192 @@
+body {
+    background: rgb(32, 240, 230);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*** TITULO WEB ALUMNO *******************************/
+
+.header {
+    position: relative; 
+    width: 100%;
+    text-align: center; 
+    margin-top: 30px;
+    background-color: antiquewhite;
+    padding: 20px;
+    
+}
+
+
+.header h1 {
+	margin:0;
+    font-size: 50px;
+    letter-spacing: 5px;
+    width: 100%;
+}
+
+
+/*** BOTON EXIT *******************************/
+#exit {
+     width: 120px; 
+    height: 100px;
+     position: absolute;
+    right: 100px;
+    top: -0px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#exit img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+    
+    transition: transform 0.5s;
+}
+
+#exit img:hover{
+transform: scale(1.3);
+
+}
+/*** BOTON ATRAS *******************************/
+#rediAtras {
+    width: 100px; 
+    height: 120px;
+    position: absolute;
+    left: 100px;
+    top: -10px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+        transition: transform 0.5s;
+    
+}
+
+#rediAtras img {
+    width: 100%;  
+    height: 100%;  
+    object-fit: contain;
+}
+
+#rediAtras:hover{
+transform: scale(1.3);
+
+}
+
+h3 {
+	position: relative;
+	margin-top:30px;
+    font-size: 30px;
+}
+/*** FORMULARIO *******************************/
+#formC {
+	position:absolute;
+    width: 500px;
+    height: 450PX;
+   margin-top: 220px;
+    left: 530px;
+    border-radius: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: rgba(246, 196, 34, 0.982);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+label{
+    position:relative;
+    margin-top: 3px;
+    margin-left: 30px;
+    display: block; /* Alinea los labels encima de los inputs */
+}
+
+input {  
+    display: block; /* Coloca el input debajo del label */
+    margin: 10px 20px 40px 20px; /* Ajusta el espacio entre los inputs y el borde del formulario */
+    border-radius: 18px;
+    width: 80%; /* Ajusta el ancho de los inputs */
+    padding: 15px;
+    font-size: 16px;
+}
+#consulta{
+	height:100px;
+}
+
+textarea {
+    display: block;
+    margin: 10px 20px;
+    width: 90%; /* Ajusta el ancho del textarea */
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    height: 500px /* Ajusta la altura del textarea a 15 líneas aproximadamente */
+}
+
+
+/*** BOTON ENVIAR *******************************/
+#send {
+    width: 130px; 
+    height: 70px;
+    position: absolute;
+    left: 350px;
+    margin-top: -10px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+        transition: transform 0.5s;
+    
+}
+
+#send img {
+    width: 100%;  /* La imagen se adapta al ancho del botón */
+    height: 100%; /* La imagen se adapta al alto del botón */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+}
+
+#send:hover{
+transform: scale(1.3);
+
+}
+/*** BOTON BORRAR *******************************/
+
+#reset {
+    position: absolute;
+    margin-top: -8px;
+    width: 100px;
+    height: 70px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
+    font-size: 16px;  /* Tamaño del texto */
+    font-weight: bold; /* Grosor de la fuente */
+    cursor: pointer; /* Para que tenga cursor de mano como botón */
+}
+
+input[type="reset"] {
+    width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+    padding: 10px; /* Agrega un poco de espacio interno */
+    border-radius: 8px; /* Bordes redondeados para mantener la estética */
+    background-color: rgba(232, 230, 220, 0.982); /* Mantén el color de fondo acorde con el diseño */
+    border:chocolate; /* Sin borde para que quede más limpio */
+    color: black; /* Color del texto */
+    transition: transform 0.5s; /* Añadir un efecto de hover */
+}
+
+input[type="reset"]:hover {
+    transform: scale(1.3); /* Aumenta ligeramente el tamaño al pasar el mouse */
+}

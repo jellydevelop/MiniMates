@@ -1,0 +1,342 @@
+body {
+    background: rgb(32, 240, 230);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*** TITULO WEB ALUMNO *******************************/
+
+.header {
+    position: relative; 
+    width: 100%;
+    text-align: center; 
+    margin-top: 30px;
+    background-color: antiquewhite;
+    padding: 20px;
+    
+}
+
+
+.header h1 {
+	margin:0;
+    font-size: 50px;
+    letter-spacing: 5px;
+    width: 100%;
+}
+
+
+/*** BOTON EXIT *******************************/
+#exit {
+     width: 120px; 
+    height: 100px;
+     position: absolute;
+    right: 100px;
+    top: -0px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#exit img {
+    width: 100%;  /* La imagen se adapta al ancho del botón */
+    height: 100%; /* La imagen se adapta al alto del botón */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    transition: transform 0.5s;
+}
+
+#exit img:hover{
+transform: scale(1.3);
+
+}
+/*** BOTON ATRAS *******************************/
+#rediAtras {
+    width: 100px; 
+    height: 150px;
+    position: absolute;
+    left: 100px;
+    top: -25px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+        transition: transform 0.5s;
+    
+}
+
+#rediAtras img {
+    width: 100%;  /* La imagen se adapta al ancho del botón */
+    height: 100%; /* La imagen se adapta al alto del botón */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+}
+
+#rediAtras:hover{
+transform: scale(1.3);
+
+}
+
+/*** BLOQUE NOMBRE DEL ALUMNO *******************************/
+#divNombre{
+
+    position: absolute;
+    left:80px;
+    top: 170px;
+    width: 400px;
+    height: 50px;
+
+    padding: 10px 50px 25px 20px;
+    background-color: #fff;
+    border-radius: 35% 35% 35% 35%;
+    border-width: 10px;
+    border-style: solid;
+    border-color: rgb(149, 159, 159) ;
+	text-align:center;
+}
+
+/*** BLOQUE MUNDOS *******************************/
+/**eliminamos apariencia predet*/
+#divMundos input,
+#divMundos select{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+/* Eliminamos la flecha que aparece predet */
+#divMundos select::-ms-expand {
+    display: none;
+}
+
+/* posicionamos el select */
+#divMundos{
+	position: relative;
+	right: 520px;
+    top: 200px;
+	max-width: 500px;
+	
+}
+#divMundos select{
+	display: inline-block;
+	width: 100%;
+	cursor: pointer;
+  	padding: 10px 50px;
+  	height: 70px;
+  	outline: 10px; 
+  	border-style: solid ;
+  	border-width:5px;
+	border-radius: 0;
+	background: #ebf760;
+	color: #4a4a4a;
+	font-size: 25px;
+	color: #4e4e4e;
+	font-family: 
+	'Montserrat', sans-serif;
+	 letter-spacing: 8px;
+	 	 font-weight: bold;
+	
+		border:5px solid rgba(0,0,0,0.2);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+#divMundos select:hover{
+	background: #e0f5eb;
+	border-color:#808080;
+}
+ 
+/* 
+Creamos la flecha que aparece a la izquierda del select.
+Realmente este elemento es un cuadrado que sólo tienen
+dos bordes con color y que giramos con transform: rotate(-45deg);
+*/
+#divMundos i{
+	position: absolute;
+	right: 20px;
+	top: calc(50% - 13px);
+	width: 16px;
+	height: 16px;
+	display: block;
+	border-left:4px solid #7b7bff;
+	border-bottom:4px solid #7b7bff;
+	border-top: 0; 
+	border-right: 0;
+	transform: rotate(-45deg); /* Giramos el cuadrado */
+	transition: all 0.25s ease;
+}
+ 
+.divMundos:hover i{
+	margin-top: 3px;
+}
+
+
+
+/*** BLOQUE SELECT TIPO RETOS *******************************/
+/**eliminamos apariencia predet*/
+#listaTipoMates input,
+#listaTipoMates select{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+/* Eliminamos la flecha que aparece predet */
+#listaTipoMates select::-ms-expand {
+    display: none;
+}
+
+/* posicionamos el select */
+#listaTipoMates{
+	max-width:fit-content(500px);
+	position: absolute;
+	top:180px;
+	left:800px;
+}
+ 
+#listaTipoMates select{
+	display: inline-block;
+	width: 100%;
+	cursor: pointer;
+  	padding: 10px 30px;
+  	height: 70px;
+  	outline: 10px; 
+  	border-style: solid ;
+  	border-width:5px;
+	border-radius: 0;
+	background: #80ff80;
+	color: #4a4a4a;
+	font-size: 25px;
+	color: #4e4e4e;
+		 	 font-weight: bold;
+		font-family: 
+	'Montserrat', sans-serif;
+	 letter-spacing: 5px;
+		border:5px solid rgba(0,0,0,0.2);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.25s ease;
+}
+ 
+#listaTipoMates select:hover{
+	background: #e0f5eb;
+	border-color:#808080;
+}
+ 
+/* 
+Creamos la flecha 
+*/
+#listaTipoMates i{
+	position: absolute;
+	right: 20px;
+	top: calc(50% - 13px);
+	width: 16px;
+	height: 16px;
+	display: block;
+	border-left:4px solid #ffa64d;
+	border-bottom:4px solid #ffa64d;
+	border-top: 0; 
+	border-right: 0;
+	transform: rotate(-45deg); /* Giramos el cuadrado */
+	transition: all 0.25s ease;
+}
+ 
+.listaTipoMates:hover i{
+	margin-top: 3px;
+}
+
+/*** TABLA INFO MUNDOS *******************************/
+
+#tablaInfo{
+    position: absolute;
+    top: 430px;
+    left:100px;
+    
+    
+}
+#tablaInfo table,th,tr,td{
+    table-layout: auto;
+     width: 200px;
+     height:50px;
+     border: 2px solid #636161;
+     border-color:#db8e00;
+     border-spacing: 3px solid;
+     background-color:#f2f2f2;
+       
+}
+#tablaInfo th{
+	padding: 5px;
+	
+}
+#tablaInfo tr{
+text-align: center;	
+}
+/*** BLOQUE GRAFICA *******************************/
+
+#graph{
+    position: absolute;
+    top:300px;
+    right:80px;
+    width: 700px;
+    height:300px;
+    background-color: white;
+
+}
+
+/*** BOTONES DE CIERRE *******************************/
+
+
+/*** GRAFICA******/
+	
+#cierreGraf {
+	position:absolute;
+	top:250px;
+	right:20px;
+    border: 2px solid;
+    cursor: pointer;
+    font-size: 28px;
+    color: black;
+    background-color: #e4e4e4;
+    border-color:grey;
+    padding: 5px;
+    margin: 5px;
+}
+
+#cierreGraf:hover {
+   background-color:rgba(110, 109, 110, 0.986);
+   color:rgba(214, 208, 214, 0.986);
+}   
+
+/*** TABLA******/
+
+#cierreTabla {
+    
+	position:absolute;
+	top:350px;
+    left:600px;
+    border: 2px solid;
+    cursor: pointer;
+    font-size: 28px;
+    color: black;
+    background-color: #e4e4e4;
+    border-color:grey;
+    padding: 5px;
+    margin: 5px;
+}
+#cierreTabla:hover {
+   background-color:rgba(110, 109, 110, 0.986);
+   color:rgba(214, 208, 214, 0.986);
+}   
+
+
+
+
+

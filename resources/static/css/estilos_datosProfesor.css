@@ -1,0 +1,312 @@
+body {
+    background: rgb(32, 240, 230);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+    align-items: center;
+}
+
+/*** TITULO WEB  *******************************/
+
+.header {
+    position: relative; 
+    width: 100%;
+    text-align: center; 
+    margin-top: 30px;
+    background-color: antiquewhite;
+    padding: 20px;
+    
+}
+
+
+.header h1 {
+	margin:0;
+    font-size: 50px;
+    letter-spacing: 5px;
+    width: 100%;
+}
+
+
+h3 {
+	position: relative;
+	margin-top:30px;
+    font-size: 30px;
+}
+
+/*** BOTON EXIT *******************************/
+#exit {
+     width: 120px; 
+    height: 100px;
+     position: absolute;
+    right: 100px;
+    top: -0px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#exit img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+    
+    transition: transform 0.5s;
+}
+
+#exit img:hover{
+transform: scale(1.3);
+
+}
+
+/*** BOTON ATRAS *******************************/
+#rediAtras {
+    width: 100px; 
+    height: 120px;
+    position: absolute;
+    left: 100px;
+    top: -10px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+        transition: transform 0.5s;
+    
+}
+
+#rediAtras img {
+    width: 100%;  
+    height: 100%;  
+    object-fit: contain;
+}
+
+#rediAtras:hover{
+transform: scale(1.3);
+
+}
+
+
+/*** FORMULARIO *******************************/
+#formEleccion {
+    width: 600px;
+    height: 400px;
+    position:absolute;
+    left: 200px;
+    border-radius: 20px;
+
+    font-size: 28px;
+    background-color: rgba(246, 196, 34, 0.982);
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+#formEleccion input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+    margin: 10px 20px; 
+    
+}
+
+input{
+    padding-right: 50px;
+}
+
+/*** BOTON *******************************/
+
+#botonEnviarEleccion {
+
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 5px;
+    left: 25%;
+    width: 280px;
+    height: 100px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: 3px grey solid;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+#botonEnviarEleccion:hover{
+    background-color:  #a861f8;
+}
+
+
+button:hover {
+background-color: #d6a40e;
+}
+
+/*** FORMULARIO ALTA *******************************/
+
+#formAlta {
+    width: 500px;
+    height: 400px;
+    position:absolute;
+    right: 150px;
+    border-radius: 20px;
+
+    font-size: 24px;
+    background-color: rgba(211, 227, 166, 0.982);
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+#formAlta input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+    margin: 10px 20px; 
+    
+}
+
+input{
+    padding-right: 50px;
+}
+#botonEnviarAlta{
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 5px;
+    left: 25%;
+    width: 220px;
+    height: 60px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: 3px grey solid;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+#botonEnviarAlta:hover{
+    background-color:  #a861f8;
+}
+
+
+button:hover {
+background-color: #d6a40e;
+}
+
+/*** FORMULARIO BAJA *******************************/
+
+#formBaja {
+    width: 400px;
+    height: 320px;
+    position:absolute;
+    right: 200px;
+    border-radius: 20px;
+
+    font-size: 24px;
+    background-color: rgba(211, 227, 166, 0.982);
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+#formBaja input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+    margin: 10px 20px; 
+    
+}
+
+input{
+    padding-right: 50px;
+}
+#botonEnviarBaja{
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 5px;
+    left: 25%;
+    width: 220px;
+    height: 60px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: 3px grey solid;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+#botonEnviarBaja:hover{
+    background-color:  #a861f8;
+}
+
+
+button:hover {
+background-color: #d6a40e;
+}
+
+
+/*** FORMULARIO MODIFICACION *******************************/
+
+#formModificacion {
+    width: 400px;
+    height: 900px;
+    position:absolute;
+    right: 200px;
+    border-radius: 20px;
+
+    font-size: 24px;
+    background-color: rgba(211, 227, 166, 0.982);
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+#formModificacion input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+    margin: 10px 20px; 
+    
+}
+
+input{
+    padding-right: 50px;
+}
+#botonEnviarModificacion{
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 5px;
+    left: 25%;
+    width: 220px;
+    height: 60px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: 3px grey solid;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+#botonEnviarModificacion:hover{
+    background-color:  #a861f8;
+}
+
+
+button:hover {
+background-color: #d6a40e;
+}
+

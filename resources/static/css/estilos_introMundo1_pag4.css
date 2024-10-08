@@ -1,0 +1,390 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 4px;
+    background-color: #86e3e3;
+    margin: 0;
+    padding: 0;
+    z-index:0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; 
+}
+
+/* MATI PIRATA  ********************************/
+#mati_pirata{
+    position: absolute;
+    z-index:2;
+    right:200px;
+    bottom:150px;
+
+}
+
+#mati_pirata img{
+    width: 200px;
+    height: 200px;
+}
+
+/* OLAS  ********************************/
+
+#bloque1_olas{
+    position: absolute;
+    width: 400px; 
+    height: 200px;
+}
+
+#ola1{
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    left:0;
+    top:430px;
+    z-index:-11;
+    animation: moveLeftRight 3s infinite alternate ease-in-out;
+
+}
+
+#ola2{
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    left:0;
+    top:340px;
+    z-index:-13;
+    animation: moveRightLeft 5s infinite alternate ease-in-out;
+
+}
+
+#ola3{
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    left:287px;
+   top:430px;
+    z-index:-11;
+    animation: moveLeftRight 3s infinite alternate ease-in-out;
+
+}
+
+#ola4{
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    left:287px;
+    top:340px;
+    z-index:-13;
+    animation: moveRightLeft 5s infinite alternate ease-in-out;
+
+}
+
+#bloque2_olas{
+    position: absolute;
+    width: 400px; 
+    height: 200px;
+}
+
+#ola5{
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    left:887px;
+   top:430px;
+    z-index:-9;
+    animation: moveLeftRight 3s infinite alternate ease-in-out;
+
+}
+
+#ola6{
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    left:870px;
+    top:340px;
+    z-index:-13;
+    animation: moveRightLeft 5s infinite alternate ease-in-out;
+
+}
+#bloque3_olas{
+    position: absolute;
+    width: 400px; 
+    height: 200px;
+}
+
+#ola7{
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    left:587px;
+   top:430px;
+    z-index:-11;
+    animation: moveLeftRight 3s infinite alternate ease-in-out;
+
+}
+
+#ola8{
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    left:570px;
+    top:340px;
+    z-index:-13;
+    animation: moveRightLeft 5s infinite alternate ease-in-out;
+
+}
+#bloque4_olas{
+    position: absolute;
+    width: 400px; 
+    height: 200px;
+}
+#ola9{
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    left:1187px;
+   top:430px;
+    z-index:-11;
+    animation: moveLeftRight 3s infinite alternate ease-in-out;
+
+}
+
+#ola10{
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    left:1170px;
+    top:340px;
+    z-index:-13;
+    animation: moveRightLeft 5s infinite alternate ease-in-out;
+
+}
+#bloque5_olas{
+    position: absolute;
+    width: 400px; 
+    height: 200px;
+}
+
+@keyframes moveLeftRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-80px);
+    }
+}
+
+@keyframes moveRightLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(80px);
+    }
+}
+/* ARENA  ********************************/
+
+#arena{
+    position:absolute;
+    background-image: linear-gradient(to bottom, #7dddf0, rgb(206, 238, 236) 10%, #f0950c 50%);
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height:30%;
+     z-index: 0;
+}
+
+/* BTN  ********************************/
+
+#btn_iniciarJuego{
+    position: absolute;
+    font-weight: bold;
+    bottom: 55px;
+    right: 100px;
+    width: 300px;
+    height: 80px;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: 3px grey solid;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 8;
+}
+
+#btn_iniciarJuego:hover{
+    background-color: #a861f8;
+ }
+
+ button:hover {
+    background-color: #d6a40e;
+}
+
+/* AUDIO  ********************************/
+
+#audio_mati{
+    position: absolute;
+    top:50px;
+    right:70px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(215, 72, 215);
+    border-radius: 19px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out;
+    z-index: 8;
+}
+#audio_mati:hover{
+    background-color: rgb(250, 211, 149);
+}
+
+#audio_mati:hover,
+#audio_mati:focus {
+    transform: scale(1.1); /*se agranda un 10%*/
+}
+
+#audio_mati audio {
+    background: url("/img/volume-up_4178625.png") no-repeat center center;
+    background-size: contain;
+    border: none;
+    outline: none;
+}
+
+#audio_mati img {
+    width: 80px;
+    border: none;
+    outline: none;
+}
+
+/* TITULOS PLAYA  ********************************/
+
+h3{
+    position: absolute;
+    font-weight: bold;
+    bottom: 55px;
+    left: 100px;
+    font-size: 30px;
+    z-index:1;
+
+
+}
+
+h2{
+    position: absolute;
+    font-weight: bold;
+    font-style: italic;
+    bottom: 5px;
+    left: 450px;
+    font-size: 50px;
+    z-index:1;
+
+}
+
+/* BOTE PIRATA  ********************************/
+#bote_pirata{
+    position: absolute;
+    z-index:-12;
+    left:600px;
+    bottom:260px;
+    animation: rotacionPirata 20s infinite  ease-in-out; /* Aplicar la animación */
+
+
+}
+
+#bote_pirata img{
+    width: 400;
+    height: 360px;
+}
+
+@keyframes rotacionPirata {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(8deg); /* Rotar 10 grados a la derecha */
+    }
+    50% {
+        transform: rotate(0deg); /* Volver a la posición original */
+    }
+    75% {
+        transform: rotate(-10deg); /* Rotar 10 grados a la izquierda */
+    }
+    100% {
+        transform: rotate(0deg); /* Volver a la posición original */
+    }
+}
+/* PALMERA  ********************************/
+#palmera{
+    position: absolute;
+    z-index:2;
+    left:100px;
+    bottom:150px;
+
+}
+
+#palmera img{
+    width: 600px;
+    height: 550px;
+}
+
+/* MATI PIRATA  ********************************/
+#gaviotas{
+    z-index:1;
+    position: relative;
+    width: 100%; 
+    height: 100%;
+
+}
+
+#gav1{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    animation: vuelo 25s linear infinite;
+    left:0;
+    top:50px;
+}
+#gav2 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    animation: vuelo 20s linear infinite;
+    right:300px;
+    top:100px;
+}
+
+@keyframes vuelo {
+    0% ,100% {
+        transform: translate(0, 0);
+    }
+    10% {
+        transform: translate(200px, -50px);
+    }
+    20% {
+        transform: translate(400px, 0);
+    }
+    30% {
+        transform: translate(600px, -50px);
+    }
+    40% {
+        transform: translate(800px, 0);
+    }
+    50% {
+        transform: translate(1000px, -50px);
+    }
+    60% {
+        transform: translate(1200px, 0);
+    }
+    70% {
+        transform: translate(1400px, -50px);
+    }
+    80% {
+        transform: translate(1600px, 0);
+    }
+    90% {
+        transform: translate(1800px, -50px);
+    }
+    100% {
+        transform: translate(2000px, 0); 
+    }
+}

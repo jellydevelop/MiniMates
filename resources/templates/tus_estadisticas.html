@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <!-- FUENTE PARA LA NUBE-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+    <!-- FUENTE PARA EL TITULO  -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+       
+       
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/estilos_estadisticas.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>ESTADÍSTICAS_ALUM</title>
+
+
+    </head>
+
+    <!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+<body >
+
+    <div class="header">
+    
+    	 <!--BOTON ATRAS ---------------------------->
+    
+         <button title="volver al menú de alumno" id="rediAtras">
+            <img src="/img/flecha_volver.png" alt="atras">
+        </button>
+
+        <h1>ESTADÍSTICAS</h1>
+   		
+   		<!--BOTON SALIR DE SESION ---------------------------->
+   		
+   		 <button title="cerrar sesión" id="exit">
+            <img src="/img/exit.png" alt="EXIT">
+        </button>
+        
+	</div>
+	
+
+<!--ZONA NOMBRE DEL ALUMNO ---------------------------->
+
+    <div id="divNombre">
+        <h2>LORENA  SANTAMARIA</h2>
+    </div>
+
+<!----------------------------------------------->
+
+<!--ZONA SELECT DE ACTIVIDAD ---------------------------->
+<div  id="listaTipoMates">
+    <select title="elige tipo de reto">
+
+        <option value="conteo" id="opcionSelect">CONTEO</option>
+        <option value="reconoce números" id="opcionSelect">RECONOCE NÚMEROS</option>
+      
+    </select>
+      <i></i>
+</div>  
+
+<!----------------------------------------------->
+
+<!--ZONA BOTONES MUNDOS ---------------------------->
+
+<div id="divMundos">
+
+    <select title="elige el mundo jugado">
+
+        <option  id="opcionSelect">MUNDO 1</option>
+        <option id="opcionSelect">MUNDO 2</option>
+      
+    </select>
+      <i></i>
+
+</div>
+
+<!----------------------------------------------->
+
+<!--ZONA TABLA INFO MUNDO-RETOS ---------------------------->
+
+<div id="tablaInfo">
+<table>
+    <th>RETOS</th>
+   
+    <th>TIPO</th>
+     
+    <th>FALLOS</th>
+   
+    <th>ACIERTOS</th>
+    
+    <th>TIEMPO
+    (MIN)</th>
+    
+    
+       
+         <tr>
+            <td>P1</td>
+            <td>CONTEO</td>
+            <td>2/5</td>
+            <td>5/3</td>
+            <td>11:12</td>
+            
+        </tr>
+        <tr>
+            <td>P2</td>
+            <td>RECONOCE NUMEROS</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+          
+        </tr>
+        <tr>
+            <td>P3</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+        </tr>
+        </table>
+</div>
+
+<!----------------------------------------------->
+
+<!--ZONA GRAFICAS ---------------------------->
+
+<div id="graficasInfo">
+<canvas id="graph" width="400" height="400"></canvas>
+</div>
+
+<!----------------------------------------------->
+<!--ZONA BOTON DE CIERRE ---------------------------->
+
+<button id="cierreGraf">X</button>
+<button id="cierreTabla">X</button>
+
+
+
+
+<!-- ENLACE A JS-->
+<script src="/scripts/script_estadisticas.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>
