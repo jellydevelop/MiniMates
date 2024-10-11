@@ -38,7 +38,7 @@
 
    		 <!--BOTON ATRAS ---------------------------->
     
-   		 <button title="volver al menú de alumno" id="rediAtras">
+   		 <button title="volver al menú de profesor" id="rediAtras">
             <img src="/img/flecha_volver.png" alt="atras">
         </button>
    		
@@ -56,13 +56,18 @@
 <!--FORMULARIO ELECCIÓN ---------------------------->
     <form id="formEleccion"   > 
 
-        <br><br>
-            <input type="radio"  name="radio" id="radioAlta" required>Dar de Alta a un  Alumno
-        <br><br>
-            <input type="radio" name="radio"  id="radioBaja" required>Dar de Baja a un  Alumno
-        <br><br>
-            <input type="radio"  name="radio" id="radioMod" required>Modificar Datos de un Alumno
-        <br><br>
+        
+        	<label for="alta"> Dar de Alta a un  Alumno  </label>
+            	<input type="radio"  name="radio" id="radioAlta" value="alta" required>
+       		
+       		 
+            <label for="baja">Dar de Baja a un  Alumno </label>
+           		 <input type="radio" name="radio"  id="radioBaja" value="baja" required>
+           
+            
+             <label for="modif">Modificar Datos de un Alumno</label>
+              	<input type="radio"  name="radio" id="radioMod" value="modif" required>
+        	
     
         <button type="submit" id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
     </form>
@@ -72,16 +77,13 @@
 <!--FORMULARIO ALTA ---------------------------->
     <form id="formAlta"  action="/aniadiralumno"   method="post" hidden  > 
 
-        <h3>Dar de alta a un alumno</h3>
+        <h3 class="tituloForm">Dar de alta a un alumno</h3>
 
-                EMAIL DEL ALUMNO:
-        <br><br>
-                <input type="email" name="mailAlum" id="mailAlum" placeholder="Tu mail de usuario" maxlength="20" required />
-        <br><br>
-                NOMBRE DEL ALUMNO:
-        <br><br>
-                <input type="text" name="nameAlum" id="nameAlum" placeholder="Aquí el nombre del alumno" maxlength="10" required/>
-         <br><br>
+               <label for="mailAlum">EMAIL DEL ALUMNO:</label> 
+                	<input type="email" name="mailAlum" id="mailAlum" placeholder="Tu mail de usuario" maxlength="20" required />
+                      
+                <label for="nameAlum">NOMBRE DEL ALUMNO:</label> 
+        			<input type="text" name="nameAlum" id="nameAlum" placeholder="Aquí el nombre del alumno" maxlength="10" required/>
 
         <button type="submit" id="botonEnviarAlta">DAMOS DE ALTA</button>
     </form>

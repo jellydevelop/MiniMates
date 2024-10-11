@@ -95,7 +95,23 @@ function salirSesion() {
     localStorage.removeItem('haJugado'); 
     window.location.href = '/login'; 
 }
+
+//************************** */
+
+function generarPassword(nombre) {
+	
+    // Obtenemos las tres primeras letras del nombre usando la función
+    let letras = obtenerTresPrimerasLetras(nombre);
+
+    // Generamos tres números aleatorios
+    let numeros = Math.floor(Math.random() * 900) + 100; 
     
+    // Concatenamos las letras y los números
+    let password = letras + numeros;
+    return password;
+
+ }
+
 
 
 ////********************************************* DATOS ALUMNO . HTML ******************************************** */
@@ -111,22 +127,27 @@ formAlta.addEventListener('submit', function(event) {
     // Capturamos los valores de los campos de entrada
     const nombreAlumno = document.getElementById('nameAlum').value;
     const mailAlumno = document.getElementById('mailAlum').value;
+    
+    //preparamos el pass
+    const passAlum=generarPassword(nombreAlumno);
 
     // Construimos el objeto con los datos del alumno a enviar al servidor
     const datosAlumno = {
-        nombre: nombreAlumno,
-        mail: mailAlumno,
-        rol: 'alumno',
-        pass: nombreAlumno
+        nombreUsuario: nombreAlumno,
+        mailUsuario: mailAlumno,
+        rolUsuario: 'alumno',
+        passUsuario: passAlum
     };
+    
+    console.log(datosAlumno);
 
     // Realizamos la solicitud fetch al servidor para añadir el nuevo alumno
-    fetch('/aniadiralumno', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(datosAlumno)
+		    fetch('/aniadiralumno', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify(datosAlumno)
 })
 .then(response => {
     if (!response.ok) {
@@ -134,9 +155,16 @@ formAlta.addEventListener('submit', function(event) {
     }
     return response.json();
 })
-.then(data => {
-    console.log(data);
-    alert('Alumno añadido correctamente');
+.then(datosAlumno => {
+    
+    console.log(datosAlumno);
+    
+    if (datosAlumno.message === "Alumno añadido correctamente") {
+        alert('Alumno añadido correctamente');
+        
+    } else {
+        alert('Error al añadir el alumno');
+    }
 })
 .catch(error => {
     console.error('Error:', error);
