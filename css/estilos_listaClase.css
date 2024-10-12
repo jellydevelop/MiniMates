@@ -1,0 +1,135 @@
+body {
+    background: rgb(32, 240, 230);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*** TITULO WEB ALUMNO *******************************/
+
+.header {
+    position: relative; 
+    width: 100%;
+    text-align: center; 
+    margin-top: 30px;
+    background-color: antiquewhite;
+    padding: 20px;
+    
+}
+
+
+.header h1 {
+	margin:0;
+    font-size: 50px;
+    letter-spacing: 5px;
+    width: 100%;
+}
+
+
+
+/*** BOTON EXIT *******************************/
+#exit {
+     width: 120px; 
+    height: 100px;
+     position: absolute;
+    right: 100px;
+    top: -0px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#exit img {
+    width: 100%;  /* La imagen se adapta al ancho del botón */
+    height: 100%; /* La imagen se adapta al alto del botón */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    transition: transform 0.5s;
+}
+
+#exit img:hover{
+transform: scale(1.3);
+
+}
+/*** BOTON CONTACTO *******************************/
+#rediAtras {
+    width: 100px; 
+    height: 150px;
+    position: absolute;
+    left: 100px;
+    top: -25px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+        transition: transform 0.5s;
+    
+}
+
+#rediAtras img {
+    width: 100%;  /* La imagen se adapta al ancho del botón */
+    height: 100%; /* La imagen se adapta al alto del botón */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+}
+
+#rediAtras:hover{
+transform: scale(1.3);
+
+}
+
+
+/*** BLOQUE NOMBRE DEL ALUMNOS *******************************/
+
+h3{
+    letter-spacing: 5px;
+    position:absolute;
+    margin-top:160px;
+}
+
+
+#divListaClase{
+
+    position: relative;
+    left:12px;
+    top: 80px;
+    width: 1300px;
+    height: 380px;
+
+    padding: 10px 50px 25px 20px;
+    background-color: #fff;
+    border-radius: 50px 50px 50px 50px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: rgb(149, 159, 159) ;
+}
+
+#divListaClase ol{
+    column-count: 3;
+    column-gap: 150px;
+    column-fill: balance;
+    text-align:start;
+    margin-left:20px;
+}
+
+#divListaClase li, a{
+ 
+ 	padding:8px;
+    font-weight: bold;
+    line-height: 1.2;
+     white-space: nowrap;
+    
+
+ }
+ #divListaClase  a:hover{
+    background-color: #ffbb77;
+ }
+
+

@@ -1,0 +1,145 @@
+body {
+    background: rgb(32, 240, 230);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*** TITULO WEB ALUMNO *******************************/
+
+.header {
+    position: relative; 
+    width: 100%;
+    text-align: center; 
+    margin-top: 30px;
+    background-color: antiquewhite;
+    padding: 20px;
+    
+}
+
+
+.header h1 {
+	margin:0;
+    font-size: 50px;
+    letter-spacing: 5px;
+    width: 100%;
+}
+
+
+/*** BOTON EXIT *******************************/
+#exit {
+     width: 120px; 
+    height: 100px;
+     position: absolute;
+    right: 100px;
+    top: -0px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#exit img {
+    width: 100%; 
+    object-fit: contain; 
+    transition: transform 0.5s;
+}
+
+#exit img:hover{
+transform: scale(1.3);
+
+}
+/*** BOTON CONTACTO *******************************/
+#goContacto {
+    width: 120px; 
+    height: 150px;
+    position: absolute;
+    left: 100px;
+    top: -25px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+        transition: transform 0.5s;
+    
+}
+
+#goContacto img {
+    width: 100%;  /* La imagen se adapta al ancho del botón */
+    height: 100%; /* La imagen se adapta al alto del botón */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+}
+
+#goContacto:hover{
+transform: scale(1.3);
+
+}
+
+
+h3 {
+	position: relative;
+	margin-top:70px;
+    font-size: 30px;
+}
+/*** MENU-FORMULARIO *******************************/
+#form {
+	position:absolute;
+    width: 500px;
+   margin-top: 290px;
+    left: 530px;
+    border-radius: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: rgba(246, 196, 34, 0.982);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+label{
+    position:absolute;
+    margin-top: 40px;
+    margin-left: 120px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.option {
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.option button {
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: bold;
+    color: inherit;
+    padding: 0px;
+    margin: 10px 20px;
+}
+
+.option button img {
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 20px;
+    width: 60px; 
+    height: 60px;
+    transition: transform 0.2s; 
+    }
+    
+.option button img:hover {
+    transform: scale(1.1); 
+}
+
+
+

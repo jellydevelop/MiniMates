@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <!-- FUENTE PARA LA NUBE-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+    <!-- FUENTE PARA EL TITULO  -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+       
+       
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/estilos_contacto.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>CONTACTA</title>
+
+
+    </head>
+
+    <!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+<body>
+ <div class="header">
+
+    <h1>CONTACTA CON NOSOTROS</h1>
+
+   		 <!--BOTON ATRAS ---------------------------->
+    
+   		 <button title="volver al menú de alumno" id="rediAtras">
+            <img src="/img/flecha_volver.png" alt="atras">
+        </button>
+   		
+  			  
+   		<!--BOTON SALIR DE SESION ---------------------------->
+   		
+   		 <button title="cerrar sesión" id="exit">
+            <img src="/img/exit.png" alt="EXIT">
+        </button>
+        
+	</div>
+	
+
+    <h3>Envíanos tu consulta</h3>
+
+<!--BLOQUE FORM CONTACTO ---------------------------->
+    <form id='formC' action="" method="post">
+
+         <label id='dataLabel' for="name">NOMBRE </label>
+         
+        	    <input type="text" name="consulta" id="name"
+                 maxlength=15         
+                 minlength=3 
+                  placeholder=" aquí tu nombre" 
+                 autocomplete="off" 
+                 pattern="[A-Z a-z]+"
+                  required>  
+      	
+       	
+         <label id='dataLabel' for="consulta">MENSAJE </label>
+        
+       			 <input type="textarea" name="consulta" id="consulta" 
+                  placeholder=" aquí tu mensaje"
+                   autocomplete="off"
+                   maxlength=100        
+                   minlength=20 
+                   rows=20
+                    required> 
+        
+
+        <input title="eliminar consulta" type="reset" id="reset" value="BORRAR"> 
+
+ 
+   		<!--BOTON ENVIAR ---------------------------->
+
+       <button title="enviar consulta" id="send" name="send">
+       
+  			<img src="/img/icono_sobre.png" alt="contacto"> 
+  			
+		</button>
+		
+		
+ 
+    </form>
+
+
+
+
+<!-- ENLACE A JS-->
+<script src="/scripts/script_contacto.js"></script>
+
+</body>
+</html>
