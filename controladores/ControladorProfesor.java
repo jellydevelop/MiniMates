@@ -145,7 +145,7 @@ public class ControladorProfesor {
 					}
 			}*/
 	
-	//-----------------------------------------------------------------
+	//----------------------------------------------------------------- DELETE POR MAIL 
 			///eliminar un usuario  por mail
 			@DeleteMapping("/borrar_usuario_mail/{mailUsuario}")
 				public ResponseEntity<Usuario> eliminarUsuarioPorMail(@PathVariable String mailUsuario ){
@@ -155,15 +155,22 @@ public class ControladorProfesor {
 					
 					if(alumnoParaBorrarMail.isPresent()) {
 						
+						// CREAMOS URI
+			            URI location = ServletUriComponentsBuilder
+			                            .fromCurrentRequest()
+			                            .build()
+			                            .toUri();
+			            
 						/// SI EXISTE DEVOLVEMOS EN LA RESPUESTA EL ALUMNO ELIMINADO
-						return ResponseEntity.ok(alumnoParaBorrarMail.get());
+						return ResponseEntity.ok().location(location).body(alumnoParaBorrarMail.get());
 						
 					}else {
 						
 						/// SI NO EXISTE DEVOLVEMOS EN LA RESPUESTA QUE NO EXISTE
 						return ResponseEntity.notFound().build();
 					}
-			}
+				        }
+			
 			
 
 			

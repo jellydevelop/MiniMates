@@ -13,8 +13,10 @@ const miInput = document.querySelector('input');
             let radioAlta = document.getElementById("radioAlta");
             let radioBaja = document.getElementById("radioBaja");
             let radioMod = document.getElementById("radioMod");
+            
 			const botonAtras = document.getElementById('rediAtras');
 			const botonExit = document.getElementById('exit');
+			const botonRadioEleccion=document.getElementById('botonEnviarEleccion');
 
 
 
@@ -54,23 +56,14 @@ function gestionarRadioBtns(event){
 
         event.preventDefault();  // Evitamos que el formulario se envíe y recargue la página
 
-	if(radioAlta.checked){
-		 altaForm.hidden==false;
-		 bajaForm.hidden==true;
-		 updateForm.hidden==true;
-		 
-	}else if(radioBaja.checked){
-		 altaForm.hidden==true;
-		 bajaForm.hidden==false;
-		 updateForm.hidden==true;
 
-	}else if (radioMod.checked){
-		 altaForm.hidden==true;
-		 bajaForm.hidden==true;
-		 updateForm.hidden==false;
-	}else{
-		return;
-	}
+
+	// Muestra el formulario de alta si el radioAlta está seleccionado
+    altaForm.hidden = !radioAlta.checked;
+    // Muestra el formulario de baja si el radioBaja está seleccionado
+    bajaForm.hidden = !radioBaja.checked;
+    // Muestra el formulario de modificación si el radioMod está seleccionado
+    updateForm.hidden = !radioMod.checked;
 }
 
 //**************************************************** */
@@ -145,10 +138,10 @@ formAlta.addEventListener('submit', function(event) {
 
     // Realizamos la solicitud fetch al servidor para añadir el nuevo alumno
 		    fetch('/aniadiralumno', {
-		    method: 'POST',
-		    headers: {
-		        'Content-Type': 'application/json'
-		    },
+			    method: 'POST',
+			    headers: {
+			        'Content-Type': 'application/json'
+			    },
 		    body: JSON.stringify(datosAlumno)
 })
 .then(response => {
@@ -203,40 +196,53 @@ formAlta.addEventListener('submit', function(event) {
 /*
 
 ////*********************** BAJA POR MAIL ******************************************** */
-    document.addEventListener("DOMContentLoaded", function() {
-		    let bajaForm = document.getElementById('formBaja');
-		    let mailLog = document.getElementById('mailLog');
+		
 
-    if(bajaForm && mailLog) {
-        bajaForm.addEventListener("submit", function(event) {
+    if(bajaForm) {
+		
+		// el listener se activa cuanddo se activa el formulario de baja y el contenido del input
+     bajaForm.addEventListener("submit", function(event) {
+			
             event.preventDefault(); // Evita que se envíe el formulario de forma predeterminada
 
             // Captura el valor del campo de entrada
-            let mailAlumBaja = mailLog.value;
-            console.log(mailAlumBaja);
+        let mailAlumBaja = document.getElementById("mailLog").value; // Cambia mailLog por el ID correcto
+            	console.log(mailAlumBaja);
+            	
+            	//validamos
+            	
+        if (!mailAlumBaja) {
+            alert("Por favor, ingresa un correo electrónico.");
+            return; 
+        }
+      
+//----- PETICION
 
             // Realiza la solicitud AJAX al servidor para eliminar al alumno por su ID
-            fetch('/borrar_usuario_mail/' + mailAlumBaja, 
+            fetch(`/borrar_usuario_mail/${encodeURIComponent(mailAlumBaja)}`, 
             {
                 method: 'DELETE'
             })
+            
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error al dar de baja al alumno');
                 }
                 return response.json();
             })
+            
             .then(data => {
                 console.log(data);
-                alert('Alumno dado de baja correctamente');
+               	 alert(`Alumno ${data.nombreUsuario} ha sido dado de baja correctamente`);
             })
+            
             .catch(error => {
                 console.error('Error:', error);
-                alert('Hubo un error al dar de baja al alumno');
+                	alert('Hubo un error al dar de baja al alumno');
             });
         });
     }
-});
+
 
  
    ////*********************** UPDATE ******************************************** */
@@ -289,8 +295,7 @@ formModificacion.addEventListener('submit', function(event) {
 //----- LISTENER
 
 ///Muestra los formularios segun la eleccion del profesor al pulsar el boton 
-    botonEnviarEleccion.addEventListener('submit', gestionarRadioBtns);
-    botonEnviarEleccion.addEventListener('click', gestionarRadioBtns);
+    radioForm.addEventListener('submit', gestionarRadioBtns);
 
 // Quita la validación mientras escribes
     miInput.addEventListener('input', validacionTrue);
@@ -306,6 +311,6 @@ botonAtras.addEventListener('click', rediMenuProfesor);
 
 //cierra la sesión--> login
 botonExit.addEventListener('click', salirSesion);
-
 });
+
 ////FIN FUNCION PETICION

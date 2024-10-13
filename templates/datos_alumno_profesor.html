@@ -63,7 +63,7 @@
             <br><br>
               	<input type="radio"  name="radio" id="radioMod" value="modif" required>Modificar Datos de un Alumno        	
     
-        <button type="submit" id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
+        <button id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
     </form>
 <!----------------------------------------------->
 
@@ -74,7 +74,7 @@
         <h3 class="tituloForm">Dar de alta a un alumno</h3>
 
                <label for="mailAlum">EMAIL DEL ALUMNO:</label> 
-                	                <br><nr>
+                	                <br>
                 	<input title="aquí el email del alumno" type="email" name="mailAlum" id="mailAlum" placeholder="Tu mail de usuario" maxlength="20" required />
                                      <br>
                       
@@ -87,20 +87,19 @@
 <!----------------------------------------------->
 
 <!--FORMULARIO BAJA ---------------------------->
-    <form id="formBaja"  action="/borrar_usuario_mail/mailUsuario" hidden> 
+    <form id="formBaja"   hidden> 
         <h3>Dar de baja a un alumno</h3>
 
 
-                EMAIL DEL ALUMNO:
-        <br><br>
-                <input type="email" name="mailAlum" id="mailLog" placeholder="Tu mail de usuario" maxlength="20" required>
+               <label for="mailAlum">EMAIL DEL ALUMNO:</label> 
+      							  <br>
+                <input title="aquí el email del alumno" type="email" name="mailAlum" id="mailLog" placeholder="Tu mail de usuario" maxlength="20" required>
                       <!-- >  ID DEL ALUMNO:
         
          <input type="text" name="idAlum" id="idAlum" placeholder="ID del alumno" maxlength="20"  >
                
          <br><br>  -->
                 <button type="submit" id="botonEnviarBaja">DAMOS DE BAJA</button>
-        <br>
 
     </form>
 <!----------------------------------------------->
