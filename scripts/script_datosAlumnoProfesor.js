@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 //----- RECOGIDA IDS
-const miInput = document.querySelector('input');
+	const miInput = document.querySelector('input');
 
         ////--- FORMULARIOS
         let radioForm = document.getElementById("formEleccion");
@@ -79,7 +79,7 @@ function obtenerTresPrimerasLetras(nombre) {
 
 //**************************************************** */
     
-   function rediMenuProfesor(evento){
+   function rediMenuProfesor(){
     window.location.href = '/profesor'; 
 
 }
@@ -246,53 +246,118 @@ formAlta.addEventListener('submit', function(event) {
 
  
    ////*********************** UPDATE ******************************************** */
-// Agregamos un evento de escucha para el envío del formulario
-formModificacion.addEventListener('submit', function(event) {
-    event.preventDefault(); // Evitamos que se envíe el formulario de forma predeterminada
-    
-    // Capturamos los valores de los campos de entrada
-    const mailUsuarioUp = document.getElementById('mailUserUp').value;
-    const nombreAlumnoUp = document.getElementById('nameAlumUp').value;
-    const nuevoMailAlumno = document.getElementById('emailAlumUp').value;
+  const formModificacion = document.getElementById("formModificacion");
 
-    // Construimos el objeto con los datos del alumno a enviar al servidor
-    let datosAlumnoMod = {};
+		if(formModificacion){
 
-    // Verificamos qué campos se deben modificar
-    if (document.getElementById('modificarNombre').checked) {
-        datosAlumnoMod.nombre = nombreAlumnoUp;
-    }
-    if (document.getElementById('modificarEmail').checked) {
-        datosAlumnoMod.mail = nuevoMailAlumno;
-    }
+	
+//----- LISTENER PARA MODIFICAR EL TIPO DE INPUT SEGUN LA ELECCION DEL SELECT
+	//-- ESTE DATO SERÁ EL QUE SE MANDE A SERVIDOR PARA CAMBIAR
+	
+	    const selectMod = document.getElementById('opcionesMod');
+			selectMod.addEventListener('change', function() {
 
-    // Realizamos la solicitud fetch al servidor para actualizar los datos del alumno
-    fetch(`/modificamos_datos_usuario/${mailUsuarioUp}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datosAlumnoMod)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error al modificar los datos del alumno');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data); // Podemos mostrar la respuesta del servidor en la consola
-        
-        alert('Datos del alumno modificados correctamente');
-        // Aquí puedes agregar más lógica según sea necesario, como actualizar la interfaz de usuario, etc.
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un error al modificar los datos del alumno');
-    });
+
+	    // Obtenemos el valor de lo seleccionado
+	    let opcionSeleccionada = this.value;
+
+    // Obtenemos los inputs de actual y nuevo 
+    let inputActual = document.querySelector('#actual input');
+    let inputNuevo = document.querySelector('#nuevo input');
+
+		    if (opcionSeleccionada === 'email') {
+				
+		        // Cambiamos los tipos de input a "email"
+		        inputActual.setAttribute('type', 'email');
+		        inputNuevo.setAttribute('type', 'email');
+		        
+		        
+		    } else if (opcionSeleccionada === 'nombre') {
+				
+		        // Cambiamos los tipos de input a "text"
+		        inputActual.setAttribute('type', 'text');
+		        inputNuevo.setAttribute('type', 'text');
+		    }
 });
 
-//----- LISTENER
+//----- LISTENER PARA ENVIAR LA INFORMACIÓN A SERVER Y ASÍ REALIZAR LA MODIFICACION
+
+     formModificacion.addEventListener("submit", function(event) {
+		 
+		  // Evita que se envíe el formulario de forma predeterminada
+	 		 event.preventDefault();
+		
+		 
+	// ---------------------------------IDS
+ 
+		 const mailUsuario = document.getElementById('mailTutor').value;
+    	const opcionModificacion = document.getElementById('opcionesMod').value;
+   		 const actual = document.querySelector('#actual input').value;
+  		  const nuevo = document.querySelector('#nuevo input').value;
+
+	//  objeto JSON con la información que se quiere modificar
+   		 let datosModificacion = {};
+    
+    // campo de los datos del usuario vamos a modificar
+		      if (opcionModificacion === 'nombre') {
+				  
+		        // Si estamos modificando el nombre
+		        datosModificacion.nombreUsuario = nuevo;
+		        
+		    } else if (opcionModificacion === 'email') {
+				
+		        // Si estamos modificando el email
+		        datosModificacion.mailUsuario = nuevo;
+		    }
+
+		   console.log(datosModificacion);
+
+//----- PETICION
+
+		     fetch(`/modificamos_datos_usuario/${mailUsuario}`,
+		            {
+		        method: 'PUT', 
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        
+		        body: JSON.stringify(datosModificacion) // Convertimos los datos a formato JSON
+
+		    })
+		    
+
+		    .then(response => {
+				
+		        if (response.ok) {
+					
+				 console.log(response);
+
+					 alert('Datos de ' + mailUsuario + ' modificados con éxito');
+		         	   return response.json(); 
+		            
+		        } else {
+		            throw new Error('Error en la modificación de los datos');
+		        }
+		    })
+		    
+		    .then(data => {
+				
+		        console.log('Datos modificados con éxito', data);
+		        alert('Datos de modificados con éxito');
+		    })
+		    .catch(error => {
+    			console.error('Error:', error);
+				    if (error.response) {
+				        console.error('Error Response:', error.response.data);
+				    }
+    			alert('Hubo un error al modificar los datos');
+});
+	     });
+    }
+  
+
+
+//----- LISTENERS GENERALS
 
 ///Muestra los formularios segun la eleccion del profesor al pulsar el boton 
     radioForm.addEventListener('submit', gestionarRadioBtns);
@@ -311,6 +376,9 @@ botonAtras.addEventListener('click', rediMenuProfesor);
 
 //cierra la sesión--> login
 botonExit.addEventListener('click', salirSesion);
+
 });
+
+
 
 ////FIN FUNCION PETICION

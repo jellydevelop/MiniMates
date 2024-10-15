@@ -109,7 +109,7 @@ label{
     position:relative;
     margin-top: 3px;
     margin-left: 30px;
-    display: block; /* Alinea los labels encima de los inputs */
+    display: block; 
 }
 
 input {  

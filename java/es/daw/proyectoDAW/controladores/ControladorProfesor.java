@@ -54,37 +54,10 @@ public class ControladorProfesor {
 	
 	//----------------------------------------------------------------------------CREATE
 		
-		/*	///añadir alumno sin profesor
-			@PostMapping("/aniadiralumno")
-			public ResponseEntity<Usuario> anyadirAlumno(@RequestBody Usuario alum){
-				
-				///ALMACENAMOS EN UN OBEJTO USUARIO LA INFIRMACION RECIBIDA EB LA PETCICION
-					Usuario nuevoAlum = repoUsuario.aniadeUsuarioAlumno(alum);
-					
-				/// VALIDAMOS INFO RECIBIDA Y PASAMOS A DEVOLVER RESPUESTA
-				
-					if (nuevoAlum != null) {
-						 
-			            // CREAMOS URI
-			            URI location = ServletUriComponentsBuilder
-			                            .fromCurrentRequest()
-			                            .build()
-			                            .toUri();
-			            
-			            // DEVOLVEMOS RESPUESTA CON URI + ALUMNO CREADO
-			            	return ResponseEntity.created(location).body(nuevoAlum);
-			            
-			        } else {
-			        	
-			            /// SI EL USUARIO NO TIENE INFO PREPARAMOS CUERPO PARA CLIETNE
-			        		return ResponseEntity.noContent().build();
-			        }
-			 }*/
 			
 		    @PostMapping("/aniadiralumno")
 		    public ResponseEntity<Usuario> anyadirAlumno(@RequestBody Usuario alumno)  {
 		       
-		    	try {
 		        // ALMACENAMOS EN UN OBJETO USUARIO LA INFORMACIÓN RECIBIDA EN LA PETICIÓN
 		        Usuario nuevoAlum = repoUsuario.aniadeUsuarioAlumno(alumno);
 		        
@@ -103,15 +76,9 @@ public class ControladorProfesor {
 	        	
 	            /// SI EL USUARIO NO TIENE INFO PREPARAMOS CUERPO PARA CLIETNE
 	        		return ResponseEntity.noContent().build();
-		    			}
+		    	}
 		    
-		    	} catch (Exception e) {
-		            // Manejo de la excepción
-		            e.printStackTrace(); 
-		            
-
-		            return (ResponseEntity<Usuario>) ResponseEntity.notFound();
-		        }
+		    	
 		    }
 		
 				
@@ -178,7 +145,7 @@ public class ControladorProfesor {
 					}
 			}*/
 	
-	//-----------------------------------------------------------------
+	//----------------------------------------------------------------- DELETE POR MAIL 
 			///eliminar un usuario  por mail
 			@DeleteMapping("/borrar_usuario_mail/{mailUsuario}")
 				public ResponseEntity<Usuario> eliminarUsuarioPorMail(@PathVariable String mailUsuario ){
@@ -188,15 +155,22 @@ public class ControladorProfesor {
 					
 					if(alumnoParaBorrarMail.isPresent()) {
 						
+						// CREAMOS URI
+			            URI location = ServletUriComponentsBuilder
+			                            .fromCurrentRequest()
+			                            .build()
+			                            .toUri();
+			            
 						/// SI EXISTE DEVOLVEMOS EN LA RESPUESTA EL ALUMNO ELIMINADO
-						return ResponseEntity.ok(alumnoParaBorrarMail.get());
+						return ResponseEntity.ok().location(location).body(alumnoParaBorrarMail.get());
 						
 					}else {
 						
 						/// SI NO EXISTE DEVOLVEMOS EN LA RESPUESTA QUE NO EXISTE
 						return ResponseEntity.notFound().build();
 					}
-			}
+				        }
+			
 			
 
 			
