@@ -55,6 +55,8 @@ function salirSesion() {
         // RECOGIDA CONTENIDO FORMULARIO
         let tutor = document.getElementById("name").value.trim;
         let mensage = document.getElementById("consulta").value.trim;
+        const token = localStorage.getItem('token'); 
+
         
         // Expresión regular que solo acepta letras y espacios
         	const patronName = /^[a-zA-Z\s]+$/;
@@ -67,60 +69,60 @@ function salirSesion() {
 		        }
 		       
            
-        // Si todo está correcto, continuar con el envío de datos
+        // Si todo está correcto, continuamos con el envío de datos
  
         console.log(tutor);
         console.log(mensage);
     
         // PREPARACIÓN DEL JSON CON DATOS PARA ENVIAR
-        let data = {
-            tutor: tutor,
-            mensaje: mensage
-        };
-        console.log('Datos JSON:', data);
+		        let data = {
+		            nombreTutor: tutor,
+		            cuerpoMensaje: mensage
+		        };
+		        console.log('Datos JSON:', data);
     
-        // OPCIONES PARA PETICIÓN
-        let options = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
+      
     
-        // PETICIÓN HTTP
-        try {
-            const response = await fetch('/enviarConsulta', options);
-    
-            if (!response.ok) {
-                throw new Error('Error en la solicitud. Código de estado: ' + response.status);
-            }
-    
-            const result = await response.json();
-            console.log('Respuesta del servidor:', result);
-            
+        // PETICIÓN 
         
-            // Suponiendo que la respuesta indica un inicio de sesión exitoso
-            if(result.status===200){
-                alert("Mensaje enviado con éxito.");
-
-                    // Limpiamos el textarea
-                document.getElementById("consulta").value = ''; 
-
-
-            }else{
-                alert("Hubo un problema y no se pudo enviar el mensaje. Vuelva a intentarlo por favor.");
-            }
+     fetch('/enviarMail', {
+		 
+		  method: 'POST',
+     	 headers: {
+			  
+		        'Content-Type': 'application/x-www-form-urlencoded',
+		        'Authorization': 'Bearer ' + token
+        
+     	 },
+     	 
+	      body: new URLSearchParams({
+			  
+	        'nombreTutor': nombreTutor,
+	        'cuerpoMensaje': cuerpoMensaje
+	        
+	      })
+    })
+		 
+		 
+     .then(response => response.text())
+     
+    .then(data => {
+		
+		// Muestra la respuesta del servidor
+	      alert(data);
+    })
     
-        } catch (error) {
-            console.error('Error:', error.message);
-            window.location.href = '/contacto'; // Redirigir en caso de un error
-        }
-}
+    .catch(error => {
+		
+      alert("Error al enviar el correo: " + error);
+      
+    });
+  
+
 
 //----------------LISTENERS
 botonExit.addEventListener('click', salirSesion);
 botonAtras.addEventListener('click', rediMenuAlumno);
-botonEnviar.addEventListener('click', mandarMensaje);
+botonEnviar.addEventListener('submit', mandarMensaje);
 
 });

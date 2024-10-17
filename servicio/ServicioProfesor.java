@@ -21,6 +21,15 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 	
 	//-------------------------------------------------------------------------------------READ
 		
+		 public List<Usuario> obtenerAlumnosPorLetra(String letraClase) {
+			 
+			 //GUARDAMOS LOS ALUMNOS EN UNA LISTA
+		        return (List<Usuario>) repoUsuarios.findByLetraClaseAndRolUsuarioAlumno(letraClase, "alumno");
+		    }
+		
+	
+		///----------------------------------------------------
+
 		public List<Usuario>  obtenerUsuarios(){
 			
 			/////CASTEAMOS A UN ITERABLE
@@ -119,6 +128,13 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		    // BUSCAMOS EL USUARIO POR SU CORREO ELECTRÓNICO
 		    Optional<Usuario> buscaUser = repoUsuarios.findOptionalByMailUsuario(mailUsuario);
 
+		    try {
+		    	
+		    	//Validamos que no qude vacío este dato
+		    	if (alumProf == null) {
+		    	    throw new IllegalArgumentException("El objeto Usuario no puede ser nulo.");
+		    	}
+		    
 		    if (buscaUser.isPresent()) {
 		        // Atrapamos el usuario
 		        Usuario userParaCambiar = buscaUser.get();
@@ -133,11 +149,19 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 		        // Guardamos los cambios en el repositorio y devolvemos el usuario modificado
 		        return Optional.of(repoUsuarios.save(userParaCambiar));
+		    
 		    } else {
 		        // Si el usuario no existe, devolvemos un Optional vacío
 		        return Optional.empty();
 		    }
-		}
+		    
+		  } catch (Exception e) {
+	        e.printStackTrace();
+	        return Optional.empty(); // O manejar la excepción según tu lógica
+			
+
+		  }
+	}
 		///----------------------------------------------------
 		
 		//// fututo metodo actualizar un alumno asociado a un profesor

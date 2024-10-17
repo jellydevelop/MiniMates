@@ -31,6 +31,9 @@ public interface IFServicioProfesor {
 		public Optional<List<Usuario>> obtenerUsuariosPorRol(String rol);
 		
 		public Usuario findByMailAndPass(String mail, String pass);
+		
+		 public List<Usuario> obtenerAlumnosPorLetra(String letraClase);
+
 
 	//------------------------------------------------------------------------------CREATE
 		

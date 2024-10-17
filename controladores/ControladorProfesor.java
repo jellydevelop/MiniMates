@@ -54,7 +54,7 @@ public class ControladorProfesor {
 	
 	//----------------------------------------------------------------------------CREATE
 		
-			
+			///anadir un alumno nuevo alumno
 		    @PostMapping("/aniadiralumno")
 		    public ResponseEntity<Usuario> anyadirAlumno(@RequestBody Usuario alumno)  {
 		       

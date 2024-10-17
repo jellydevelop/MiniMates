@@ -41,6 +41,9 @@ public class Usuario {
 	
 	@Column(name="ROL_USUARIO",columnDefinition="varchar(8)")
     private String rolUsuario;
+	
+	@Column(name="LETRA_CLASE", columnDefinition="varchar(2)")
+    private String letraClase;
     
     
     
@@ -89,6 +92,10 @@ public class Usuario {
 	/*}public List<Reto> getRetos() {
 		return retos;
 	}*/
+    public String getLetraClase() {
+		return letraClase;
+		
+	}
 	
 	
 ////-----SETTER
@@ -111,6 +118,8 @@ public class Usuario {
 	/*public void setRetos(List<Reto> retos) {
 		this.retos = retos;
 	}*/
+
+	
 	
 	
 

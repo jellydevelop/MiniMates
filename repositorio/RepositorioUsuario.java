@@ -17,11 +17,15 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
     @Query("SELECT u FROM USUARIO u WHERE u.mailUsuario = :mail AND u.passUsuario = :pass")
     	Usuario findByMailAndPass(@Param("mail") String mail, @Param("pass") String pass);
 
-    	Usuario findByMailUsuario(String mailUsuario);
+    	Usuario findByMailUsuario(String emailUsuario);
 
     	Optional<Usuario> findOptionalByMailUsuario(String mailUsuario);
 
     	List<Usuario> findByRolUsuario(String rolUsuario);
+    			
+	    Usuario findByLetraClaseAndRolUsuarioAlumno(String letraClase, String rolUsuario);
 
+    	
+    	
 
 }//// FIN CLASE RepositorioUsuarios
