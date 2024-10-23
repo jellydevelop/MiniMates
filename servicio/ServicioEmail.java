@@ -2,6 +2,8 @@ package es.daw.proyectoDAW.servicio;
 
 import org.springframework.stereotype.Service;
 
+import es.daw.proyectoDAW.errores.AlumnoNoEncontradoException;
+import es.daw.proyectoDAW.errores.ProfesorNoEncontradoException;
 import es.daw.proyectoDAW.modelo.Usuario;
 import es.daw.proyectoDAW.seguridad.JWTUtil;
 
@@ -24,23 +26,24 @@ public class ServicioEmail {
 		
 	////Enlazamos con JWT seguridad
 	    @Autowired
-	    private JWTUtil tokenJKT;
+	    private JWTUtil tokenJWT;
 		
 		
 			
 			
 		
 	//creamos el metodo que manejará los mensajes
-	    public void sendMailToProffesor(String token, String nombreTutor, String cuerpoMensaje) {
+	    public void sendMailToProfessor(String token, String nombreTutor, String cuerpoMensaje) throws ProfesorNoEncontradoException, AlumnoNoEncontradoException { 
 			
 	  //obtenemos el DESDE (mail del alumno logueado desde el token y lo buscamos en la bdd)
-	        String emailAlumno = tokenJKT.obtenerEmailDesdeToken(token);
+	    	String emailAlumno = tokenJWT.obtenerEmailDesdeToken(token);
+	        Usuario alumno = repoUsuario.findByMailUsuario(emailAlumno);
 	        
-			      //-->
-	        		Usuario alumno = repoUsuario.findByMailUsuario(emailAlumno);
-				        if (alumno == null) {
-				            throw new RuntimeException("Alumno no encontrado con el email proporcionado.");
-				        }
+			      
+	        // --> 
+		        if (alumno == null) {
+		            throw new AlumnoNoEncontradoException("Alumno no encontrado con el email proporcionado."); 
+		        }
 				
 				
 	// Obtener el TO (la letra de la clase del alumno + profesor de esa clase)
@@ -49,9 +52,9 @@ public class ServicioEmail {
 				 // -->
 			        Usuario paraProfesor = repoUsuario.obtenerProfesorPorLetra( letraClase);
 			        
-				        if (paraProfesor == null) {
-				            throw new RuntimeException("Profesor no encontrado para la letra de clase: " + letraClase);
-				        }
+			        if (paraProfesor == null) {
+			            throw new ProfesorNoEncontradoException("Profesor no encontrado para la letra de clase: " + letraClase);  
+			        }
 			
 			        
 	// creamos asunto y cuerpo del mensaje

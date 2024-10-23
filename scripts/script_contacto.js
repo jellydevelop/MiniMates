@@ -22,6 +22,7 @@ const inputTutor = document.getElementById('name');
 //----------------FUNCIONES
 
 function rediMenuAlumno(evento){
+	  evento.preventDefault();
     window.location.href = '/alumno'; 
 
 }
@@ -36,7 +37,7 @@ function salirSesion() {
 
 
    // Validación del patrón en tiempo real
-    inputTutor.addEventListener('input', function() {
+   inputTutor.addEventListener('input', function() {
 		
         // REGEX que solo acepta letras y espacios
         const patronName = /^[a-zA-Z\s]+$/;
@@ -63,16 +64,25 @@ function salirSesion() {
 
     
          // Validación de campos vacíos
-		        if (tutor === '' || mensaje === '') {
+		        if (tutor === '' || mensage === '') {
 		            alert("Por favor, rellena los campos vacíos");
 		            return; // salir de la función si hay campos vacíos
-		        }
+		        }else if (!patronName.test(tutor)){
+					 alert("Por favor, usa sólo letras");
+		            return; // salir de la función si hay campos vacíos						
+						
+					}else{
+						
+						  // Si todo está correcto, continuamos con el envío de datos
+ 
+					        console.log(tutor);
+					        console.log(mensage);
+						
+					}
+}
 		       
            
-        // Si todo está correcto, continuamos con el envío de datos
- 
-        console.log(tutor);
-        console.log(mensage);
+      
     
         // PREPARACIÓN DEL JSON CON DATOS PARA ENVIAR
 		        let data = {

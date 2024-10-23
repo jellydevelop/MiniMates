@@ -64,8 +64,9 @@
 
 <!--ZONA SELECT DE ACTIVIDAD ---------------------------->
 <div  id="listaTipoMates">
-    <select title="elige tipo de reto">
+    <select id='selectRetos' title="elige tipo de reto">
 
+        <option value="" disabled selected>Elige un tipo de Reto</option>
         <option value="conteo" id="opcionSelect">CONTEO</option>
         <option value="reconoce números" id="opcionSelect">RECONOCE NÚMEROS</option>
       
@@ -79,8 +80,9 @@
 
 <div id="divMundos">
 
-    <select title="elige el mundo jugado">
+    <select id='selectMundos' title="elige el mundo jugado">
 
+        <option value="" disabled selected>Elige un Mundo</option>
         <option  id="opcionSelect">MUNDO 1</option>
         <option id="opcionSelect">MUNDO 2</option>
       
@@ -93,7 +95,7 @@
 
 <!--ZONA TABLA INFO MUNDO-RETOS ---------------------------->
 
-<div id="tablaInfo">
+<div id="tablaInfo" hidden>
 <table>
     <th>RETOS</th>
    
@@ -140,15 +142,15 @@
 
 <!--ZONA GRAFICAS ---------------------------->
 
-<div id="graficasInfo">
+<div id="graficasInfo" hidden>
 <canvas id="graph" width="400" height="400"></canvas>
 </div>
 
 <!----------------------------------------------->
 <!--ZONA BOTON DE CIERRE ---------------------------->
 
-<button id="cierreGraf">X</button>
-<button id="cierreTabla">X</button>
+<button id="cierreGraf" hidden>X</button>
+<button id="cierreTabla" hidden>X</button>
 
 
 

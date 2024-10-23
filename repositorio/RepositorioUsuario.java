@@ -23,7 +23,7 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
 
     	List<Usuario> findByRolUsuario(String rolUsuario);
     			
-	    Usuario findByLetraClaseAndRolUsuarioAlumno(String letraClase, String rolUsuario);
+	    List<Usuario> findByLetraClaseAndRolUsuario(String letraClase, String rolUsuario);
 
     	
     	

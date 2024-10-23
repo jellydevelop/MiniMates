@@ -34,7 +34,6 @@ public interface IFServicioProfesor {
 		
 		 public List<Usuario> obtenerAlumnosPorLetra(String letraClase);
 
-
 	//------------------------------------------------------------------------------CREATE
 		
 	/////CON ESTE METODO AÑADIMOS UN  USUARIO /// SIN PROFESOR ASOCIADO

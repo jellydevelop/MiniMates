@@ -24,7 +24,8 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		 public List<Usuario> obtenerAlumnosPorLetra(String letraClase) {
 			 
 			 //GUARDAMOS LOS ALUMNOS EN UNA LISTA
-		        return (List<Usuario>) repoUsuarios.findByLetraClaseAndRolUsuarioAlumno(letraClase, "alumno");
+			 List<Usuario> alumnos = repoUsuarios.findByLetraClaseAndRolUsuario(letraClase, "alumno");
+		        return alumnos;
 		    }
 		
 	
@@ -141,10 +142,10 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 		        // Actualizamos solo los campos proporcionados en la solicitud
 		        if (alumProf.getNombreUsuario() != null) {
-		            userParaCambiar.setNombre(alumProf.getNombreUsuario());
+		            userParaCambiar.setNombreUsuario(alumProf.getNombreUsuario());
 		        }
 		        if (alumProf.getMailUsuario() != null) {
-		            userParaCambiar.setMail(alumProf.getMailUsuario());
+		            userParaCambiar.setMailUsuario(alumProf.getMailUsuario());
 		        }
 
 		        // Guardamos los cambios en el repositorio y devolvemos el usuario modificado

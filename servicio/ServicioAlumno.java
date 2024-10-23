@@ -23,17 +23,17 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		
 	//****************************************************************
 
-		  @Override
-		    public Usuario obtenerProfesorPorLetra(String letraClase) {
-			  
-		        return repoUsuarios.findByLetraClaseAndRolUsuarioAlumno(letraClase, "profesor");
-		    }
+		@Override
+		public Usuario obtenerProfesorPorLetra(String letraClase) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 	//****************************************************************
 		public Usuario findByMailUsuario(String emailUsuario) {
 			return repoUsuarios.findByMailUsuario(emailUsuario);
 		}
-
+		
 
 		
 	

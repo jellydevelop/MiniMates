@@ -19,10 +19,8 @@ import es.daw.proyectoDAW.servicio.ServicioProfesor;
 @RestController
 public class ControladorAlumno {
 	
-	////ENLAZAMOS CON EL SERVICIO
-	@Autowired
-		private ServicioProfesor repoUsuario ;
 	
+	////ENLAZAMOS  SERVICIO DE CORREO
 	@Autowired ServicioEmail serviMail;
 	
 	
@@ -46,7 +44,7 @@ public class ControladorAlumno {
 			        try {
 			        	
 			            // Llamamos al servicio para enviar el correo
-			        	serviMail.sendMailToProffesor(token, nombreTutor, cuerpoMensaje);
+			        	serviMail.sendMailToProfessor(token, nombreTutor, cuerpoMensaje);
 			            	return ResponseEntity.ok("Correo enviado con éxito");
 			            	
 			        } catch (Exception e) {

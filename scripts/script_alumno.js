@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Si ha jugado, ocultar la opción de jugar
         const jugarOption = document.getElementById('dataPartidas');
-        
+        const labelMenuPlay = document.getElementById("lPlay");
+
         if (jugarOption) {
             jugarOption.hidden=true;
+            labelMenuPlay.hidden=true;
         }
     }
     
