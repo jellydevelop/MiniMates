@@ -31,6 +31,8 @@ function rediMenuAlumno(evento){
 
 function salirSesion() {
     localStorage.removeItem('haJugado'); 
+        localStorage.removeItem('emailUsuario'); 
+
     window.location.href = '/login'; 
 }
 //************************** */

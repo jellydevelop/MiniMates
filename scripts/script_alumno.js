@@ -39,6 +39,8 @@ function rediAlumnoStats() {
 
 function salirSesion() {
     localStorage.removeItem('haJugado'); 
+        localStorage.removeItem('emailUsuario'); 
+
     window.location.href = '/login'; 
 }
 //************************** */

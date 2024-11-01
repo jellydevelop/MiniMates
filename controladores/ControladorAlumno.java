@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.daw.proyectoDAW.servicio.ServicioEmail;
+//import es.daw.proyectoDAW.servicio.ServicioEmail;
 import es.daw.proyectoDAW.servicio.ServicioProfesor;
 
 ////***************************************************IMPORTS
@@ -21,7 +21,7 @@ public class ControladorAlumno {
 	
 	
 	////ENLAZAMOS  SERVICIO DE CORREO
-	@Autowired ServicioEmail serviMail;
+//	@Autowired ServicioEmail serviMail;
 	
 	
 	
@@ -35,7 +35,7 @@ public class ControladorAlumno {
 			
 			//----------------------------------------------------------------------------CREATE
 			
-			 @PostMapping("/enviarMail")
+			/* @PostMapping("/enviarMail")
 			    public ResponseEntity<String> enviarCorreo(
 			            @RequestHeader("Authorization") String token,  // Token JWT en los headers
 			            @RequestParam("nombreTutor") String nombreTutor, // Nombre del tutor del formulario
@@ -51,7 +51,7 @@ public class ControladorAlumno {
 			        	
 			            return ResponseEntity.status(500).body("Error al enviar el correo: " + e.getMessage());
 			        }
-			    }
+			    }*/
 			//----------------------------------------------------------------------------READ
 			//----------------------------------------------------------------------------UPDATE
 			//----------------------------------------------------------------------------DELETE

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.daw.proyectoDAW.modelo.Mundo;
-import es.daw.proyectoDAW.repositorio.RepositorioMundo;
+import es.daw.proyectoDAW.repositorio.RepositorioJuego;
 ////****************************************************************************IMPORTS
 @Service
 public class ServicioMundo implements IFServicioMundo{
 	
 	@Autowired
-		RepositorioMundo repoMundo;
+		RepositorioJuego repoMundo;
 
 	
 

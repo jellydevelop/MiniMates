@@ -4,178 +4,233 @@ import java.util.List;
 
 import org.hibernate.annotations.NamedQuery;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import es.daw.proyectoDAW.errores.AtributoNuloException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+//import jakarta.persistence.Inheritance;
+//import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import lombok.Data;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 //------------------------------------
 //------------------------------------
-@Data
-@Entity(name="USUARIO")
-@NamedQuery(name = "USUARIO.findByEmailAddress",
-query = "select u from USUARIO u where u.mailUsuario = ?1")///GENERA LA TABLA USUARIOS
-public class Usuario {
+@Entity(name = "Usuario")
+//@Inheritance(strategy = InheritanceType.JOINED) // HERENCIA --> ESTA CLASE ES PADRE
+@NamedQuery(name = "USUARIO.findByEmailAddress", query = "select u from Usuario u where u.mailUsuario = ?1")
+public  class Usuario {
 	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    	private Long id;
-    
-    @Column(name="NIA_USUARIO",columnDefinition = "char(8)", nullable = true)
-    private Character niaUsuario;
-    
-    @Column(name="CODIGO_CENTRO", columnDefinition = "varchar(10)", nullable = true)
-    private String codigoCentro; 
-    
-    @Column(name="PRIMER_APELLIDO_USUARIO",columnDefinition="varchar(25)")
-    private String primApellidoUsuario;
-	
-	@Column(name="SEGUNDO_APELLIDO_USUARIO",columnDefinition="varchar(25)")
-    private String secApellidoUsuario;
-    
-	@Column(name="NOMBRE_USUARIO",columnDefinition="varchar(20)")
-    private String nombreUsuario;
-	
-	
-	@Column(name="MAIL_USUARIO",columnDefinition="varchar(25)")
-    private String mailUsuario;
-	
-	
-	@Column(name="PASS_USUARIO",columnDefinition="varchar(10)")
+
+	 public static final String ROL_PROFESOR = "PROFESOR";
+	 public static final String ROL_ALUMNO = "ALUMNO";
+	    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idUsuario;
+
+	@Column(name = "CODIGO_CENTRO", columnDefinition = "varchar(8)", nullable = false)
+	private String codigoCentro;
+
+	@Column(name = "PRIMER_APELLIDO_USUARIO", columnDefinition = "varchar(25)", nullable = false)
+	private String primApellidoUsuario;
+
+	@Column(name = "SEGUNDO_APELLIDO_USUARIO", columnDefinition = "varchar(25)", nullable = false)
+	private String secApellidoUsuario;
+
+	@Column(name = "NOMBRE_USUARIO", columnDefinition = "varchar(20)", nullable = false)
+	private String nombreUsuario;
+
+	@Column(name = "MAIL_USUARIO", columnDefinition = "varchar(25)", nullable = false)
+	private String mailUsuario;
+
+	@Column(name = "PASS_USUARIO", columnDefinition = "varchar(10)", nullable = false)
 	private String passUsuario;
-	
-	@Column(name="ROL_USUARIO",columnDefinition="varchar(10)")
-    private String rolUsuario;
-	
-	@Column(name="LETRA_CLASE", columnDefinition="varchar(2)")
-    private String letraClase;
-    
-    
-    
- ///------GESTION DE TABLAS
-    
-    /*@ManyToMany
-    @JoinTable(name = "usuario_reto",
-               joinColumns = @JoinColumn(name = "ID_USUARIO"),
-               inverseJoinColumns = @JoinColumn(name = "ID_RETO"))
-    
-    private List<Reto> retos;
-    */
 
-////----CONSTR VACIO
-    public Usuario() {
-		
+	@Column(name = "ROL_USUARIO", columnDefinition = "varchar(10)", nullable = false)
+	private String rolUsuario;
+	
+	//////////////alumno
+	@Column(name = "NIA_ALUMNO", nullable = true, columnDefinition = "varchar(8)")
+	private String niaAlumno;
+	
+	/////////////profesor
+	
+
+	// ------ RELACIONES
+	
+	   // Relación con Clase
+ @ManyToOne
+   @JoinColumn(name = "letra_clase", nullable = true)  // Únicamente un profesor o un alumno tendrá clase asignada	
+   private Clase clase;
+	
+		  //relación con pa+ida
+	@OneToMany(mappedBy = "usuario")
+    private List<Partida> partidas;
+	
+	//para profes
+	@OneToOne
+	@JoinColumn(name = "letra_clase", referencedColumnName = "LETRA_CLASE", insertable = false, updatable = false)
+    private Clase claseComoProfesor;
+
+	// ---- CONSTRUCTOR VACÍO
+	public Usuario() {
 	}
-////----CONSTR PARA DAR DE ALTA A ALUMNOS
 
-    public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String primApellidoUsuario, String secApellidoUsuario, String letraClase) {
-        this.nombreUsuario = nombreUsuario;
+	// ---- CONSTRUCTOR PARA DAR DE ALTA A ALUMNOS
+	public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String primApellidoUsuario,
+			String secApellidoUsuario, String letraClase, String nia) {
+		this.nombreUsuario = nombreUsuario;
+		this.mailUsuario = mailUsuario;
+		this.passUsuario = passUsuario;
+		this.rolUsuario = "alumno";
+		this.primApellidoUsuario = primApellidoUsuario;
+		this.secApellidoUsuario = secApellidoUsuario;
+		this.niaAlumno=nia;
+	}
+
+	// ---- CONSTRUCTOR PARA DAR DE ALTA A PROFESOR
+	public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String letraClase) {
+		this.nombreUsuario = nombreUsuario;
+		this.mailUsuario = mailUsuario;
+		this.passUsuario = passUsuario;
+		this.rolUsuario = "profesor";
+	}
+
+    // ---- CONSTRUCTOR PARA VALIDACIÓN DE LOGIN
+    public Usuario(String mailUsuario, String passUsuario) throws AtributoNuloException {
+    	
+        if (mailUsuario == null || mailUsuario.trim().isEmpty()) {
+            throw new AtributoNuloException("El correo electrónico no puede ser nulo o vacío");
+        }
+        if (passUsuario == null || passUsuario.trim().isEmpty()) {
+            throw new AtributoNuloException("La contraseña no puede ser nula o vacía");
+        }
+
         this.mailUsuario = mailUsuario;
         this.passUsuario = passUsuario;
-        this.rolUsuario = "alumno"; 
-        this.primApellidoUsuario = primApellidoUsuario;
-        this.secApellidoUsuario = secApellidoUsuario;
-        this.letraClase=letraClase;
-    }    
-    
-////----CONSTR PARA DAR DE ALTA A PROFESOR
+    }
 
-        public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String letraClase) {
-            this.nombreUsuario = nombreUsuario;
-            this.mailUsuario = mailUsuario;
-            this.passUsuario = passUsuario;
-            this.rolUsuario = "profesor"; 
-            this.letraClase=letraClase;
-
-        }
-    
-////-----GETTER
-    
-    public Long getId() {
-		return id;
+	// ----- GETTERS
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
-    public String getNombreUsuario() {
+
+	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
-    public String getMailUsuario() {
+
+	public String getCodigoCentro() {
+		return codigoCentro;
+	}
+	
+	 
+
+	public String getMailUsuario() {
 		return mailUsuario;
-    }
-    public String getRolUsuario() {
+	}
+
+	public String getRolUsuario() {
 		return rolUsuario;
 	}
-    
-    public String getPassUsuario() {
+
+	public String getPassUsuario() {
 		return passUsuario;
 	}
-	/*}public List<Reto> getRetos() {
-		return retos;
-	}*/
-    public String getLetraClase() {
-		return letraClase;
-		
-	}
-    public Character getNiaUsuario() {
-		return niaUsuario;
-	}
-    
-    public String getPrimApellidoUsuario() {
+
+	public String getPrimApellidoUsuario() {
 		return primApellidoUsuario;
 	}
-    
-    public String getSecApellidoUsuario() {
+
+	public String getSecApellidoUsuario() {
 		return secApellidoUsuario;
 	}
-    
-	
-	
-////-----SETTER
-	
-	public void setId(Long id) {
-		this.id = id;
+	public String getNiaAlumno() {
+		return niaAlumno;
 	}
 	
+	 public void setClaseUsuario(Clase clase) {
+	        this.clase = clase;
+	    }
+	
+	public Clase getClaseComoProfesor() {
+		return claseComoProfesor;
+	}
+
+	// ----- SETTERS
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public void setCodigoCentro(String codigoCentro) {
+		this.codigoCentro = codigoCentro;
+	}
+
 	public void setPassUsuario(String passUsuario) {
 		this.passUsuario = passUsuario;
 	}
-	
+
 	public void setPrimApellidoUsuario(String primApellidoUsuario) {
 		this.primApellidoUsuario = primApellidoUsuario;
 	}
+
 	public void setSecApellidoUsuario(String secApellidoUsuario) {
 		this.secApellidoUsuario = secApellidoUsuario;
 	}
-	
+
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
-	
+
 	public void setRolUsuario(String rolUsuario) {
 		this.rolUsuario = rolUsuario;
 	}
-	
+
 	public void setMailUsuario(String mailUsuario) {
 		this.mailUsuario = mailUsuario;
-	} 
-	
-	public void setNiaUsuario(Character niaUsuario) {
-		this.niaUsuario = niaUsuario;
 	}
 	
+	public void setNiaAlumno(String niaAlumno) {
+		this.niaAlumno = niaAlumno;
+	}
 	
-	/*public void setRetos(List<Reto> retos) {
-		this.retos = retos;
-	}*/
+	public void setClase(Clase clase) {
+		this.clase = clase;
+	}
+
+	// ------ MÉTODOS PROPIOS
+	
+	//equals
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+	
+	//toString
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+	
+
+	// obtiene nombre completo
+	public String obtenerNombreCompleto() {
+		return String.format("%s %s %s", nombreUsuario, primApellidoUsuario, secApellidoUsuario);
+	}
+
+	// verifica rol alumno
+	public boolean esAlumno() {
+		return "alumno".equals(rolUsuario);
+	}
+
+	// verifica rol profesor
+	public boolean esProfesor() {
+		return "profesor".equals(rolUsuario);
+	}
+
 
 	
-	
-	
-
-}////---- FIN CLASE USUARIO
-
+}

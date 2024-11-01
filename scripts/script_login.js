@@ -1,3 +1,7 @@
+// ---- PREPARAMOS CONTENEDOR DE ROL
+
+	localStorage.setItem('rolUsuario', '');
+
 // ---- RECOGIDA IDS
 let btnSubmit = document.getElementById("botonComprobar");
 
@@ -43,14 +47,20 @@ async function mandamosInfoUser(event) {
         const result = await response.json();
         console.log('Respuesta del servidor:', result);
         
-       
-
-        // Suponiendo que la respuesta indica un inicio de sesión exitoso
-        window.location.href = result.redirectUrl;
-        
+         if (result.redirectUrl) {
+			 
+            // Guardamos el email en localStorage
+				localStorage.setItem('emailUsuario', mailUser);
+            alert('Registro exitoso:', result);
+            
+			//redirigimos
+       		 window.location.href = result.redirectUrl;
+        }else{
+			alert('Error en el registro:', result.message);
+		}
     } catch (error) {
-        console.error('Error:', error.message);
-        window.location.href = '/rediLogin'; // Redirigir en caso de un error
+        console.error('Error en el login:', error.message);
+       // window.location.href = '/rediLogin'; // Redirigir en caso de un error
     }
 }////FIN LOGIN.JS
     

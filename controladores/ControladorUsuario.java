@@ -1,7 +1,9 @@
 package es.daw.proyectoDAW.controladores;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw.proyectoDAW.modelo.Usuario;
 import es.daw.proyectoDAW.servicio.ServicioProfesor;
+import es.daw.proyectoDAW.servicio.ServicioUsuario;
 
 
 
@@ -37,7 +41,11 @@ public class ControladorUsuario {
 
 	////ENLAZAMOS CON EL SERVICIO
 	@Autowired
-		private ServicioProfesor repoUsuario ;
+		private ServicioProfesor repoProfesor ;
+	
+	////ENLAZAMOS CON EL SERVICIO
+	@Autowired
+		private ServicioUsuario repoUsuario ;
 	
 	////ENLAZAMOS CON EL CONTROLADOR DE RUTAS
 	@Autowired
@@ -78,13 +86,26 @@ public class ControladorUsuario {
 				                    redirectUrl = "/rediLogin";
 				                    break;
 				            }
-	
-				            return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
+				            Map<String, String> response = new HashMap<>();
+				            response.put("redirectUrl", redirectUrl);
+				            
+				            
+				            return ResponseEntity.ok().body(response);
 				        } else {
-				            return ResponseEntity.badRequest().body("El correo electrónico o la contraseña son incorrectos");
-				        }
+				            return ResponseEntity.badRequest().body(Map.of("message", "El correo electrónico o la contraseña son incorrectos"));			        }
 				    }
 	
-		
+	//-----------------------------------------------------------------
+				 @PutMapping("/{usuarioId}/clase/{letraClase}")
+				    public ResponseEntity<String> asignarClase(
+				            @PathVariable Long usuarioId, @PathVariable String letraClase) {
+				        
+				        try {
+				            repoUsuario.asignarUsuarioAClasePorLetra(usuarioId, letraClase);
+				            return ResponseEntity.ok("Usuario asignado a la clase con letra " + letraClase);
+				        } catch (Exception e) {
+				            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+				        }
+				    }
 	
 }//-----------FIN CONTROLADOR ControladorUsuario

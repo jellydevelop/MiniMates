@@ -11,7 +11,7 @@ public interface IFServicioProfesor {
 
 	//------------------------------------------------------------------------------READ
 	
-	
+
 	/////CON ESTE METODO OBTENEMOS UNA LISTA CON TODOS LOS USUARIOS
 		public List<Usuario>  obtenerUsuarios();
 		
@@ -28,11 +28,14 @@ public interface IFServicioProfesor {
 		public boolean checkPassword(Usuario usuario, String password);
 		
 	//// CON ESTE METODO OBTENEMOS LOS USUARIOS QUE TIENEN X ROL
-		public Optional<List<Usuario>> obtenerUsuariosPorRol(String rol);
+		public List<Usuario> obtenerUsuariosPorRol(String rol);
 		
 		public Usuario findByMailAndPass(String mail, String pass);
 		
 		 public List<Usuario> obtenerAlumnosPorLetra(String letraClase);
+		 
+			public List<Usuario> obtenerAlumnosPorProfesor(String mailUsuario);
+
 
 	//------------------------------------------------------------------------------CREATE
 		

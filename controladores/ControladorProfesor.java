@@ -1,8 +1,12 @@
 package es.daw.proyectoDAW.controladores;
 
 import java.net.URI;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,25 +109,18 @@ public class ControladorProfesor {
 			//-----------------------------------------------------------------
 
 			
-			///obtener todos los alumnos por de un profesor
+			///obtener todos los alumnos por  un profesor
 			@GetMapping("/obtener_alumnos_clase")
-				public ResponseEntity<?> obtenerAlumnosDeClaseDeUnProfesor(){
+			
+				public ResponseEntity<List<Usuario>> obtenerAlumnoOrdenadossDeClaseDeUnProfesor(@RequestParam String emailProfesor){
 				
-				 Optional<List<Usuario>> listaAlumnos=repoUsuario.obtenerUsuariosPorRol("alumno");
-						
-							if (listaAlumnos.isPresent()) {
-								
-								return ResponseEntity.ok(listaAlumnos.get());
-							
-							}else {
-							
-								return ResponseEntity.notFound().build();				
-							}
-						
+			    List<Usuario> alumnos = repoUsuario.obtenerAlumnosPorProfesor(emailProfesor);
+			    
+				    if (alumnos.isEmpty()) {
+				        return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Código 204 si no hay alumnos
+				    }
+			    return new ResponseEntity<>(alumnos, HttpStatus.OK); // Código 200 y la lista de alumnos en JSON
 			}
-			/////////////////////LO IDEAL ES LUEGO REALIZAR UNA BUSQUEDA POR PROFESOR, PERO POR AHORA
-			//////NO SE ASOCIAN LOS ALUMNOS CON LOS PROFESORES
-		
 //----------------------------------------------------------------------------DELETE POR ID
 
 		/*	///eliminar un usuario  por ID

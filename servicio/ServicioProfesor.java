@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import es.daw.proyectoDAW.modelo.Usuario;
@@ -20,14 +19,25 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 	
 	
 	//-------------------------------------------------------------------------------------READ
-		
-		 public List<Usuario> obtenerAlumnosPorLetra(String letraClase) {
-			 
-			 //GUARDAMOS LOS ALUMNOS EN UNA LISTA
-			 List<Usuario> alumnos = repoUsuarios.findByLetraClaseAndRolUsuario(letraClase, "alumno");
-		        return alumnos;
-		    }
-		
+
+
+		public List<Usuario> obtenerAlumnosPorProfesor(String mailUsuario) {
+		    return repoUsuarios.findAlumnosPorLetraClaseDeProfesor(mailUsuario);
+			
+		}
+		 //----------------------------------------------------------------
+	    public List<Usuario> obtenerAlumnosPorLetra(String letraClase) {
+	        return repoUsuarios.obtenerAlumnosPorLetra(letraClase, "alumno");
+	    }
+			//------------------------------------
+	
+
+			public Optional<Usuario> obtenerProfesorPorLetraClase(String letraClase) {
+				
+				//GUARDAMOS EL PROFESOR EN UN USUARIO
+				Optional<Usuario> profesor=repoUsuarios.findByLetraClaseAndRolUsuarioProfesor(letraClase);
+				return profesor;
+			}
 	
 		///----------------------------------------------------
 
@@ -41,18 +51,18 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		///----------------------------------------------------
 
 		@Override
-		public Optional<List<Usuario>> obtenerUsuariosPorRol(String rol) {
+		public List<Usuario> obtenerUsuariosPorRol(String rol) {
 			
 		    List<Usuario> usuarios = repoUsuarios.findByRolUsuario(rol);
 		    
 		    
-		    if (usuarios.isEmpty()) {
+		    if (usuarios==null) {
 		    	
-		        return Optional.empty();
-		        
+		    	  throw new IllegalArgumentException("El objeto Usuario esta vacío.");	
+		    	 
 		    } else {
 		    	
-		        return Optional.of(usuarios);
+		        return usuarios;
 		    }
 		}
 
@@ -88,6 +98,7 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 		public Optional<Usuario> findByMail(String correo) {
 			
+			
 		    Usuario usuario = repoUsuarios.findByMailUsuario(correo);
 		    
 		    return Optional.ofNullable(usuario);
@@ -116,11 +127,6 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		    // Guarda el usuario alumno 
 		    return repoUsuarios.save(alum);
 		}
-
-		
-		///----------------------------------------------------
-		
-		//// fututo metodo añadir un alumno asociado a un profesor
 		
 		
 
@@ -163,10 +169,7 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 		  }
 	}
-		///----------------------------------------------------
-		
-		//// fututo metodo actualizar un alumno asociado a un profesor
-		
+			
 		
 		
 	//--------------------------------------------------------------------------------------------DELETE
@@ -221,18 +224,17 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 		///----------------------------------------------------
 		///----------------------------------------------------
-		///----------------------------------------------------
+		
+		
+		
+		
+		///----------------------------------------------------UPDATE
 
 		@Override
 		public Usuario actualizarUsuarioPorId(Usuario alumProf) {
 			// TODO Auto-generated method stub
 			return null;
 		}
-
-	
-
-	
-		
 
 		
 
