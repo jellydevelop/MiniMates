@@ -49,6 +49,11 @@ public class Clase {
 	public Clase() {
 
 	}
+	/// -->> CONSTRUCTOR PARA DESERISLIZAR LETRA
+
+	public Clase(String letraClase) {
+	    this.letraClase = letraClase;
+	}
 
 	/// -->> GETTERS
 
@@ -147,4 +152,25 @@ public class Clase {
 			        throw new UsuarioNoAlumnoException("El usuario asignado debe tener el rol de alumno.");
 			    }
 			}
+
+		public Object getLetraAula() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		public void addAlumnoAClase(Usuario alumno) throws UsuarioNoAlumnoException {
+			
+	        if (alumno == null || !alumno.esAlumno()) {
+	            throw new UsuarioNoAlumnoException("El usuario asignado debe tener el rol de alumno.");
+	        }
+	        alumnos.add(alumno);
+	        alumno.setClase(this); 
+	    }
+
+		public Clase get() {
+			return this;
+		}
+
+
+		
 }

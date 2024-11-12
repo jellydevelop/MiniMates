@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.daw.proyectoDAW.modelo.Clase;
 import es.daw.proyectoDAW.modelo.Usuario;
+import es.daw.proyectoDAW.repositorio.RepositorioClase;
 import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 ////****************************************************************************IMPORTS
@@ -16,10 +18,17 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 
 		@Autowired
 			RepositorioUsuario repoUsuarios;
+		
+		@Autowired
+		RepositorioClase repoClass;
 	
 	
 	//-------------------------------------------------------------------------------------READ
-
+		public Optional<Clase> findById(Long idClase) {
+			return repoClass.findById(idClase);
+		}
+		
+		 //----------------------------------------------------------------
 
 		public List<Usuario> obtenerAlumnosPorProfesor(String mailUsuario) {
 		    return repoUsuarios.findAlumnosPorLetraClaseDeProfesor(mailUsuario);
@@ -32,12 +41,11 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 			//------------------------------------
 	
 
-			public Optional<Usuario> obtenerProfesorPorLetraClase(String letraClase) {
-				
-				//GUARDAMOS EL PROFESOR EN UN USUARIO
-				Optional<Usuario> profesor=repoUsuarios.findByLetraClaseAndRolUsuarioProfesor(letraClase);
-				return profesor;
-			}
+	    public Optional<Clase> obtenerClasePorEmail(String mailUsuario) {
+	        // Usamos el repositorio para ejecutar la consulta personalizada
+	        return repoUsuarios.obtenerClasePorEmail(mailUsuario);
+	    }
+
 	
 		///----------------------------------------------------
 
@@ -116,8 +124,26 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		    return repoUsuarios.findByMailAndPass(mail, pass);
 			
 		}
+		
+		///----------------------------------------------------
+		@Override
+		public String obtenerClaseLetraUsuarioRolProfesor(String emailProfesor) {
+			 
+		        Usuario usuario = repoUsuarios.findByMailUsuario(emailProfesor);
+		        
+		        if (usuario != null && Usuario.ROL_PROFESOR.equals(usuario.getRolUsuario())) {
+		        	
+		            // Si el usuario es un profesor, devolvemos la letra de su clase
+		            if (usuario.getClaseComoProfesor() != null) {
+		                return usuario.getClaseComoProfesor().getLetraClase(); 
+		            }
+		        }
 
-	
+		        // Si no encontramos al usuario o no tiene clase asignada, devolvemos null
+		        return null;
+		    }
+		  
+		   
 	//-----------------------------------------------------------------------------------------CREATE
 		public Usuario aniadeUsuarioAlumno(Usuario alum) {
 		    if(alum == null) {
@@ -235,7 +261,7 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 			// TODO Auto-generated method stub
 			return null;
 		}
-
+	
 		
 
 }///// FIN CLASE ServicioUsuario

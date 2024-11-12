@@ -41,6 +41,12 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
     	 // Busca alumnos por letra de clase basada en el mail del profesor
     	    @Query("SELECT u FROM Usuario u WHERE u.clase.letraClase = (SELECT p.clase.letraClase FROM Usuario p WHERE p.mailUsuario = :mailProfesor) AND u.rolUsuario = 'alumno'")
     	    List<Usuario> findAlumnosPorLetraClaseDeProfesor(@Param("mailProfesor") String mailProfesor);
+    	   
+    	 // busca la letra de clase del profesor según su correo
+    	    @Query("SELECT u.claseComoProfesor FROM Usuario u WHERE u.mailUsuario = :mailUsuario")
+    	    Optional<Clase> obtenerClasePorEmail(@Param("mailUsuario") String mailUsuario);
+
+
 
 		
 /////////////// PERFIL ALUMNO /////////////-----------------

@@ -1,5 +1,6 @@
 // ---- PREPARAMOS CONTENEDOR DE ROL
 
+//preparamos contenedor para el rol
 	localStorage.setItem('rolUsuario', '');
 
 // ---- RECOGIDA IDS
@@ -15,6 +16,28 @@ async function mandamosInfoUser(event) {
     // RECOGIDA CONTENIDO FORMULARIO
     let mailUser = document.getElementById("mailUser").value;
     let passUser = document.getElementById("passUser").value;
+    
+    // Validación de campos vacíos
+    
+     // Expresión regular que solo acepta letras y espacios
+     /////COGIDO DE STACKOVERFLOW
+     //https://es.stackoverflow.com/questions/453176/como-validar-correctamente-un-email-con-expresiones-regulares
+        	const patronMail = /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/;
+      
+		        if (mailUser === '' || passUser === '') {
+		            alert("Por favor, rellena los campos vacíos");
+		            return; // salir de la función si hay campos vacíos
+		            
+		        }else if (!patronMail.test(mailUser)){
+					 alert("Por favor, revisa el correo que has introducido");
+		            return; // salir de la función si hay campos vacíos						
+						
+					}else{
+						
+						  // Si todo está correcto, continuamos con el envío de datos
+						
+					}
+
 
     console.log('Datos formulario:');
     console.log(mailUser);
@@ -51,7 +74,7 @@ async function mandamosInfoUser(event) {
 			 
             // Guardamos el email en localStorage
 				localStorage.setItem('emailUsuario', mailUser);
-            alert('Registro exitoso:', result);
+            alert('Registro correcto!!', result);
             
 			//redirigimos
        		 window.location.href = result.redirectUrl;
@@ -60,7 +83,8 @@ async function mandamosInfoUser(event) {
 		}
     } catch (error) {
         console.error('Error en el login:', error.message);
-       // window.location.href = '/rediLogin'; // Redirigir en caso de un error
-    }
+        window.location.href = '/rediLogin'; // Redirigir en caso de un error
+   
+    }/////FIN FUNCIÓN mandainfousaer
 }////FIN LOGIN.JS
     

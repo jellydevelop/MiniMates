@@ -1,48 +1,67 @@
 body {
-    background-color: #86B5E3;
+	background-color: #86B5E3;
 }
 
 #nube {
-    width: 700px;
-    position: absolute;
-    top: 50px;
-    left: 200px;
-    z-index: 0;
+	width: 900px;
+	max-width: 200%;
+	z-index: 0;
 }
 
 #nube h1 {
-
-    font-size: 80px;
-    letter-spacing: 20px;
-    z-index: 3;
-    position: absolute;
-    bottom: 120px;
-    left: 200px;
-    color: black;
-    font-family: "Gloria Hallelujah", cursive;
-    font-style: normal;
-
-
+	font-size: 4rem;
+	letter-spacing: 0.1em;
+	z-index: 3;
+	position: absolute;
+	bottom: 190px;
+	left: 200px;
+	color: black;
+	font-family: "Gloria Hallelujah", cursive;
+	font-style: normal;
 }
 
 #btn_index {
-    position: absolute;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    letter-spacing: 2px;
-    bottom: 25px;
-    left: 40%;
-    width: 300px;
-    height: 80px;
-    border-radius: 5px;
-    background-color: #E3E386;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+	letter-spacing: 2px;
+	width: 100%;
+	max-width: 350px;
+	height: 80px;
+	border-radius: 5px;
+	background-color: #E3E386;
+	border: none;
+	font-size: 1.2rem;
+	cursor: pointer;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-#btn_index:hover{
-    background-color:  #a861f8;
- }
+#btn_index:hover {
+	background-color: #a861f8;
+}
+
+/* Solo para pantallas grandes y mayores */
+@media (min-width: 1024px) {
+    #nube {
+        margin-left: 80px;
+    }
+    #nube h1 {
+        margin-left: 80px; 
+    }
+    #btn_index {
+        margin-left: 20px; 
+    }
+}
+
+/* Estilos específicos para pantallas medianas (tabletas) */
+@media (min-width: 768px) and (max-width: 1023px)  {
+    #btn_index {
+        margin-left: 70px;
+            }
+            
+              #nube img{
+        margin-left: 50px;
+    }
+    #nube h1 {
+        margin-left: 80px; 
+    }
+}

@@ -1,197 +1,377 @@
-body {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 2px;
-    background-color: #86e3e3;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    position: relative;
-    overflow: hidden; /* Para evitar scrollbars si las imágenes de olas se salen del viewport */
+@media ( min-width : 1024px) {
+	body {
+		font-family: 'Montserrat', sans-serif;
+		letter-spacing: 2px;
+		background-color: #86e3e3;
+		margin: 0;
+		padding: 0;
+		height: 100vh;
+		position: relative;
+		overflow: hidden;
+		/* Para evitar scrollbars si las imágenes de olas se salen del viewport */
+	}
+	h3 {
+		position: absolute;
+		margin-left: 180px;
+		margin-top: 30px;
+		font-size: 24px;
+		font-family: 'Montserrat', sans-serif;
+	}
+	p {
+		font-weight: 300;
+		font-size: 18px;
+		position: relative;
+		top: 120px;
+		left: 50px;
+		line-height: 35px;
+		background-color: #c6ffff;
+		width: 500px;
+		padding: 25px 15px 35px 30px;
+		border-radius: 50px;
+		letter-spacing: 2px;
+	}
+	strong {
+		position: relative;
+		top: 20px;
+		left: 100px;
+		font-size: 30px;
+		font-family: 'Montserrat', sans-serif;
+		padding: 20px;
+	}
+
+	/* BARCO PIRATA **************************/
+	#barco {
+		position: absolute;
+		top: -25px;
+		left: 500px;
+		width: 700px;
+		height: 580px;
+		z-index: 2;
+	}
+	#canyones {
+		z-index: 3;
+		position: absolute;
+		top: 480px;
+		left: 760px;
+		width: 220px;
+		height: 47px;
+		background-color: rgb(162, 100, 29);
+	}
+	#canyones .canyon {
+		z-index: 3;
+		position: relative;
+		bottom: 8px;
+		right: 5px;
+		width: 65px;
+		height: 55px;
+		padding-left: 1px;
+	}
+
+	/* OLAS **************************/
+	#ola1 {
+		width: 400px;
+		position: absolute;
+		margin-top: 250px;
+		z-index: 0;
+	}
+	#ola2 {
+		width: 400px;
+		position: absolute;
+		margin-top: 250px;
+		margin-left: 352px;
+		z-index: -1;
+	}
+	#ola3 {
+		width: 400px;
+		position: absolute;
+		margin-top: 250px;
+		margin-left: 950px;
+		z-index: -1;
+	}
+	#ola4 {
+		width: 400px;
+		position: absolute;
+		margin-top: 250px;
+		margin-left: 1200px;
+		z-index: -1;
+	}
+
+	/* TABLA CON NÚMEROS**************************/
+	#tabla_numeros {
+		border: 2px solid #000;
+		z-index: 2;
+		position: absolute;
+		margin-left: 630px;
+		margin-top: 250px;
+		height: 120px;
+		width: 450px;
+	}
+	#tabla_numeros tr td {
+		border: 1px solid #000;
+		text-align: center;
+		padding-right: 40px;
+		padding-left: 40px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		font-size: 40px;
+		background-color: #fbfb08;
+	}
+	#A1:hover, #A2:hover, #A3:hover, #A4:hover, #A5:hover, #B1:hover, #B2:hover,
+		#B3:hover, #B4:hover, #B5:hover {
+		background-color: #c1aeeb;
+	}
+	#tabla_numeros button {
+		font-size: 40px;
+		padding: 20px 20px;
+		border: none;
+		background-color: #fbfb08;
+		cursor: pointer;
+	}
+
+	/* AUDIO  ********************************/
+	#audioCanyones {
+		position: relative;
+		top: -200px;
+		left: 60px;
+		width: 80px;
+		height: 80px;
+		background-color: rgb(215, 72, 215);
+		border-radius: 19px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		transition: transform 0.3s ease-in-out;
+		z-index: 8;
+	}
+	#audioCanyones:hover {
+		background-color: rgb(250, 211, 149);
+	}
+	#audioCanyones:hover, #audioCanyones:focus {
+		transform: scale(1.1); /*se agranda un 10%*/
+	}
+	#audioCanyones audio {
+		background: url("/img/volume-up_4178625.png") no-repeat center center;
+		background-size: contain;
+		border: none;
+		outline: none;
+	}
+	#audioCanyones img {
+		width: 80px;
+		border: none;
+		outline: none;
+	}
+
+	/* BOTONES **************************/
+	#iniciarJuego {
+		position: absolute;
+		margin-left: 200px;
+		margin-top: 80px;
+		width: 200px;
+		height: 60px;
+		background-color: #f7bd82;
+		border-radius: 22px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		font-family: 'Montserrat', sans-serif;
+		font-size: 18px;
+		font-weight: 600;
+		letter-spacing: 2px;
+	}
+	#iniciarJuego:hover {
+		background-color: #a861f8;
+	}
+
+	/* IMAGEN SOL**************************/
+	#sol {
+		position: absolute;
+		bottom: 322px;
+		right: 5px;
+		width: 500px;
+		height: 500px;
+	}
 }
 
-h3{
-    position: absolute;
-    margin-left: 180px;
-    margin-top: 60px;
+/* Media para tablets entre 768px y 1023px */
+@media ( min-width : 768px) and (max-width: 1023px) {
+	body {
+		font-family: 'Montserrat', sans-serif;
+		letter-spacing: 2px;
+		background-color: #86e3e3;
+		margin: 0;
+		padding: 0;
+		height: 100vh;
+		position: relative;
+		overflow: hidden;
+		/* Para evitar scrollbars si las imágenes de olas se salen del viewport */
+	}
+	h3 {
+		position: absolute;
+		margin-left: 180px;
+		margin-top: 20px;
+		font-size: 20px;
+	}
+	p {
+		font-weight: 300;
+		font-size: 15px;
+		position: relative;
+		top: 100px;
+		left: 50px;
+		line-height: 25px;
+		background-color: #c6ffff;
+		width: 400px;
+		padding: 25px 15px 35px 30px;
+		border-radius: 50px;
+		letter-spacing: 2px;
+	}
+	strong {
+		position: relative;
+		top: 20px;
+		left: 80px;
+		font-size: 30px;
+	}
 
-    font-size: 20px;
-}
+	/* BARCO PIRATA **************************/
+	#barco {
+		position: absolute;
+		top: -15px;
+		left: 450px;
+		width: 580px;
+		height: 480px;
+		z-index: 2;
+	}
+	#canyones {
+		z-index: 3;
+		position: absolute;
+		top: 400px;
+		left: 660px;
+		width: 190px;
+		height: 47px;
+		background-color: rgb(162, 100, 29);
+	}
+	#canyones .canyon {
+		z-index: 3;
+		position: relative;
+		bottom: -1px;
+		right: 3px;
+		width: 58px;
+		height: 45px;
+		padding-left: 1px;
+	}
 
-p{
-    font-weight: 300;
-    font-size: 18px;
-    position: relative;
-    top:120px;
-    left: 50px;
-    line-height: 35px;
-}
-strong{
-    position: relative;
-    top:20px;
-    left: 100px; 
-    font-size: 30px;
-}
+	/* OLAS **************************/
+	#ola1 {
+		width: 400px;
+		position: absolute;
+		margin-top: 180px;
+		z-index: 0;
+	}
+	#ola2 {
+		width: 400px;
+		position: absolute;
+		margin-top: 180px;
+		margin-left: 352px;
+		z-index: -1;
+	}
+	#ola3 {
+		width: 400px;
+		position: absolute;
+		margin-top: 180px;
+		margin-left: 750px;
+		z-index: -1;
+	}
+	#ola4 {
+		width: 400px;
+		position: absolute;
+		margin-top: 180px;
+		margin-left: 1000px;
+		z-index: -1;
+	}
 
-/* BARCO PIRATA **************************/
+	/* TABLA CON NÚMEROS**************************/
+	#tabla_numeros {
+		border: 2px solid #000;
+		z-index: 2;
+		position: absolute;
+		margin-left: 580px;
+		margin-top: 170px;
+		height: 80px;
+		width: 150px;
+	}
+	#tabla_numeros tr td {
+		border: 1px solid #000;
+		text-align: center;
+		padding-right: 20px;
+		padding-left: 20px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		font-size: 30px;
+		background-color: #fbfb08;
+	}
+	#A1:hover, #A2:hover, #A3:hover, #A4:hover, #A5:hover, #B1:hover, #B2:hover,
+		#B3:hover, #B4:hover, #B5:hover {
+		background-color: #c1aeeb;
+	}
+	#tabla_numeros button {
+		font-size: 40px; /* Ajusta el tamaño de la fuente de los botones */
+		padding: 20px 20px; /* Ajusta el padding de los botones */
+		border: none;
+		background-color: #fbfb08; /* Color de fondo de los botones */
+		cursor: pointer;
+	}
 
-#barco {
-    position: absolute;
-    top:-15px;
-   left: 400px;
-    width: 700px;
-    height: 580px;
-    z-index: 2;
+	/* AUDIO  ********************************/
+	#audioCanyones {
+		position: relative;
+		top: -220px;
+		left: 60px;
+		width: 60px;
+		height: 60px;
+		background-color: rgb(215, 72, 215);
+		border-radius: 19px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		transition: transform 0.3s ease-in-out;
+		z-index: 8;
+	}
+	#audioCanyones:hover {
+		background-color: rgb(250, 211, 149);
+	}
+	#audioCanyones:hover, #audioCanyones:focus {
+		transform: scale(1.1); /*se agranda un 10%*/
+	}
+	#audioCanyones audio {
+		background: url("/img/volume-up_4178625.png") no-repeat center center;
+		background-size: contain;
+		border: none;
+		outline: none;
+	}
+	#audioCanyones img {
+		width: 60px;
+		border: none;
+		outline: none;
+	}
 
-}
+	/* BOTONES **************************/
+	#iniciarJuego {
+		position: absolute;
+		margin-left: 170px;
+		margin-top: 60px;
+		width: 200px;
+		height: 50px;
+		background-color: #f7bd82;
+		border-radius: 22px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		font-family: 'Montserrat', sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		letter-spacing: 2px;
+	}
+	#iniciarJuego:hover {
+		background-color: #a861f8;
+	}
 
-#canyones{
-    z-index: 3;
-    position: absolute;
-    top:490px;
-    left: 660px;
-    width: 220px;
-    height: 47px;
-    background-color: rgb(162, 100, 29);
-
-}
-
-#canyones .canyon{
-    z-index: 3;
-    position: relative;
-    bottom:8px;
-    right:5px;
-    width: 65px;
-    height: 55px;
-    padding-left: 1px;
-}
-
-/* OLAS **************************/
-
-#ola1{
-    width: 400px;
-    position: absolute;
-    margin-top: 300px;
-    z-index:0;
-}
-#ola2{
-    width: 400px;
-    position: absolute;
-    margin-top: 300px;
-    margin-left:352px;
-    z-index:-1;
-}
-#ola3{
-    width: 400px;
-    position: absolute;
-    margin-top: 300px;
-    margin-left:950px;
-    z-index:-1;
-}
-
-#ola4{
-    width: 400px;
-    position: absolute;
-    margin-top: 300px;
-    margin-left:1200px;
-    z-index:-1;
-}
-
-/* TABLA CON NÚMEROS**************************/
-
-#tabla_numeros {
-    border: 2px solid #000;
-    z-index: 2;
-    position:absolute;
-    margin-left: 550px;
-    margin-top: 310px; 
-    height: 120px;
-    width: 450px;
-}
-
-#tabla_numeros tr td{
-    border: 1px solid #000;
-    text-align: center;
-    padding-right: 40px;
-    padding-left: 40px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    font-size: 40px;
-    background-color: #fbfb08;
-}
-#A1:hover, #A2:hover, #A3:hover, #A4:hover, #A5:hover, #B1:hover, #B2:hover, #B3:hover, #B4:hover, #B5:hover {
-    background-color: #c1aeeb; /* Color de fondo cuando se pasa el cursor sobre los botones */
-}
-#tabla_numeros button {
-    font-size: 40px; /* Ajusta el tamaño de la fuente de los botones */
-    padding: 20px 20px; /* Ajusta el padding de los botones */
-    border: none;
-    background-color: #fbfb08; /* Color de fondo de los botones */
-    cursor: pointer;
-}
-
-/* AUDIO  ********************************/
-
-#audioCanyones{
-    position: relative;
-    top:-150px;
-    left:60px;
-    width: 80px;
-    height: 80px;
-    background-color: rgb(215, 72, 215);
-    border-radius: 19px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease-in-out;
-    z-index: 8;
-}
-#audioCanyones:hover{
-    background-color: rgb(250, 211, 149);
-}
-
-#audioCanyones:hover,
-#audioCanyones:focus {
-    transform: scale(1.1); /*se agranda un 10%*/
-}
-
-#audioCanyones audio {
-    background: url("/img/volume-up_4178625.png") no-repeat center center;
-    background-size: contain;
-    border: none;
-    outline: none;
-}
-
-#audioCanyones img {
-    width: 80px;
-    border: none;
-    outline: none;
-}
-
-/* BOTONES **************************/
-
-#iniciarJuego{
-    position:absolute;
-    margin-left: 170px;
-    margin-top:80px;
-    width: 200px;
-    height: 60px;
-    background-color: #f7bd82;   
-    border-radius: 22px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    font-family: 'Montserrat',sans-serif;
-    font-size: 18px;
-    font-weight:600;
-    letter-spacing: 2px;
-}
-
-#iniciarJuego:hover{
-    background-color:  #a861f8;
- }
-
- /* IMAGEN SOL**************************/
-#sol{
-    position: absolute;
-    bottom:322px;
-    right: 5px;
-
-    width: 500px;
-    height: 500px;
+	/* IMAGEN SOL**************************/
+	#sol {
+		position: absolute;
+		bottom: 382px;
+		right: -35px;
+		width: 300px;
+		height: 300px;
+	}
 }

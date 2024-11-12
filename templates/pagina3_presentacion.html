@@ -1,58 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
-    <!-- FUENTE PARA LA WEB  -->
 
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-       
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/estilos_pag3.css"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRESENTACIÓN</title>
+<!-- FUENTE PARA LA WEB  -->
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+	rel="stylesheet">
+
+
+
+<!-- BOOTSTRAP -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+	
+	<meta charset="UTF-8">
+<link rel="stylesheet" href="css/estilos_pag3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRESENTACIÓN</title>
 </head>
 
 <!-- INICIO A BODY ------------------------------------->
 
 <body>
-    
-<!--IMAGEN DE MATI  + -------------------------------------->
-    <div id="mati">
+	<div class="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center">
 
-        <img src="/img/mati_1.png" alt="titulo_app">
+		<div class="row w-100 justify-content-center align-items-center">
 
-    </div>
+			<!-- TÍTULO-->
+			<div class="col-12 text-center mb-3" id="presentacion">
+				<h2>BIENVENIDOS A MINIMATES</h2>
+			</div>
 
-    <p id="titulo_mati">MATI</p>
+			<!-- BOTÓN AUDIO -->
+			<div class="col-12 text-center mb-3" id="audio_mati"
+				onclick="audioPlay()">
+				<img src="/img/volume-up_4178625.png" alt="Icono de audio">
+				<audio id="audio">
+					<source src="/audios/pruebaAudio (online-audio-converter.com).mp3">
+						 <!-- Texto alternativo en caso de que el audio no se cargue -->
+                   
+				</audio>
+			</div>
+		</div>
 
-<!--BOTON AUDIO------------------------------------->
 
-<div id="audio_mati" onclick="audioPlay()">
-    <img src="/img/volume-up_4178625.png" alt="Icono de audio">
-    <audio id="audio"> 
-        <source src="/audios/pruebaAudio (online-audio-converter.com).mp3" type="audio/mp3">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
+
+	
+	<!-- Row 2: Texto de introducción, botón y la imagen de MATI -->
+	<div class="row w-100 justify-content-center align-items-center">
+
+		<!-- INTRO -->
+		<div class="col-12 col-md-8 text-center mb-3" id="intro">
+			<h4>
+				<strong>Soy MATI</strong>
+			</h4>
+			<h4>Vamos a descubrir mundos mágicos</h4>
+			<h3>¡ Acompáñame !</h3>
+		</div>
+
+		<!-- BOTÓN CONTINUAR -->
+		<div class="col-12 text-center mb-3" id="continuar">
+			<button id="btn_continuar">CONTINUAR</button>
+			<img src="/img/flecha_volver.png" alt="continuar">
+		</div>
+
+		<!-- IMG MATI -->
+		<div class="col-12 col-md-4 text-center mb-3" id="mati">
+			<img src="/img/mati_1.png" alt="titulo_app">
+		</div>
+
+		<!-- TEXTO MATI -->
+		<p id="titulo_mati">MATI</p>
+	</div>
+	
+	
 </div>
-
-<!--AUDIO AYUDA  + TEXTO-------------------------------------->
-
-<div id="presentacion">
- <h2>BIENVENIDOS A MINIMATES</h2>
-</div>
-
-<div id="intro">
-    <h4><strong>Soy MATI</strong></h4>
-    <h4>Vamos a descubrir mundos mágicos</h4>
-    <h3>¡ Acompáñame !</h3>
-</div>
-
-<!--BOTON CONTINUAR------------------------------------->
-
-<button id="btn_continuar" >CONTINUAR</button>
-
-
-    <!-- ENLACE A SCRIPT-->
-    <script src="/scripts/script_presentacion.js"></script>
+	<!-- ENLACE A SCRIPT-->
+	<script src="/scripts/script_presentacion.js"></script>
 </body>
 </html>

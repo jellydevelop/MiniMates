@@ -1,106 +1,216 @@
 body {
-    background-color: #8787e3;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 4px;
-
+	background-color: #c4c4f0;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 4px;
 }
 
 /* MATI   ********************************/
-
-#mati{
-    position: absolute;
-    top:60px;
-}
-
-#titulo_mati{
-    position: absolute;
-    bottom:5px;
-    left: 140px;
-    font-size: 70px;
-    padding: 5px 15px;
-    border:3px solid grey;
-    background-color: #e9f7fb;
-    border-radius: 10px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-    
+#titulo_mati {
+	font-family: 'Montserrat', sans-serif;
+	padding: 5px 15px;
+	border: 3px solid grey;
+	background-color: #e9f7fb;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 /*  PARRAFOS ********************************/
-
-#presentacion{
-    font-size: 30px;
-    text-align: center;
-    position: absolute;
-    top:20px;
-    left:400px;
+#presentacion {
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 15px;
 }
 
 #intro {
-    position:absolute;
-    top:150px;
-    margin-left: 50%;
-    font-size: 26px;
-    padding: 10px;
-    text-align: center;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	text-align: center;
+	background-color: #e6e6f9;
+	border-radius: 20px;
+	padding: 20px;
+}
 
+#intro h4 {
+	margin: 25px;
 }
 
 /* AUDIO  ********************************/
-
-#audio_mati{
-    position: absolute;
-    top:50px;
-    right:70px;
-    width: 80px;
-    height: 80px;
-    background-color: rgb(215, 72, 215);
-    border-radius: 19px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease-in-out;
-
-}
-#audio_mati:hover{
-    background-color: rgb(250, 211, 149);
+#audio_mati {
+	background-color: rgb(215, 72, 215);
+	border-radius: 19px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+	transition: transform 0.3s ease-in-out;
 }
 
-#audio_mati:hover,
-#audio_mati:focus {
-    transform: scale(1.1); /*se agranda un 10%*/
+#audio_mati:hover {
+	background-color: rgb(250, 211, 149);
+}
+
+#audio_mati:hover, #audio_mati:focus {
+	transform: scale(1.1);
 }
 
 #audio_mati audio {
-    background: url("/img/volume-up_4178625.png") no-repeat center center;
-    background-size: contain;
-    border: none;
-    outline: none;
+	background: url("/img/volume-up_4178625.png") no-repeat center center;
+	background-size: contain;
+	border: none;
+	outline: none;
 }
 
 #audio_mati img {
-    width: 80px;
-    border: none;
-    outline: none;
+	width: 80px;
+	border: none;
+	outline: none;
 }
 
 /* BTN  ********************************/
-
-#btn_continuar{
-    position: absolute;
-    font-weight: bold;
-    bottom: 205px;
-    right: 290px;
-    width: 300px;
-    height: 80px;
-    border-radius: 5px;
-    background-color: #E3E386;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 2px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-
+#btn_continuar {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+	border-radius: 5px;
+	background-color: #E3E386;
+	border: none;
+	cursor: pointer;
+	letter-spacing: 4px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-#btn_continuar:hover{
-   background-color:  #d6a40e;
+#btn_continuar:hover {
+	background-color: #d6a40e;
+}
+
+#continuar img {
+	transform: scaleX(-1);
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	bottom: 155px;
+	right: 500px;
+}
+
+/* Ajustes generales para escritorio (pantallas de 1024px o más) */
+@media ( min-width : 1024px) {
+	#presentacion h2 {
+		font-size: 50px;
+		position: absolute;
+		left: 230px;
+		bottom: 210px;
+		text-align: center;
+	}
+	#titulo_mati {
+		font-size: 50px;
+		position: absolute;
+		left: 100px;
+		left: 450px;
+		bottom: 75px;
+	}
+	#mati {
+		position: absolute;
+		top: 150px;
+		left: 270px;
+	}
+	#mati img {
+		height: 330px;
+	}
+	#intro {
+		font-size: 26px;
+		position: absolute;
+		top: 180px;
+		margin-left: 50%;
+		width: 600px;
+		height: 280px;
+	}
+	#btn_continuar {
+		width: 320px;
+		height: 80px;
+		font-size: 24px;
+		position: absolute;
+		top: 170px;
+		right: 210px;
+	}
+	#continuar img {
+		transform: scaleX(-1);
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		top: 195px;
+		right: 480px;
+	}
+	#audio_mati {
+		position: absolute;
+		top: 50px;
+		left: 80px;
+		width: 80px;
+		height: 80px;
+	}
+	#audio_mati img {
+		position: absolute;
+		width: 80px;
+		left: 2px;
+	}
+}
+
+
+/* Media  para tablets entre 768px y 1023px */
+@media ( min-width : 768px) and (max-width: 1023px) {
+	#presentacion h2 {
+		font-size: 30px;
+		position: absolute;
+		left: 200px;
+		bottom: 170px;
+		text-align: center;
+	}
+	#titulo_mati {
+		font-size: 30px;
+		position: absolute;
+		left: 330px;
+		bottom: 45px;
+	}
+	#mati {
+		position: absolute;
+		top: 150px;
+		left: 220px;
+	}
+	#mati img {
+		height: 280px;
+	}
+	#intro {
+		font-size: 18px;
+		position: absolute;
+		top: 150px;
+		margin-left: 50%;
+		width: 300px;
+		height: 250px;
+		padding: 10px;
+	}
+	h4, h3 {
+		font-size: 20px;
+	}
+	#btn_continuar {
+		width: 250px;
+		height: 60px;
+		font-size: 20px;
+		position: absolute;
+		top: 175px;
+		right: 100px;
+	}
+	#continuar img {
+		transform: scaleX(-1);
+		width: 23px;
+		height: 23px;
+		position: absolute;
+		top: 190px;
+		right: 310px;
+	}
+	#audio_mati {
+		position: absolute;
+		top: 60px;
+		left: 100px;
+		width: 60px;
+		height: 60px;
+	}
+	#audio_mati img {
+		position: absolute;
+		width: 60px;
+		left: 2px;
+	}
 }

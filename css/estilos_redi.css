@@ -1,3 +1,7 @@
+/* Media para PC*/
+@media (min-width: 1024px){
+	
+
 body {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 2px;
@@ -52,4 +56,65 @@ h3{
 
 button:hover {
     background-color: #d6a40e;
+}
+}
+/* Media para tablets entre 768px y 1023px */
+@media ( min-width : 768px) and (max-width: 1023px){
+		
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    background-color: #86e3e3;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+h1{
+    position: absolute;
+    left:210px;
+   top: 50px;
+}
+
+h3{
+    position: absolute;
+    left:160px;
+    top: 150px;
+
+}
+
+
+/*** BOTON A LOGIN *******************************/
+
+#btn {
+
+        position: absolute;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        letter-spacing: 2px;
+        bottom: 255px;
+        left: 380px;
+        width: 300px;
+        height: 60px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: #E3E386;
+        border: 3px grey solid;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    
+    }
+    
+ #btn:hover{
+        background-color:  #a861f8;
+ }
+
+
+button:hover {
+    background-color: #d6a40e;
+}
 }

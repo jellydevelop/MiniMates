@@ -1,3 +1,5 @@
+/* Ajustes para PC */
+@media (min-width: 1024px) {
 body {
     background-color: #86B5E3;
 }
@@ -17,8 +19,8 @@ body {
     letter-spacing: 20px;
     z-index: 3;
     position: absolute;
-    bottom: 60px;
-    left: 250px;
+    bottom: 90px;
+    left: 220px;
     color: black;
     font-family: "Gloria Hallelujah", cursive;
     font-style: normal;
@@ -58,6 +60,73 @@ body {
     height: 150px;
 
     position:relative;
-    top:200px;
+    top:180px;
     left:800px;
+}
+}
+
+/* Ajustes para tablets entre 768px y 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+	body {
+    background-color: #86B5E3;
+}
+
+/***NUBE*******************************/
+#nube img{
+    width: 700px;
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    z-index: 0;
+}
+
+#nube h1 {
+
+    font-size: 35px;
+    letter-spacing: 20px;
+    z-index: 3;
+    position: absolute;
+    top: 160px;
+    left: 300px;
+    color: black;
+    font-family: "Gloria Hallelujah", cursive;
+    font-style: normal;
+
+}
+
+/***BOTON INICIO*******************************/
+
+#btn_descanso {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 70px;
+    left: 40%;
+    width: 200px;
+    height: 80px;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+#btn_descanso:hover{
+    background-color:  #a861f8;
+ }
+
+ /*** MATI*******************************/
+
+#mati{
+
+    width: 120px;
+    height: 120px;
+
+    position:relative;
+    top:110px;
+    left:550px;
+}
 }

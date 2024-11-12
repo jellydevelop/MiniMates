@@ -31,7 +31,7 @@ function inicioAudio() {
         elementoAudio.play().catch(error => {
             console.log('Autoplay was prevented:', error);
         });
-    }, 2000); // 2 segundos después de cargar la página
+    }, 1500); // 1.5 segundos después de cargar la página
 }
 
 
@@ -42,5 +42,5 @@ audio.addEventListener("click",audioPlay);
 
 //  listener para el evento que carga el audio al cargar la web => auto lectura
 document.addEventListener("DOMContentLoaded", inicioAudio);
-window.onload = alert("Primer mundo");
+window.onload = alert("****** MUNDO 1 ******");
 ////////////////////PENDIENTE DE ELIMINAR PORQUE NO ME CONVENCE

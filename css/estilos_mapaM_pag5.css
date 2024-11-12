@@ -1,177 +1,365 @@
-body {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 4px;
-    background-color: #86e3e3;
-    margin: 0;
-    padding: 0;
-    z-index:0;
-    position: relative;
-    overflow: hidden; 
-}
+@media (min-width: 1024px) {
+    body {
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 4px;
+        background-color: #86e3e3;
+        margin: 0;
+        padding: 0;
+        z-index: 0;
+        position: relative;
+        overflow: hidden;
+    }
 
-/* TITULO **********************************************/
-h1{
-    font-size: 50px;
-    text-align: center;
-}
+    /* TITULO **********************************************/
+    h1 {
+        font-size: 50px;
+        text-align: center;
+    }
 
-/* MAPA **********************************************/
-#mapa {
+    /* MAPA **********************************************/
+    #mapa {
+        position: absolute;
+        top: 5px;
+        left: 380px;
+        width: 900px;
+        height: 780px;
+        z-index: -1;
+    }
 
+    /* RETOS **********************************************/
+    #btn_inicio {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 25px;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        position: absolute;
+        left: 578px;
+        top: 500px;
+        z-index: 2;
+    }
+
+    #btn_reto1 {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 25px;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        position: absolute;
+        right: 450px;
+        top: 420px;
+        z-index: 2;
+    }
+
+    #btn_reto2 {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 25px;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        
+        position: absolute;
+        left: 590px;
+        top: 150px;
+        z-index: 2;
+    }    
+        /*POSICIÓN PARA CUANDO BOTÓN 3 EXISTA
+        position: absolute;
+        left: 750px;
+        top: 320px;
+        z-index: 2;
+    }
+
+    #btn_reto3 {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 25px;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        
+        
+        position: absolute;
+        left: 590px;
+        top: 150px;
+        z-index: 2;
+    }
+*/
+    /* MATI **********************************************/
+    #mati img {
+        width: 80px;
+        height: 90px;
+        position: absolute;
+        left: 500px;
+        top: 500px;
+        z-index: 3;
+    }
+/* Clase para posicionar a Mati en el botón de Reto 1 */
+.posicion-reto1 {
+    right: 450px; 
+    top: 420px;  
     position: absolute;
-    top:5px;
-    left: 380px;
-    width: 900px;
-    height: 780px;
-    z-index: -1;
-
+    z-index: 3;
 }
-
-/* RETOS **********************************************/
-
-#btn_inicio{
-
-border-radius: 50%;
-font-family: 'Montserrat', 'Sans Serif';
-font-size: 25px;
-padding: 10px;
-width: 100px; 
-height: 100px; 
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-background-color: rgb(141, 141, 249);
-border: 2px rgb(50, 45, 45) solid;
-box-shadow: 2px 2px 2px rgb(121, 109, 109) ;
-
-position: absolute;
-left: 578px;
-top: 500px;
-z-index: 2;
+/* Clase para posicionar a Mati en el botón de Reto 2 */
+.posicion-reto2 {
+    left: 590px;
+        top: 150px;  
+    position: absolute;
+    z-index: 3;
 }
-
-
-
-#btn_reto1{
-
-    border-radius: 50%;
-font-family: 'Montserrat', 'Sans Serif';
-font-size: 25px;
-padding: 10px;
-width: 100px; 
-height: 100px; 
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-background-color: rgb(141, 141, 249);
-border: 2px rgb(50, 45, 45) solid;
-box-shadow: 2px 2px 2px rgb(121, 109, 109) ;
-
-position: absolute;
-right: 450px;
-top:420px;
-z-index: 2;
-}
-
-#btn_reto2{
-
-    border-radius: 50%;
-font-family: 'Montserrat', 'Sans Serif';
-font-size: 25px;
-padding: 10px;
-width: 100px; 
-height: 100px; 
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-background-color: rgb(141, 141, 249);
-border: 2px rgb(50, 45, 45) solid;
-box-shadow: 2px 2px 2px rgb(121, 109, 109) ;
-
-position: absolute;
-left: 750px;
-top:320px;
-z-index: 2;
-}
-
-
-#btn_reto3{
-
-    border-radius: 50%;
-font-family: 'Montserrat', 'Sans Serif';
-font-size: 25px;
-padding: 10px;
-width: 100px;
-height: 100px; 
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-background-color: rgb(141, 141, 249);
-border: 2px rgb(50, 45, 45) solid;
-box-shadow: 2px 2px 2px rgb(121, 109, 109) ;
-
-position: absolute;
-left: 590px;
-top:150px;
-z-index: 2;
-}
-
-
-/* MATI **********************************************/
-#mati img{
-width: 80px; 
-height: 90px; 
-position: absolute;
-left: 500px;
-top: 500px;
-z-index: 3;
-
-}
-
-
-@keyframes inicioReto1 {
-    0%{
-        transform: translate(0px, 0px);
+    @keyframes inicioReto1 {
+        0% {
+            transform: translate(0px, 0px);
+        }
+        100% {
+            transform: translate(460px, -80px);
+        }
     }
+
+    @keyframes reto1Reto2 {
+        0% {
+            transform: translate(460px, -80px);
+        }
+        100% {
+            transform: translate(230px, -180px);
+        }
+    }
+    
+    @keyframes reto1Reto2 {
+        0% {
+            transform: translate(230px, -180px);
+        }
+        100% {
+            transform: translate(70px, -350px);
+      }
+    }
+    
+     @keyframes reto2Barco {
+        0% {
+            transform: translate(70px, -350px);
+        }
+        100% {
+            transform: translate(450px, -300px);
+        }
+    }
+/*PARA EXISTENCIA BOTÓN 3
+    @keyframes reto2Reto3 {
+        0% {
+            transform: translate(230px, -180px);
+        }
+        100% {
+            transform: translate(60px, -350px);
+        }
+    }
+
+    @keyframes reto3Barco {
+        0% {
+            transform: translate(60px, -350px);
+        }
+        100% {
+            transform: translate(450px, -300px);
+        }
+    }*/
+}
+
+/* Media para tablets entre 768px y 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 4px;
+        background-color: #86e3e3;
+        margin: 0;
+        padding: 0;
+        z-index: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* TITULO **********************************************/
+    h1 {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    /* MAPA **********************************************/
+    #mapa {
+        position: absolute;
+        top: 5px;
+        left: 180px;
+        width: 700px;
+        height: 580px;
+        z-index: -1;
+    }
+
+    /* RETOS **********************************************/
+    #btn_inicio {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 18px;
+        padding: 10px;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        position: absolute;
+        left: 333px;
+        top: 370px;
+        z-index: 2;
+    }
+
+    #btn_reto1 {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 18px;
+        padding: 10px;
+         width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        position: absolute;
+        right: 280px;
+        top: 300px;
+        z-index: 2;
+    }
+
+    #btn_reto2 {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 18px;
+        padding: 10px;
+         width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        position: absolute;
+        left: 350px;
+        top: 130px;
+        z-index: 2;
+        /* POSICIÓN PARA CUANDO BOTÓN 3 EXISTA */
+        /* position: absolute; */
+        /* left: 750px; */
+        /* top: 320px; */
+        /* z-index: 2; */
+    }
+
+    /*
+    #btn_reto3 {
+        border-radius: 50%;
+        font-family: 'Montserrat', 'Sans Serif';
+        font-size: 25px;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(141, 141, 249);
+        border: 2px rgb(50, 45, 45) solid;
+        box-shadow: 2px 2px 2px rgb(121, 109, 109);
+        position: absolute;
+        left: 590px;
+        top: 150px;
+        z-index: 2;
+    }
+    */
+
+    /* MATI **********************************************/
+    #mati img {
+        width: 80px;
+        height: 90px;
+        position: absolute;
+       left: 333px;
+        top: 370px;
+        z-index: 3;
+    }
+
+    @keyframes inicioReto1 {
+        0% {
+            transform: translate(0px, 0px);
+        }
+        100% {
+            transform: translate(300px, -80px);
+        }
+    }
+
+    @keyframes reto1Reto2 {
    
-    100% {
-        transform: translate(460px,-80px); 
-    }
-}
-
-@keyframes reto1Reto2{
-
-    0% {
-        transform: translate(460px, -80px);
-    }
-    100% {
-        transform:translate(230px, -180px); 
+        0% {
+            
+        
+            transform: translate(300px, -80px);
+        }
+        100% {
+            transform: translate(10px, -260px);
+        }
     }
 
-}
+   /* @keyframes reto2Reto3 {
+        0% {
+            transform: translate(230px, -180px);
+        }
+        100% {
+            transform: translate(60px, -350px);
+        }
+    }*/
 
-@keyframes reto2Reto3{
-
-    0% {
-        transform: translate(230px, -180px); 
-    }
-    100% {
-        transform: translate(60px, -350px); 
-    }
+    @keyframes reto2Barco {
     
-}
-
-@keyframes reto3Barco{
-
-    0% {
-        transform: translate(60px, -350px); 
+        0% {
+        
+        
+            transform: translate(10px, -260px);
+        }
+        100% {
+            transform: translate(280px, -250px);
+        }
     }
-    100% {
-        transform: translate(450px, -300px); 
-    }
-    
 }

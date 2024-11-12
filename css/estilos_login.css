@@ -1,3 +1,4 @@
+/* Estilos generales para todo el cuerpo */
 body {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 2px;
@@ -16,17 +17,18 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 00%;
+    height: 100%;
     z-index: 0; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-   
 }
 
 .wave-container {
     display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .wave-container img {
@@ -83,8 +85,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: aliceblue;
-    width: 500px;
-    height: 350px;
+    width: 90%;
+    max-width: 400px; /* Asegura que no sea más ancho que 400px */
     align-items: center;
     z-index: 4; 
     padding: 15px;
@@ -93,52 +95,129 @@ body {
     border-radius: 20px;
 }
 
-
 #form h3 {
+	    font-family: 'Montserrat', sans-serif;
+	
     margin-left: 0;
     padding-bottom: 10px;
     text-align: center;
     letter-spacing: 3px;
 }
-label{
+
+label {
+	    font-family: 'Montserrat', sans-serif;
+	
     letter-spacing: 5px;
-    font-size:18px;
-    text-shadow: #0080c0 20px 0px 8px;
+    font-size: 18px;
+    background-color: #e6e6e6;
+    background-size: 100px;
+    color: #676767;
+    font-weight:bold;
+    margin-left: 30px;
 }
+
 input {
+	    font-family: 'Montserrat', sans-serif;
+	
     display: block;
     margin: 20px auto;
     border-radius: 8px;
-    width: 80%;
     padding: 10px;
+    width: 100%; /* Se ajusta a todo el ancho disponible */
 }
+
 /*** BOTON *******************************/
 
 #botonComprobar {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 15px;
+    left: 30%;
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: 3px grey solid;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
 
-        position: absolute;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold;
-        letter-spacing: 2px;
-        bottom: 15px;
-        left: 30%;
-        width: 230px;
-        height: 60px;
-        text-align: center;
-        border-radius: 5px;
-        background-color: #E3E386;
-        border: 3px grey solid;
-        font-size: 22px;
-        cursor: pointer;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    
-    }
-    
- #botonComprobar:hover{
-        background-color:  #a861f8;
- }
-
+#botonComprobar:hover {
+    background-color: #a861f8;
+}
 
 button:hover {
     background-color: #d6a40e;
+}
+
+ /* Ajustes para pantallas de PC *****************/
+
+@media (min-width: 1024px) {
+
+   #flag {
+        width: 63%;
+        height: auto; 
+    }
+
+    .wave-container img {
+        width: 70%;
+    }
+
+    #form {
+        width: 45%;
+        max-width: none;
+                height: 55%; 
+    }
+
+    label {
+        font-size: 18px;
+        margin-left: 30px;
+    }
+
+    input {
+        width: 50%;
+    }
+}
+
+ /* Ajustes para pantallas de tabltes *****************/
+@media (min-width: 768px) and (max-width: 1023px) {
+   
+    #flag {
+       width: 80%;
+        height: auto; 
+    }
+    
+    #form h3 {
+ font-size: 20px; 
+}
+
+    .wave-container img {
+        width: 90%;
+        height:100%
+    }
+
+    #form {
+        width: 55%;
+        max-width: none;
+                height: 55%;
+    }
+
+    #botonComprobar {
+        width:  45%;
+        height: 15%; 
+         font-size: 18px; 
+        
+    }
+
+    input {
+        width: 10%; 
+    }
+
+    label {
+        font-size: 16px; 
+    }
 }

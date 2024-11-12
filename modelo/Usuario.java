@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.annotations.NamedQuery;
 
 import es.daw.proyectoDAW.errores.AtributoNuloException;
+import es.daw.proyectoDAW.errores.ClaseNoAsignadaException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -62,9 +63,9 @@ public  class Usuario {
 
 	// ------ RELACIONES
 	
-	   // Relación con Clase
+	   // Relación con Clase-alumnos
  @ManyToOne
-   @JoinColumn(name = "letra_clase", nullable = true)  // Únicamente un profesor o un alumno tendrá clase asignada	
+   @JoinColumn(name = "letra_clase_asignada", nullable = true)  // Únicamente un profesor o un alumno tendrá clase asignada	
    private Clase clase;
 	
 		  //relación con pa+ida
@@ -73,7 +74,7 @@ public  class Usuario {
 	
 	//para profes
 	@OneToOne
-	@JoinColumn(name = "letra_clase", referencedColumnName = "LETRA_CLASE", insertable = false, updatable = false)
+	@JoinColumn(name = "letra_clase_como_profesor", referencedColumnName = "LETRA_CLASE", nullable = true)
     private Clase claseComoProfesor;
 
 	// ---- CONSTRUCTOR VACÍO
@@ -82,23 +83,23 @@ public  class Usuario {
 
 	// ---- CONSTRUCTOR PARA DAR DE ALTA A ALUMNOS
 	public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String primApellidoUsuario,
-			String secApellidoUsuario, String letraClase, String nia) {
-		this.nombreUsuario = nombreUsuario;
-		this.mailUsuario = mailUsuario;
-		this.passUsuario = passUsuario;
-		this.rolUsuario = "alumno";
-		this.primApellidoUsuario = primApellidoUsuario;
-		this.secApellidoUsuario = secApellidoUsuario;
-		this.niaAlumno=nia;
-	}
+            String secApellidoUsuario, String letraClase, String nia, Clase clase) {
+this.nombreUsuario = nombreUsuario;
+this.mailUsuario = mailUsuario;
+this.passUsuario = passUsuario;
+this.rolUsuario = ROL_ALUMNO;
+this.primApellidoUsuario = primApellidoUsuario;
+this.secApellidoUsuario = secApellidoUsuario;
+this.niaAlumno = nia;
+this.clase = clase;
+}
 
-	// ---- CONSTRUCTOR PARA DAR DE ALTA A PROFESOR
-	public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String letraClase) {
-		this.nombreUsuario = nombreUsuario;
-		this.mailUsuario = mailUsuario;
-		this.passUsuario = passUsuario;
-		this.rolUsuario = "profesor";
-	}
+public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String letraClase) {
+this.nombreUsuario = nombreUsuario;
+this.mailUsuario = mailUsuario;
+this.passUsuario = passUsuario;
+this.rolUsuario = ROL_PROFESOR;
+}
 
     // ---- CONSTRUCTOR PARA VALIDACIÓN DE LOGIN
     public Usuario(String mailUsuario, String passUsuario) throws AtributoNuloException {
@@ -159,6 +160,11 @@ public  class Usuario {
 	public Clase getClaseComoProfesor() {
 		return claseComoProfesor;
 	}
+	
+	public Clase getClase() {
+		return clase;
+	}
+	
 
 	// ----- SETTERS
 	public void setIdUsuario(Long idUsuario) {
@@ -230,6 +236,25 @@ public  class Usuario {
 	public boolean esProfesor() {
 		return "profesor".equals(rolUsuario);
 	}
+ //devuelve una clase
+	public Clase getClaseRol() {
+	    if (ROL_ALUMNO.equals(rolUsuario)) {
+	        return clase; // Retorna 'letra_clase_asignada' para el alumno
+	    } else if (ROL_PROFESOR.equals(rolUsuario)) {
+	        return claseComoProfesor; // Retorna 'letra_clase_como_profesor' para el profesor
+	    }
+	    return null; // Si no es ni alumno ni profesor, retorna null
+	}
+
+	 public void asignarClase(String letraClase) throws ClaseNoAsignadaException {
+		 
+	        if (letraClase == null || letraClase.isEmpty()) {
+	            throw new ClaseNoAsignadaException("La letra de la clase no puede estar vacía.");
+	        }
+	        // Suponiendo que letraClase se corresponde a un objeto Clase recuperado
+	        this.clase = new Clase(); // Instancia la clase con la letra obtenida
+	        this.clase.setLetraClase(letraClase);
+	    }
 
 
 	

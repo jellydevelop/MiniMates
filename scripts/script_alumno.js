@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+		//----------------DEFINIMOS EL ROL DLE USUARIO PARA BLOQUEAR PERFILES
+	localStorage.setItem('rolUsuario', 'esAlumno');
 
 //----------------VERIFICACION DE PARTIDA YA JUGADA
 

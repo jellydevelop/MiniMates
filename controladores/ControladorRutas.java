@@ -146,7 +146,15 @@ import org.springframework.web.bind.annotation.RestController;
 		    	
 		        return "mapaMundo_pag7";
 		    }
+	//------------------------>>>> MAPA MUNDO1 reto2
+			
+		    @GetMapping("/mapaMundo1Fin")
 		    
+		    public String mostrarM1Fin (){
+		    	
+		        return "mapaMundo1_Fin";
+		    }
+		        
 	//------------------------>>>> NOT FOUND 404
 			
 		    @GetMapping("/notFound")

@@ -129,7 +129,7 @@ casilla.disabled = true;
 
     // Redireccionar después de cierto tiempo (3 segundos en este ejemplo)
     setTimeout(() => {
-        window.location.href = "/descanso";
+        window.location.href = "/mapaMundo1Fin";
     }, 2000);
 }
 

@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
-    <!-- FUENTE PARA LA NUBE-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-         <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
-        
-    <!-- FUENTE PARA EL TITULO  -->
 
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-       
-       
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/estilos_index.css"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDEX</title>
+<!-- FUENTE PARA LA NUBE-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap"
+	rel="stylesheet">
+
+<!-- FUENTE PARA EL TITULO  -->
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+	rel="stylesheet">
+
+<!-- BOOTSTRAP -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/estilos_index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INDEX</title>
 </head>
 
 <body>
-    
-<!--IMAGEN DE INICIO-------------------------------------->
-    <div id="nube">
-        <img src="img/nube2.png" alt="titulo_app">
-        <h1>MINIMATES</h1>
+	<!---------------------------------------->
+	<div class="container vh-100 d-flex flex-column justify-content-center">
 
-    </div>
+		<!--IMAGEN DE NUBE-------------------------------------->
 
-<!-- BOTON PARA INICIAR-------------------------------------->
+		<div class=" col-md-8 col-lg-6">
+			<div id="nube" class="text-center mb-4">
+				<img src="img/nube2.png" class="img-fluid" alt="titulo_app">
+				<h1 class="mt-3">MINIMATES</h1>
 
-    <button id="btn_index" value="inicio" onclick="rediLogin(event)">! EMPEZAMOS ¡</button>
+			</div>
+		</div>
 
 
-    <!--SCRIPT-->
-    <script src="/scripts/script_index.js"></script>
+
+		<!-- BOTON PARA INICIAR-------------------------------------->
+		<div class="row justify-content-center text-center mt-3">
+			<div class="col-lg-12 col-md-4">
+				<button id="btn_index" value="inicio" onclick="rediLogin(event)">!
+					EMPEZAMOS ¡</button>
+			</div>
+		</div>
+
+	</div>
+
+
+	<!--SCRIPT-->
+	<script src="/scripts/script_index.js"></script>
 </body>
 </html>
