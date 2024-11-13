@@ -1,4 +1,4 @@
-/*package es.daw.proyectoDAW.controladores;
+package es.daw.proyectoDAW.controladores;
 
 import java.net.URI;
 import java.util.List;
@@ -26,7 +26,6 @@ import es.daw.proyectoDAW.errores.ProfesorNoEncontradoException;
 import es.daw.proyectoDAW.modelo.EmailRequest;
 import es.daw.proyectoDAW.modelo.Usuario;
 import es.daw.proyectoDAW.servicio.IFServicioEmail;
-import es.daw.proyectoDAW.servicio.ServicioEmail;
 import es.daw.proyectoDAW.servicio.ServicioProfesor;
 
 
@@ -46,25 +45,23 @@ public class ControladorEmail {
         try {
         	
         	// Llama al servicio para enviar el email
-            servicioEmail.sendMailToProfessor(emailRequest.getToken(),
+            servicioEmail.sendMailToProfessor(
+            		emailRequest.getToken(),
             		emailRequest.getNombreTutor(),
             		emailRequest.getCuerpoMensaje());
             
             
             return ResponseEntity.ok("Email enviado correctamente.");
             
-        } catch (AlumnoNoEncontradoException e) {
+        } catch (AlumnoNoEncontradoException |ProfesorNoEncontradoException e) {
         	
             return ResponseEntity.status(404).body(e.getMessage()); // 404 Not Found
             
-        } catch (ProfesorNoEncontradoException e) {
-        	
-            return ResponseEntity.status(404).body(e.getMessage()); // 404 Not Found
-            
+                    
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error interno del servidor: " + e.getMessage()); // 500 Internal Server Error
         }
     }
 }
 
-*/
+

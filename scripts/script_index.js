@@ -2,7 +2,6 @@
 const btn_redi = document.getElementById("btn_index");
 
 // -------------------LISTENERS
-window.addEventListener("load", cargaAlert);  // Mostrar el alert al cargar la página
 btn_redi.addEventListener("click", rediLogin); // Redirigir al login al hacer clic en el botón
 
 // -------------------FUNCIONES

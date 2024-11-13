@@ -55,7 +55,9 @@ body {
 /* Estilos específicos para pantallas medianas (tabletas) */
 @media (min-width: 768px) and (max-width: 1023px)  {
     #btn_index {
-        margin-left: 70px;
+    position:absolute;
+        left: 100px;
+        width: 500px;
             }
             
               #nube img{

@@ -1,78 +1,76 @@
-/*package es.daw.proyectoDAW.servicio;
+package es.daw.proyectoDAW.servicio;
 
 import org.springframework.stereotype.Service;
 import es.daw.proyectoDAW.errores.AlumnoNoEncontradoException;
 import es.daw.proyectoDAW.errores.ProfesorNoEncontradoException;
-import es.daw.proyectoDAW.modelo.Alumno;
+import es.daw.proyectoDAW.herramientas.JWTUtil;
 import es.daw.proyectoDAW.modelo.Usuario;
-import es.daw.proyectoDAW.seguridad.JWTUtil;
+import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @Service
-public class ServicioEmail {
+public class ServicioEmail implements IFServicioEmail {
+	
+    private final JavaMailSender javaMailSender;
 
-	// Enlazamos con la librería JAVAMAILSENDER
+
 	@Autowired
 	private JavaMailSender mailSender;
 
-	// Enlazamos con repositorio
-	@Autowired
-	private ServicioAlumno repoUsuario;
+	
+	// enlazamos el repositorio de Usuario 
+    @Autowired
+    private RepositorioUsuario repoUsuario;
 
 	// Enlazamos con JWT seguridad
 	@Autowired
 	private JWTUtil tokenJWT;
 	
+	 // Constructor para la inyección de JavaMailSender
+		@Autowired
+	    public ServicioEmail(JavaMailSender javaMailSender) {
+	        this.javaMailSender = javaMailSender;
+	    }
+	
 	
 	//--------------------------------------------
 
-	// Creamos el método que manejará los mensajes
-	public void sendMailToProfessor(String token, String nombreTutor, String cuerpoMensaje) 
-	        throws ProfesorNoEncontradoException, AlumnoNoEncontradoException {
-	    
-	    // Obtenemos el DESDE (mail del alumno logueado desde el token y lo buscamos en la BDD)
-	    String emailAlumno = tokenJWT.obtenerEmailDesdeToken(token);
-	    Usuario usuarioAlumno = repoUsuario.findByMailUsuario(emailAlumno);
+	 @Override
+	    public void sendMailToProfessor(String token, String nombreTutor, String cuerpoMensaje)
+	            throws ProfesorNoEncontradoException, AlumnoNoEncontradoException {
 
-	    // Validamos que el usuario existe
-	    if (usuarioAlumno == null) {
-	        throw new AlumnoNoEncontradoException("Alumno no encontrado con el email proporcionado.");
-	    }
+	        // El token ahora es el email del alumno
+	        String emailAlumno = token; // Usamos el token como email
 
-	    // Comprobamos si el usuario es un Alumno
-	    if (usuarioAlumno instanceof Alumno) {
-	        Alumno alumno = (Alumno) usuarioAlumno; // Casteo seguro
+	        // Buscar al alumno usando el email
+	        Usuario alumno = repoUsuario.findByMailUsuario(emailAlumno);
 
-	        // Obtener la letra de la clase a la que pertenece el alumno
-	        String letraClase = alumno.getClase().getLetraClase(); // Acceso directo a la letra de la clase
+	        if (alumno == null) {
+	            throw new AlumnoNoEncontradoException("Alumno no encontrado.");
+	        }
 
-	        // Ahora puedes continuar con la lógica para obtener el profesor
-	        Usuario paraProfesor = repoUsuario.obtenerProfesorPorLetra(letraClase);
+	        // Obtener el profesor basado en la letra de la clase
+	        String letraClase = alumno.getClase().getLetraClase();
+	        
+	        Usuario profesor = repoUsuario.findByLetraClaseAndRolUsuarioProfesor(letraClase);
 
-	        // Validamos que el profesor existe
-	        if (paraProfesor == null) {
+	        if (profesor == null) {
 	            throw new ProfesorNoEncontradoException("Profesor no encontrado para la letra de clase: " + letraClase);
 	        }
 
-	        // Creamos asunto y cuerpo del mensaje
-	        String asunto = "CONSULTA DE " + nombreTutor;
-	        String texto = "Mensaje de:\n\n " + cuerpoMensaje + "\n\nEnviado por: " + alumno.getNombreUsuario();
-
-	        // Creamos y enviamos el mensaje
+	        // Preparar el mensaje de correo
 	        SimpleMailMessage mensaje = new SimpleMailMessage();
-	        mensaje.setTo(paraProfesor.getMailUsuario());
-	        mensaje.setSubject(asunto);
-	        mensaje.setText(texto);
-	        mensaje.setFrom(alumno.getMailUsuario());
+	        mensaje.setTo(profesor.getMailUsuario());
+	        mensaje.setSubject("CONSULTA DE " + nombreTutor);
+	        mensaje.setText("Mensaje:\n" + cuerpoMensaje + "\n\nEnviado por: " + alumno.getNombreUsuario());
+	        mensaje.setFrom(alumno.getMailUsuario()); // El correo que se utiliza para el envío
 
-	        // Mandamos el mensaje con JavaMail
-	        mailSender.send(mensaje);
-	    } else {
-	        throw new AlumnoNoEncontradoException("El usuario no es un alumno.");
+	        // Enviar el mensaje
+	        mailSender.send(mensaje); // Envía el correo
 	    }
-	    
 	}
-}
-	*/

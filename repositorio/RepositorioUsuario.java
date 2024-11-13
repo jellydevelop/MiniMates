@@ -53,7 +53,7 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
 		
     	//--> contacto.html
     	    @Query("SELECT u FROM Usuario u WHERE u.clase.letraClase = ?1 AND u.rolUsuario = 'profesor'")
-    	    Optional<Usuario> findByLetraClaseAndRolUsuarioProfesor(String letraClase);
+    	    Usuario findByLetraClaseAndRolUsuarioProfesor(String letraClase);
     	 	
 /////////////// REPO CLASE /////////////-----------------
 

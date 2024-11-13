@@ -74,6 +74,7 @@ async function mandamosInfoUser(event) {
 			 
             // Guardamos el email en localStorage
 				localStorage.setItem('emailUsuario', mailUser);
+				localStorage.setItem('token', result.token); 
             alert('Registro correcto!!', result);
             
 			//redirigimos
