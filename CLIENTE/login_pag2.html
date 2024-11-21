@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos_login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> <!-- Enlace para importar la fuente Montserrat -->
+
+    <title>LOGIN</title>
+
+
+</head>
+<!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+ 
+<body>
+
+    <!--OLAS-->
+    <div class="background">
+        <div class="wave-container">
+            <img class="wave1" src="img/olas_login.png" alt="Ola 1">
+            <img class="wave1" src="img/olas_login.png" alt="Ola 2">
+        </div>
+        <div class="wave-container">
+            <img class="wave2" src="img/olas_login.png" alt="Ola 3">
+            <img class="wave2" src="img/olas_login.png" alt="Ola 4">
+        </div>
+        <div class="wave-container">
+            <img class="wave1" src="img/olas_login.png" alt="Ola 1">
+            <img class="wave1" src="img/olas_login.png" alt="Ola 5">
+        </div>
+        <div class="wave-container">
+            <img class="wave2" src="img/olas_login.png" alt="Ola 3">
+            <img class="wave2" src="img/olas_login.png" alt="Ola 4">
+        </div>
+        <div class="wave-container">
+            <img class="wave1" src="img/olas_login.png" alt="Ola 1">
+            <img class="wave1" src="img/olas_login.png" alt="Ola 5">
+        </div>
+    </div>
+    <!-- / OLAS------------------>
+
+    <img id="flag"src="img/bandera_login2.png" alt="">
+
+<!--FORMULARIO LOGIN ---------------------------->
+    <form id="form"> 
+        <h3>Por favor introduce las credenciales del alumno</h3>
+
+
+            TU EMAIL DE USUARIO:
+            <br>
+                <input type="email" name="mailUser" id="mailUser" placeholder="Tu mail de usuario" maxlength="20" required>
+
+                TU CONTRASEÑA:
+                <br>
+                <input type="password" name="passUser" id="passUser" maxlength="10" required>
+                <br>        <br>
+
+        <button type="submit" id="botonComprobar">COMPROBAMOS</button>
+    </form>
+<!----------------------------------------------->
+
+
+<!-- ENLACE A JS-->
+<script src="/scripts/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos_introMundo1_pag4.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> <!-- Enlace para importar la fuente Montserrat -->
+
+    <title>INTRO_MUNDO_1</title>
+</head>
+
+<!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+ 
+<body>
+   
+    <h3>Bienvenido al...</h3>
+    <h2>MUNDO PIRATA</h2>
+   
+    <!-- PLAYA ---------------------------->
+         <!-- PALMERA ---------------------------->
+
+
+        <div id="palmera" >
+            <img src="/img/palm_1488319.png" alt="">
+        </div>
+
+         <!-- BOTE PIRATA ---------------------------->
+
+
+            <div id="bote_pirata" >
+                <img src="/img/bote_pirata.png" alt="">
+            </div>
+
+         <!-- MATI PIRATA ---------------------------->
+
+
+            <div id="mati_pirata" >
+                <img src="/img/mati_1.png" alt="">
+            </div>
+
+         <!-- ARENA ---------------------------->
+
+            <div id="arena">
+
+            </div>
+
+     <!-- OLAS ---------------------------->
+
+
+        <div id="bloque1_olas">
+            <img id="ola1" src="img/olas_login.png" alt="olas">
+            <img id="ola2" src="img/olas_login.png" alt="olas">
+        </div>
+
+        <div id="bloque2_olas">
+            <img id="ola3" src="img/olas_login.png" alt="olas">
+            <img id="ola4" src="img/olas_login.png" alt="olas">
+        </div>
+
+        <div id="bloque3_olas">
+            <img id="ola5" src="img/olas_login.png" alt="olas">
+            <img id="ola6" src="img/olas_login.png" alt="olas">
+        </div>
+
+        <div id="bloque4_olas">
+            <img id="ola7" src="img/olas_login.png" alt="olas">
+            <img id="ola8" src="img/olas_login.png" alt="olas">
+        </div>
+
+        <div id="bloque5_olas">
+            <img id="ola9" src="img/olas_login.png" alt="olas">
+            <img id="ola10" src="img/olas_login.png" alt="olas">
+        </div>
+
+
+     <!-- GAVIOTAS ---------------------------->
+
+     <div id="gaviotas">
+        <img id="gav1" src="img/seagull_2918657.png" alt="gaviota1">
+        <img id="gav2" src="img/seagull_2918657.png" alt="gaviota1">
+    </div>
+
+    <!--BOTON AUDIO------------------------------------->
+
+<div id="audio_mati" onclick="audioPlay()">
+    <img src="/img/volume-up_4178625.png" alt="Icono de audio">
+    <audio id="audio"> 
+        <source src="/audios/collect-points-190037.mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+</div>
+
+
+    <!--BOTON SIGUIENTE PAGINA------------------------------------->
+
+    <button id="btn_iniciarJuego">¡ EMPIEZA LA AVENTURA !</button>
+
+<!-- ENLACE A JS-->
+    <script src="/scripts/script_intro.js"></script>
+</body>
+</html>

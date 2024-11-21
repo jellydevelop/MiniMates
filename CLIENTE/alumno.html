@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <!-- FUENTE PARA LA NUBE-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+    <!-- FUENTE PARA EL TITULO  -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+       
+       
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/estilos_alumno.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>ALUMNO</title>
+
+
+    </head>
+
+    <!--ESTILO PARA VALIDAR FORMULARIO -->
+
+<style>
+    :is(input, textarea):invalid {
+    background: rgba(255, 0, 0, 0.468);
+    color: black;
+    }
+    :is(input, textarea):valid {
+    background: rgba(0, 128, 0, 0.542);
+    }
+    </style>
+
+<!--INICIO BODY -->
+<body>
+
+    <h1>MENÚ DE ALUMNO</h1>
+
+    <h3>Elige qué quieres hacer hoy</h3>
+
+<!--ZONA ELECCION DE ACTIVIDAD ---------------------------->
+    <form id='form' action="" method="post">
+
+        
+        <input type="radio" name="opcion" id="statsAlum">  ESTADÍSTICAS
+        
+        
+            <input type="radio" name="opcion" id="dataPartidas">  
+            <label id='dataLabel' for="dataPartidas">JUGAR </label>
+ 
+  
+    </form>
+<!----------------------------------------------->
+
+<!-- ENLACE A JS-->
+<script src="/scripts/script_alumno.js"></script>
+</body>
+</html>

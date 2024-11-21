@@ -1,0 +1,211 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    background-color: #86e3e3;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* Para evitar scrollbars si las imágenes de olas se salen del viewport */
+}
+
+h2{
+    margin-left: 200px;
+}
+
+#explicamos{
+    position: absolute;
+    margin-left:350px;
+    margin-top: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    z-index: 8;
+    background-color: rgba(250, 235, 215, 0.671);
+    padding-left:15px;
+}
+/* DECORADO  ********************************/
+
+#isla{
+    z-index: 1;
+    position: absolute;
+    margin-left:500px;
+    margin-top: 30px;
+    width: 500px;
+    height: 350px;
+}
+
+#cofre_cerrado{
+    width: 200px;
+    height: 150px;
+    z-index: 1;
+    position: absolute;
+    margin-left:830px;
+    margin-top: 250px;
+
+}
+#tierra{
+    width: 600px;
+    height: 150px;
+    z-index: 0;
+    position: absolute;
+    margin-left:500px;
+    margin-top: 280px;
+    background-color: #faa851;
+    border-radius: 100px 100px 100px 100px;
+}
+/* TABLA DE NÚNMEROS  ********************************/
+
+#tabla_numeros {
+    border: 2px solid #000;
+    z-index: 2;
+    position:absolute;
+    margin-left: 490px;
+    margin-top: 380px; 
+    height: 120px;
+    width: 450px;
+}
+
+#tabla_numeros tr td{
+    border: 1px solid #000;
+    text-align: center;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 40px;
+    background-color: #fbfb08;
+    z-index: 18;
+}
+.numero:hover{
+    background-color: #c1aeeb; 
+} 
+
+#tabla_numeros button {
+    font-size: 40px; /* Ajusta el tamaño de la fuente de los botones */
+    padding: 20px 20px; /* Ajusta el padding de los botones */
+    border: none;
+    background-color: #fbfb08; /* Color de fondo de los botones */
+    cursor: pointer;
+}
+    
+/* OLAS  ********************************/
+
+#ola1{
+    width: 400px;
+    position: absolute;
+    margin-top: 300px;
+    z-index:0;
+}
+#ola2{
+    width: 400px;
+    position: absolute;
+    margin-top: 300px;
+    margin-left:352px;
+    z-index:-1;
+}
+#ola3{
+    width: 400px;
+    position: absolute;
+    margin-top: 300px;
+    margin-left:1100px;
+    z-index:-1;
+}
+/* BTON INICIO JUEGO  ********************************/
+
+#iniciarJuego{
+    position:absolute;
+    margin-left: 50px;
+    margin-top:60px;
+    width: 200px;
+    height: 40px;
+    background-color: #f7bd82;   
+    border-radius: 19px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-family: 'Montserrat',sans-serif;
+    font-size: 16px;
+    font-weight:600;
+    letter-spacing: 2px;
+}
+
+#iniciarJuego:hover{
+    background-color:  #a861f8;
+ }
+
+/* AUDIO  ********************************/
+
+#audioCofre{
+    position: absolute;
+    top:5px;
+    left:70px;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(215, 72, 215);
+    border-radius: 19px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out;
+    z-index: 8;
+}
+#audioCofre:hover{
+    background-color: rgb(250, 211, 149);
+}
+
+#audioCofre:hover,
+#audioCofre:focus {
+    transform: scale(1.1); /*se agranda un 10%*/
+}
+
+#audioCofre audio {
+    background: url("/img/volume-up_4178625.png") no-repeat center center;
+    background-size: contain;
+    border: none;
+    outline: none;
+}
+
+#audioCofre img {
+    width: 80px;
+    border: none;
+    outline: none;
+}
+
+/* LISTA AUDIO  ********************************/
+#lista_audios{
+    position: absolute;
+    top:155px;
+    left:60px;
+    width: 150px;
+    height: 490px;
+    padding-top: 15px;
+    background-color: rgb(225, 227, 194);
+    border-radius: 19px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 18;
+}
+
+.numeroL button{
+    margin-bottom:20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    transition: background-color 0.3s;
+
+}
+
+.numeroL:hover{
+transform:scale(1.2);
+}
+
+.seleccionado {
+    background-color: purple;
+}
+
+.numero {
+    transition: background-color 0.3s;
+}
+
+
+
+
+
+
+
+
+

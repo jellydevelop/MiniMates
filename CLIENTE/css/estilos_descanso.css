@@ -1,0 +1,63 @@
+body {
+    background-color: #86B5E3;
+}
+
+/***NUBE*******************************/
+#nube {
+    width: 700px;
+    position: absolute;
+    top: 50px;
+    left: 200px;
+    z-index: 0;
+}
+
+#nube h1 {
+
+    font-size: 80px;
+    letter-spacing: 20px;
+    z-index: 3;
+    position: absolute;
+    bottom: 60px;
+    left: 250px;
+    color: black;
+    font-family: "Gloria Hallelujah", cursive;
+    font-style: normal;
+
+
+}
+
+/***BOTON INICIO*******************************/
+
+#btn_descanso {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    bottom: 25px;
+    left: 40%;
+    width: 300px;
+    height: 80px;
+    border-radius: 5px;
+    background-color: #E3E386;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+}
+
+#btn_descanso:hover{
+    background-color:  #a861f8;
+ }
+
+ /*** MATI*******************************/
+
+#mati{
+
+    width: 150px;
+    height: 150px;
+
+    position:relative;
+    top:200px;
+    left:800px;
+}
