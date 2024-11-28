@@ -1,13 +1,14 @@
 package es.daw.proyectoDAW.repositorio;
 
-import org.apache.el.stream.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import es.daw.proyectoDAW.modelo.Centro_Educativo;
 import es.daw.proyectoDAW.modelo.Clase;
+import es.daw.proyectoDAW.modelo.Usuario;
 
+@Repository
 public interface RepositorioClase extends JpaRepository<Clase, Long> {
 
 	Clase findByLetraClase(String letraClase);
@@ -22,6 +23,8 @@ public interface RepositorioClase extends JpaRepository<Clase, Long> {
 	// -------------------------------------------------------
 
 	//Clase findClaseByLetraAndCentro(String letraClase, Centro_Educativo centro);
+    @Query("SELECT u FROM Usuario u JOIN u.clase c WHERE u.rolUsuario = 'profesor' AND c.letraClase = :letraClase")
+    Usuario findProfesorByLetraClase(@Param("letraClase") String letraClase);
 
 	
 

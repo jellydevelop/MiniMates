@@ -7,5 +7,6 @@ public interface IFServicioUsuario {
 	//-------------------------------------------------------------READ
     public Usuario findByMailAndPass(String mail, String pass);
 
+ //   public void asignarUsuarioAClasePorLetra(Long usuarioId, String letraClase) throws Exception ;
 
 }

@@ -3,9 +3,13 @@ body {
 }
 
 #nube {
+	position:absolute;
 	width: 900px;
 	max-width: 200%;
 	z-index: 0;
+	top: 40px;
+		left: 120px;
+	
 }
 
 #nube h1 {
@@ -14,56 +18,66 @@ body {
 	z-index: 3;
 	position: absolute;
 	bottom: 190px;
-	left: 200px;
+	left: 220px;
 	color: black;
 	font-family: "Gloria Hallelujah", cursive;
 	font-style: normal;
 }
 
+
+
 #btn_index {
 	font-family: 'Montserrat', sans-serif;
 	font-weight: bold;
 	letter-spacing: 2px;
-	width: 100%;
+	width: 90%;
 	max-width: 350px;
-	height: 80px;
+	height: 60px;
 	border-radius: 5px;
 	background-color: #E3E386;
 	border: none;
 	font-size: 1.2rem;
 	cursor: pointer;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+margin-top: 150px;
+left: 400px;
+
+position: absolute;
 }
 
 #btn_index:hover {
 	background-color: #a861f8;
 }
 
-/* Solo para pantallas grandes y mayores */
-@media (min-width: 1024px) {
-    #nube {
-        margin-left: 80px;
-    }
-    #nube h1 {
-        margin-left: 80px; 
-    }
-    #btn_index {
-        margin-left: 20px; 
-    }
+#cuidado {
+	display: block;
+	overflow: hidden;
+	margin-bottom: 30px;
+		width:200%;
+	
 }
 
-/* Estilos específicos para pantallas medianas (tabletas) */
-@media (min-width: 768px) and (max-width: 1023px)  {
-    #btn_index {
-    position:absolute;
-        left: 100px;
-        width: 500px;
-            }
-            
-              #nube img{
-        margin-left: 50px;
-    }
-    #nube h1 {
-        margin-left: 80px; 
-    }
+#cuidado img {
+	width: 80px;
+	height: 80px;
+	float: left;
+	left: 120px;
+	top:220px;
+	 margin-right: 10px;
+
+position: absolute;
+}
+
+#cuidado h3 {
+		font-family: 'Montserrat', sans-serif;
+font-weight:700;	font-size: 20px;
+	left: 250px;
+	top:200px;
+	text-align:left;
+	width:200%;
+
+	position: absolute;
+	float: left;
+	line-height: 100px;
+	 margin: 0;
 }

@@ -6,6 +6,8 @@ package es.daw.proyectoDAW.servicio;
 import java.util.List;
 import java.util.Optional;
 
+import es.daw.proyectoDAW.errores.AlumnoNoEncontradoException;
+import es.daw.proyectoDAW.modelo.Clase;
 import es.daw.proyectoDAW.modelo.Usuario;
 
 public interface IFServicioProfesor {
@@ -34,9 +36,10 @@ public interface IFServicioProfesor {
 
 	public List<Usuario> obtenerAlumnosPorLetra(String letraClase);
 
-	public List<Usuario> obtenerAlumnosPorProfesor(String mailUsuario);
 
 	public String obtenerClaseLetraUsuarioRolProfesor(String emailProfesor);
+
+    public Optional<Clase> obtenerClasePorEmail(String mailUsuario) ;
 
 	// ------------------------------------------------------------------------------CREATE
 
@@ -46,6 +49,9 @@ public interface IFServicioProfesor {
 
 	///// CON ESTE METODO MODICIFICAMOS DATOS DE UN USUARIO
 	public Usuario actualizarUsuarioPorId(Usuario alumProf);
+	
+	public Optional<Usuario> actualizarUsuarioPorMail(String mailUsuario, Usuario alumProf) ;
+
 
 	// --------------------------------------------------------------------------------DELETE
 
@@ -54,5 +60,10 @@ public interface IFServicioProfesor {
 
 	///// CON ESTE METODO ELIMINAMOS USUARIO POR MAIL
 	Optional<Usuario> borrarUsuarioPorMail(String mailUsuario);
+
+	Optional<Usuario> borrarUsuarioPorId(Long id);
+	Optional<Usuario> borrarUsuarioPorNIA(String niaAlum) throws AlumnoNoEncontradoException ;
+
+	public Optional<Usuario> findByNiaAlumno(String niaAlumno);
 
 }///// FIN CLASE IFServicioUsuario

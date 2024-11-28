@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.daw.proyectoDAW.modelo.Clase;
+import es.daw.proyectoDAW.modelo.Partida;
 import es.daw.proyectoDAW.modelo.Usuario;
 import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
-//*****************************************************************IMPORTS
 
 
 @Service
@@ -18,7 +18,7 @@ public class ServicioUsuario implements IFServicioUsuario{
     private RepositorioUsuario repoUsuarios;
     
     //---------------------------------------------------------------------CREATE
-    ///*******para asignar un usuario a una clase ->>
+  /*  ///*******para asignar un usuario a una clase ->>
     public void asignarUsuarioAClasePorLetra(Long usuarioId, String letraClase) throws Exception {
 
         // Buscar la clase por letraClase usando el método personalizado en repoUsuarios
@@ -33,7 +33,7 @@ public class ServicioUsuario implements IFServicioUsuario{
         usuario.setClase(clase);
         repoUsuarios.save(usuario);
     }
-
+*/
     //---------------------------------------------------------------------READ
     
     ///*******para buscar  email + password ->> para verificar login
@@ -48,8 +48,23 @@ public class ServicioUsuario implements IFServicioUsuario{
 	}
 	
    
-	
-	
+    //---------------------------------------------------------------------READ
+
+	public void eliminarUsuario(Usuario usuario) {
+	    // Eliminar las partidas del usuario
+	    List<Partida> partidas = usuario.getPartidas();
+	    for (Partida partida : partidas) {
+	        partida.setUsuario(null); // Desasociar la partida del usuario
+	    }
+
+	    // Eliminar el usuario y sus partidas (si se usa orphanRemoval, las partidas se eliminan automáticamente)
+	    usuario.getPartidas().clear();  // Elimina las partidas del usuario (si orphanRemoval está activado)
+	    usuario.setClase(null);  // Asegúrate de desasociar la clase si no deseas eliminarla
+
+	    // Eliminar el usuario
+	    repoUsuarios.delete(usuario);
+	}
+
 	
 	
 

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 
 	//----------------VERIFICACION DE PARTIDA YA JUGADA
 
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		window.location.href = '/login';
 	}
 
-	// Validación del patrón en tiempo real
-	inputTutor.addEventListener('input', function () {
+	//----------------VALIDACION DATOS ENTRADA
+	inputTutor.addEventListener('input', function() {
 		// REGEX que solo acepta letras y espacios
 		const patronName = /^[a-zA-Z\s]+$/;
 
@@ -46,20 +46,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 
-	// Enviar mensaje
+	//----------------PETICION MENSAJE
 	async function mandarMensaje(event) {
 		event.preventDefault();
+
+	 // Mostrar el mensaje de carga
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'block'; // Mostrar el mensaje de "Enviando..."
 
 		// RECOGIDA CONTENIDO FORMULARIO
 		let tutor = document.getElementById("name").value.trim();
 		let mensaje = document.getElementById("consulta").value.trim();
-		
-		// Obtener el email del usuario desde el localStorage
-    let emailUsuario = localStorage.getItem('emailUsuario');
-    if (!emailUsuario) {
-        alert("No se encontró el email del usuario en el localStorage.");
-        return;
-    }
+
+		// Obtener el email del usuario + letra clase desde el localStorage
+		let emailUsuario = localStorage.getItem('emailUsuario');
+		let letraClase = localStorage.getItem('letraClase');
+		if (!emailUsuario || !letraClase) {
+			alert("No se encontró el email o letra clase del usuario en el localStorage.");
+			return;
+		}
 
 		// Expresión regular que solo acepta letras y espacios
 		const patronName = /^[a-zA-Z\s]+$/;
@@ -75,7 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Si todo está correcto, se crea el JSON de datos
 		let data = {
-			token: emailUsuario,
+			emailAlumno: emailUsuario,
+			letraClase: letraClase,
 			nombreTutor: tutor,
 			cuerpoMensaje: mensaje
 		};
@@ -84,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// PETICIÓN POST
 		try {
-			const response = await fetch('/enviar_email', {
+			const response = await fetch('/enviarEmail', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -93,14 +99,19 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 
 			const result = await response.text();
-
+			
+			  // Ocultar el mensaje de carga
+        loadingMessage.style.display = 'none';
+        
 			if (response.ok) {
-				alert("Email enviado correctamente.");
+				alert("El email se ha enviado correctamente.¡Gracias!");
 				window.location.href = '/alumno';
 			} else {
 				alert("Error al enviar el correo: " + result);
 			}
 		} catch (error) {
+			  // Ocultar el mensaje de carga en caso de error
+        loadingMessage.style.display = 'none'; 
 			alert("Error al enviar el correo: " + error);
 		}
 	}

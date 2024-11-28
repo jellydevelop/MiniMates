@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import java.util.Properties;
 
 @Configuration
 public class MailConfig {
@@ -12,19 +11,18 @@ public class MailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        
-        // Configuración del servidor SMTP (usando Gmail como ejemplo)
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
-        mailSender.setUsername("profesorprimero42@gmail.com");  
-        mailSender.setPassword("minimates123");       
-        
+
+        // Configuración del servidor SMTP de Mailtrap
+        mailSender.setHost("sandbox.smtp.mailtrap.io");
+        mailSender.setPort(2525);
+        mailSender.setUsername("b4b0fe3c79b9b0");  // Tu usuario de Mailtrap
+        mailSender.setPassword("cfbf8bfff385e6");  // Tu contraseña de Mailtrap
+
         // Configuraciones adicionales
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");  // Habilitar TLS
-        props.put("mail.debug", "true");                 // Para depuración (puedes quitarlo en producción)
+        mailSender.getJavaMailProperties().put("mail.transport.protocol", "smtp");
+        mailSender.getJavaMailProperties().put("mail.smtp.auth", "true");
+        mailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", "true");
+        mailSender.getJavaMailProperties().put("mail.debug", "true");  // Puedes quitarlo en producción
 
         return mailSender;
     }

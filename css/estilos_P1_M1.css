@@ -144,7 +144,7 @@ h2{
     border-color: rgb(28, 26, 26);
     box-shadow: 6px 2px 5px rgba(0, 0, 0, 0.5);
 
-    background-color: rgba(245, 132, 132, 0.972);
+    background-color: rgb(128, 64, 64);
     font-family: 'Montserrat',sans-serif;
     font-size: 16px;
     font-weight:600;
@@ -153,12 +153,16 @@ h2{
 }
 
 #iniciarJuego:hover{
-    background-color:  #e1af18;
- }
+    background-color: #e1e1e1;
+     }
+     
+ #iniciarJuego:active{
+    transform: scale(1.2);
+     }
 
- button #cruz_roja{
+ button img{
     position:relative;
-    left: 5x;
+    left: 5px;
     top:10px;
     width: 150px;
     height: 150px;

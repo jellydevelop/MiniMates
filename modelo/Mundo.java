@@ -1,5 +1,6 @@
 package es.daw.proyectoDAW.modelo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -10,23 +11,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 //************************************
 
-@Entity(name = "MUNDO")
+@Entity
+@Table(name = "MUNDO")
 @Data
 public class Mundo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_mundo")
 	private Long idMundo;
 
-	@Column(name = "NOMBRE_MUNDO", nullable = false, columnDefinition = "varchar(10)")
+	@Column(name = "NOMBRE_MUNDO", nullable = false, columnDefinition = "varchar(20)")
 	private String nombreMundo;
 
-	@Column(name = "ACTIVADO", nullable = false, columnDefinition = "char(1)")
+	@Column(name = "ACTIVADO",columnDefinition = "BOOLEAN",nullable = false)
 	private Boolean activadoMundo;
+	
+	@Column(name = "FECHA_INICIO_MUNDO", nullable = false, columnDefinition = "DATETIME(6)")
+	private LocalDateTime fechaInicioMundo;
 
 	/// ------ RELACIONES
 
@@ -40,7 +47,9 @@ public class Mundo {
 ////----CONSTR VACIO
 
 	public Mundo() {
+	    this.activadoMundo = false; // Por defecto, desactivado
 	}
+
 
 ////-----GETTER
 
@@ -62,6 +71,9 @@ public class Mundo {
 
 	public Partida getPartida() {
 		return partida;
+	}
+	public LocalDateTime getFechaInicioMundo() {
+		return fechaInicioMundo;
 	}
 
 ////-----SETTER
@@ -85,6 +97,10 @@ public class Mundo {
 	public void setPartida(Partida partida) {
 		this.partida = partida;
 	}
+	
+	public void setFechaInicioMundo(LocalDateTime fechaInicioMundo) {
+		this.fechaInicioMundo = fechaInicioMundo;
+	}
 
 ////-----MÉTODOS PROPIOS
 
@@ -99,9 +115,10 @@ public class Mundo {
 	}
 
 	// verifica si el mundo está habilitado
-	public boolean isHabilitado() {
-		return this.activadoMundo;
+	public boolean isActivado() {
+	    return Boolean.TRUE.equals(this.activadoMundo);
 	}
+
 
 	// cuenta el número de retos en el mundo
 	public int contarRetos() {
@@ -112,4 +129,17 @@ public class Mundo {
 	public List<String> obtenerTiposRetos() {
 		return pantallas.stream().map(Pantalla::getTipoReto).distinct().toList();
 	}
+	
+	//para controlar SI el mundo ha sido jugado mas de 7 dias
+	public boolean isExpirado() {
+	    return LocalDateTime.now().isAfter(this.fechaInicioMundo.plusDays(7));
+	}
+	
+	public void setEstado(String estado) {
+	    this.activadoMundo = "1".equals(estado);//1 es true, 0 false
+	}
+
+
+	
+	
 }//// ---- FIN CLASE MUNDO

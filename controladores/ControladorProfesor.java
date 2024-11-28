@@ -1,104 +1,98 @@
 package es.daw.proyectoDAW.controladores;
 
 import java.net.URI;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import es.daw.proyectoDAW.errores.ClaseNoEncontradaException;
-import es.daw.proyectoDAW.modelo.Centro_Educativo;
+import es.daw.proyectoDAW.errores.AlumnoNoEncontradoException;
 import es.daw.proyectoDAW.modelo.Clase;
 import es.daw.proyectoDAW.modelo.Usuario;
-import es.daw.proyectoDAW.repositorio.RepositorioClase;
-import es.daw.proyectoDAW.servicio.ServicioProfesor;
+import es.daw.proyectoDAW.servicio.IFServicioProfesor;
+import es.daw.proyectoDAW.servicio.ServicioClase;
 
 ////***************************************************IMPORTS
 
-@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 
 public class ControladorProfesor {
 
 	//// ENLAZAMOS CON EL SERVICIO
 	@Autowired
-	private ServicioProfesor repoUsuario;
+	private IFServicioProfesor  serviUsuario;
 	
 	@Autowired
-	private RepositorioClase repoClases;
+	private ServicioClase serviClase;
 
-	/// METODO PARA ACCEDER AUTOMATICAMENTE AL INICIO DE LA APP
-	public class accesoAPP {
-		@RequestMapping("/")
-		public String index() {
-			return "index";
-		}
-	}
 
 	// ----------------------------------------------------------------------------CREATE
 
 	/// anadir un alumno nuevo alumno
 	@PostMapping("/aniadiralumno")
-	public ResponseEntity<Usuario> anyadirAlumno(@RequestBody Usuario alumno) {
+	public ResponseEntity<?> anyadirAlumno(@RequestBody Usuario alumno) {
+		
+		try {
 	    // Validar si los datos necesarios están presentes en el JSON
-	    if (alumno.getClase() == null || alumno.getClase().getLetraClase() == null || alumno.getClase().getCentro() == null) {
-	        return ResponseEntity.badRequest().build();  // Falta la clase, letra o centro
-	    }
-
-	    // Obtener los datos de clase y centro
-	    String letraClase = alumno.getClase().getLetraClase();
-	    Centro_Educativo centro = alumno.getClase().getCentro();
-
-	    // Buscar el ID de la clase usando letraClase
-	    Long idClase = repoClases.findIdClaseByLetraClase(letraClase);  // Consulta que devuelve solo el ID de la clase
-
-	    // Si no existe la clase, devolvemos un 404
-	    if (idClase == null) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // Clase no encontrada
-	    }
-
-	    // Crear un objeto de clase con el ID encontrado
-	    Clase claseExistente = new Clase();
-	    claseExistente.setIdClase(idClase);  // Asignamos el ID de la clase a la clase encontrada
-
-	    // Asignar la clase encontrada al alumno
-	    alumno.setClase(claseExistente);
-
-	    // Guardar el alumno en la base de datos
-	    Usuario nuevoAlum = repoUsuario.aniadeUsuarioAlumno(alumno);
-
-	    // Si el alumno se guardó correctamente, devolvemos la URI de creación con un 201
-	    if (nuevoAlum != null) {
-	        URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-	        return ResponseEntity.created(location).body(nuevoAlum);  // Devolver el alumno creado
-	    }
-
-	    // Si hubo un error al guardar el alumno, devolvemos un 204 (No Content)
-	    return ResponseEntity.noContent().build();  // Error al crear el alumno
-	}
-
+			 if (alumno.getClase() == null || alumno.getClase().getLetraClase() == null || alumno.getClase().getCentro() == null) {
+			        return ResponseEntity.badRequest().body(null);
+			    }
+			 
+			// Validar que el NIA no exista previamente en la base de datos
+		        if (serviUsuario.findByNiaAlumno(alumno.getNiaAlumno()).isPresent()) {
+		        	// NIA ya existe
+		            return ResponseEntity.status(HttpStatus.CONFLICT).body(" El NIA ya está registrado");  
+		        }
+	    
+	    // Validar que la letraClase existe en la base de datos
+        String letraClase = alumno.getClase().getLetraClase();
+        Clase claseExistente = serviClase.obtenerClasePorLetra(letraClase);
+        
+        if (claseExistente == null) {
+        	// Clase no encontrada 
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(null);  
+        
+        }
+         
+        // Asignar la clase existente al alumno
+        alumno.setClase(claseExistente);
+        
+	    // Aseguramos que el rol es "ALUMNO"
+        alumno.setRolUsuario("alumno");
+        
+        // Guardar el nuevo alumno en la base de datos
+        Usuario nuevoAlumno = serviUsuario.aniadeUsuarioAlumno(alumno);
+        
+        // Confirmar que el alumno fue guardado correctamente
+        if (nuevoAlumno != null) {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(nuevoAlumno.getIdUsuario())
+                .toUri();
+            return ResponseEntity.created(location).body(nuevoAlumno);
+        }
+        // Si no se pudo guardar por algún motivo
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        
+		 } catch (Exception e) {
+		        // Manejo de errores inesperados
+		        e.printStackTrace();
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+		} 
 
 	// ----------------------------------------------------------------------------READ
 
@@ -106,7 +100,7 @@ public class ControladorProfesor {
 	@GetMapping("/todousuarios")
 	public ResponseEntity<?> obtenerUsuarios() {
 
-		List<Usuario> listaUsuarios = repoUsuario.obtenerUsuarios();
+		List<Usuario> listaUsuarios = serviUsuario.obtenerUsuarios();
 
 		if (!listaUsuarios.isEmpty()) {
 			return ResponseEntity.ok(listaUsuarios);
@@ -117,68 +111,108 @@ public class ControladorProfesor {
 		}
 
 	}
+	
+	/// obtener todos los alumnos
+	  @GetMapping("/nia/{nia}")
+	    public ResponseEntity<?> obtenerPorNia(@PathVariable String niaAlumno) {
+	        System.out.println("Valor recibido de NIA: " + niaAlumno); // Para depurar el valor del NIA recibido
+
+	        Optional<Usuario> usuario = serviUsuario.findByNiaAlumno(niaAlumno);
+
+	        if (usuario.isPresent()) {
+	            return ResponseEntity.ok(usuario.get());
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
+	    }
 
 	// -----------------------------------------------------------------
 
-	/// obtener todos los alumnos por un profesor
+	/// obtener todos los alumnos por la letra de la clase
 	@GetMapping("/obtener_alumnos_clase")
 
-	public ResponseEntity<List<Usuario>> obtenerAlumnoOrdenadossDeClaseDeUnProfesor(
-			@RequestParam String emailProfesor) {
+	public ResponseEntity<List<Usuario>> obtenerAlumnosPorClase(
+			@RequestParam String letraClase) {
 
-		List<Usuario> alumnos = repoUsuario.obtenerAlumnosPorProfesor(emailProfesor);
-
-		if (alumnos.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Código 204 si no hay alumnos
-		}
-		return new ResponseEntity<>(alumnos, HttpStatus.OK); // Código 200 y la lista de alumnos en JSON
-	}
+		if (letraClase == null || letraClase.isEmpty()) {
+	        return ResponseEntity.badRequest().body(null); // Código 400 si no se proporciona la letra
+	    }
+		
+		 // Buscar directamente los alumnos por la letra de clase
+	    List<Usuario> alumnos = serviUsuario.obtenerAlumnosPorLetra(letraClase);
+	    
+	    
+	    if (alumnos.isEmpty()) {
+	        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null); // Código 204 si no hay alumnos
+	    }
+	    
+	    
+	    return ResponseEntity.ok(alumnos);
+	    }
 
 	// -----------------------------------------------------------------
 	/// obtener la letra de clase del profesor recibido
-	  @PostMapping("/pedirLetraProfesor")
-	    public ResponseEntity<String> obtenerLetraProfesor(@RequestBody String emailProfesor) {
+	@PostMapping("/pedirLetraProfesor")
+	public ResponseEntity<?> obtenerLetraProfesor(@RequestBody String emailProfesor) {
 
-	        if (emailProfesor == null || emailProfesor.isEmpty()) {
-	            return ResponseEntity.badRequest().body("El email del profesor es obligatorio");
-	        }
+	    if (emailProfesor == null || emailProfesor.isEmpty()) {
+	        return ResponseEntity.badRequest().body(Map.of("error", "El email del profesor es obligatorio"));
+	    }
 
+	    try {
 	        // Llamamos al servicio para obtener la clase del profesor
-	        Optional<Clase> claseOpt = repoUsuario.obtenerClasePorEmail(emailProfesor);
-	        
-	        if (claseOpt.isPresent()) {
+	        Optional<Clase> claseUsuario = serviUsuario.obtenerClasePorEmail(emailProfesor);
+
+	        if (claseUsuario.isPresent()) {
 	            // Si el profesor tiene una clase asignada, devolvemos la letra de clase
-	            Clase clase = claseOpt.get();
-	            if (clase.getLetraClase() != null) {
-	                return ResponseEntity.ok(clase.getLetraClase());
+	            Clase clase = claseUsuario.get();
+	            String letraClase = clase.getLetraClase();
+
+	            if (letraClase != null && !letraClase.isEmpty()) {
+	                return ResponseEntity.ok(Map.of("letraClase", letraClase));
 	            } else {
-	                return ResponseEntity.notFound().build(); // Si la clase no tiene letra asignada
+	                return ResponseEntity.status(HttpStatus.NO_CONTENT)
+	                        .body(Map.of("message", "El profesor no tiene una clase asignada o la letra está vacía"));
 	            }
 	        } else {
-	            return ResponseEntity.notFound().build(); // Si no se encontró al profesor o no tiene clase asignada
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                    .body(Map.of("error", "No se encontró ninguna clase para el email proporcionado"));
 	        }
+	    } catch (Exception e) {
+	    	System.err.println("Error al obtener la letra de la clase para el email: " + emailProfesor);
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(Map.of("error", "Ocurrió un error al procesar la solicitud"));
 	    }
+	}
+
 //----------------------------------------------------------------------------DELETE POR ID
 
-	/*
-	 * ///eliminar un usuario por ID
-	 * 
-	 * @DeleteMapping("/borrar_usuario/{id}") public ResponseEntity<Usuario>
-	 * eliminarUsuarioPorId(@PathVariable Long id){
-	 * 
-	 * /// NOS ASEGURAMOS DE QUE EXISTE PREVIAMENTE ESE USUARIO Optional<Usuario>
-	 * alumnoParaBorrar=repoUsuario.borrarUsuarioPorId(id);
-	 * 
-	 * if(alumnoParaBorrar.isPresent()) {
-	 * 
-	 * /// SI EXISTE DEVOLVEMOS EN LA RESPUESTA EL ALUMNO ELIMINADO return
-	 * ResponseEntity.ok(alumnoParaBorrar.get());
-	 * 
-	 * }else {
-	 * 
-	 * /// SI NO EXISTE DEVOLVEMOS EN LA RESPUESTA QUE NO EXISTE return
-	 * ResponseEntity.notFound().build(); } }
-	 */
+	
+	  ///eliminar un usuario por NIA
+	  
+	@DeleteMapping("/borrar_usuario_nia/{nia}")
+	public ResponseEntity<?> eliminarUsuarioPorNIA(@PathVariable  String nia) throws AlumnoNoEncontradoException {
+	   
+		System.out.println("Solicitud de baja para NIA: " + nia);  // Para verificar si el NIA llega correctamente
+	   
+		Optional<Usuario> usuarioEliminator;
+		try {
+						usuarioEliminator = serviUsuario.borrarUsuarioPorNIA(nia);
+
+			    	//si se elimina el alumno, se devuelve el obj
+			        return ResponseEntity.ok(usuarioEliminator.get());
+			        
+			    
+			
+		} catch (AlumnoNoEncontradoException e) {
+			e.printStackTrace();
+			 return ResponseEntity.status(HttpStatus.NOT_FOUND)
+		                .body("Alumno no encontrado");
+		}
+
+	  
+	}
 
 	// ----------------------------------------------------------------- DELETE POR
 	// MAIL
@@ -187,7 +221,7 @@ public class ControladorProfesor {
 	public ResponseEntity<Usuario> eliminarUsuarioPorMail(@PathVariable String mailUsuario) {
 
 		/// NOS ASEGURAMOS DE QUE EXISTE PREVIAMENTE ESE USUARIO
-		Optional<Usuario> alumnoParaBorrarMail = repoUsuario.borrarUsuarioPorMail(mailUsuario);
+		Optional<Usuario> alumnoParaBorrarMail = serviUsuario.borrarUsuarioPorMail(mailUsuario);
 
 		if (alumnoParaBorrarMail.isPresent()) {
 
@@ -207,21 +241,25 @@ public class ControladorProfesor {
 //----------------------------------------------------------------------------UPDATE
 
 	@PutMapping("/modificamos_datos_usuario/{mailUsuario}")
-	public ResponseEntity<Usuario> modificamosDatosUser(@RequestBody Usuario alum, @PathVariable String mailUsuario) {
+	public ResponseEntity<?> modificamosDatosUser(@RequestBody Usuario alum, @PathVariable String mailUsuario) {
 		// ACTUALIZAMOS LOS DATOS DEL USUARIO POR SU CORREO ELECTRÓNICO
-		Optional<Usuario> alumnoParaModificar = repoUsuario.actualizarUsuarioPorMail(mailUsuario, alum);
+		Optional<Usuario> alumnoParaModificar = serviUsuario.actualizarUsuarioPorMail(mailUsuario, alum);
 
 		if (alumnoParaModificar.isPresent()) {
+			
+			 // OBTENEMOS EL USUARIO ACTUALIZADO
+	        Usuario usuarioModificado = alumnoParaModificar.get();
+	        
 			// CONSTRUIMOS URI
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{mailUsuario}")
 					.buildAndExpand(mailUsuario).toUri();
 
 			// SI SE ACTUALIZÓ EL USUARIO, DEVOLVEMOS LA RESPUESTA CON LA UBICACIÓN DEL
 			// RECURSO MODIFICADO
-			return ResponseEntity.ok().location(location).build();
+			return ResponseEntity.ok().location(location).body(usuarioModificado);
 		} else {
 			// SI NO SE ENCONTRÓ EL USUARIO, DEVOLVEMOS UNA RESPUESTA 404
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.status(404).body("Usuario no encontrado");
 		}
 	}
 

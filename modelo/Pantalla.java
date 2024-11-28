@@ -1,5 +1,6 @@
 package es.daw.proyectoDAW.modelo;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,16 +23,14 @@ public class Pantalla {
 	@Column(name = "TIPO_RETO", columnDefinition = "varchar(30)", nullable = false)
     private String tipoReto;
 	
-	@Column(name = "TIEMPO_INICIO_PANTALLA", nullable = false)
-    private LocalDateTime tiempoInicioPantalla;
+	@Column(name = "DURACION_PANTALLA", nullable = false)
+    private Instant duracionPantalla;
 	
-	@Column(name = "TIEMPO_FIN_PANTALLA", nullable = false)
-    private LocalDateTime tiempoFinPantalla;
 	
-	@Column(name = "ACIERTOS_PANTALLA", columnDefinition = "bigint(2)",nullable = false)
+	@Column(name = "ACIERTOS_PANTALLA",nullable = false)
     private int aciertosPantalla;
 	
-	@Column(name = "FALLOS_PANTALLA", columnDefinition = "bigint(2)",nullable = false)
+	@Column(name = "FALLOS_PANTALLA", nullable = false)
     private int fallosPantalla;
 
 	///-->> RELACIONES
@@ -43,6 +42,14 @@ public class Pantalla {
 public Pantalla() {
 }
 
+/// -->> CONSTRUCTOR COMPLETLO
+public Pantalla(String tipoReto, Instant duracionPantalla, int aciertosPantalla, int fallosPantalla, Mundo mundo) {
+    this.tipoReto = tipoReto;
+    this.duracionPantalla = duracionPantalla;
+    this.aciertosPantalla = aciertosPantalla;
+    this.fallosPantalla = fallosPantalla;
+    this.mundo = mundo;  
+}
 /// -->> GETTERS
 public int getAciertosPantalla() {
 	return aciertosPantalla;
@@ -50,17 +57,16 @@ public int getAciertosPantalla() {
 public int getFallosPantalla() {
 	return fallosPantalla;
 }
+
 public Long getId() {
 	return id;
 }
 public Mundo getMundo() {
 	return mundo;
 }
-public LocalDateTime getTiempoFinPantalla() {
-	return tiempoFinPantalla;
-}
-public LocalDateTime getTiempoInicioPantalla() {
-	return tiempoInicioPantalla;
+
+public Instant getDuracionPantalla() {
+	return duracionPantalla;
 }
 public String getTipoReto() {
 	return tipoReto;
@@ -78,11 +84,8 @@ public void setMundo(Mundo mundo) {
 public void setId(Long id) {
 	this.id = id;
 }
-public void setTiempoFinPantalla(LocalDateTime tiempoFinPantalla) {
-	this.tiempoFinPantalla = tiempoFinPantalla;
-}
-public void setTiempoInicioPantalla(LocalDateTime tiempoInicioPantalla) {
-	this.tiempoInicioPantalla = tiempoInicioPantalla;
+public void setDuracionPantalla(Instant duracionPantalla) {
+	this.duracionPantalla = duracionPantalla;
 }
 public void setTipoReto(String tipoReto) {
 	this.tipoReto = tipoReto;

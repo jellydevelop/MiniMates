@@ -6,10 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.daw.proyectoDAW.errores.AlumnoNoEncontradoException;
 import es.daw.proyectoDAW.modelo.Clase;
+import es.daw.proyectoDAW.modelo.Partida;
 import es.daw.proyectoDAW.modelo.Usuario;
 import es.daw.proyectoDAW.repositorio.RepositorioClase;
+import es.daw.proyectoDAW.repositorio.RepositorioPartida;
 import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
+import jakarta.transaction.Transactional;
 
 ////****************************************************************************IMPORTS
 
@@ -21,29 +25,24 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		
 		@Autowired
 		RepositorioClase repoClass;
+		
+		@Autowired
+		RepositorioPartida repoPartida;
 	
 	
 	//-------------------------------------------------------------------------------------READ
-		public Optional<Clase> findById(Long idClase) {
-			return repoClass.findById(idClase);
-		}
+	
 		
 		 //----------------------------------------------------------------
-
-		public List<Usuario> obtenerAlumnosPorProfesor(String mailUsuario) {
-		    return repoUsuarios.findAlumnosPorLetraClaseDeProfesor(mailUsuario);
-			
-		}
-		 //----------------------------------------------------------------
 	    public List<Usuario> obtenerAlumnosPorLetra(String letraClase) {
-	        return repoUsuarios.obtenerAlumnosPorLetra(letraClase, "alumno");
+	        return repoUsuarios.obtenerAlumnosPorLetra(letraClase);
 	    }
 			//------------------------------------
 	
 
 	    public Optional<Clase> obtenerClasePorEmail(String mailUsuario) {
 	        // Usamos el repositorio para ejecutar la consulta personalizada
-	        return repoUsuarios.obtenerClasePorEmail(mailUsuario);
+	        return repoUsuarios.obtenerLetraClasePorEmail(mailUsuario);
 	    }
 
 	
@@ -58,7 +57,6 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		
 		///----------------------------------------------------
 
-		@Override
 		public List<Usuario> obtenerUsuariosPorRol(String rol) {
 			
 		    List<Usuario> usuarios = repoUsuarios.findByRolUsuario(rol);
@@ -73,7 +71,14 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		        return usuarios;
 		    }
 		}
+		///----------------------------------------------------
 
+	
+
+		    public Clase obtenerClasePorLetra(String letraClase) {
+		        return repoClass.findByLetraClase(letraClase);
+		    }
+		
 
 		///----------------------------------------------------
 
@@ -126,23 +131,7 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		}
 		
 		///----------------------------------------------------
-		@Override
-		public String obtenerClaseLetraUsuarioRolProfesor(String emailProfesor) {
-			 
-		        Usuario usuario = repoUsuarios.findByMailUsuario(emailProfesor);
-		        
-		        if (usuario != null && Usuario.ROL_PROFESOR.equals(usuario.getRolUsuario())) {
-		        	
-		            // Si el usuario es un profesor, devolvemos la letra de su clase
-		            if (usuario.getClaseComoProfesor() != null) {
-		                return usuario.getClaseComoProfesor().getLetraClase(); 
-		            }
-		        }
-
-		        // Si no encontramos al usuario o no tiene clase asignada, devolvemos null
-		        return null;
-		    }
-		  
+	
 		   
 	//-----------------------------------------------------------------------------------------CREATE
 		public Usuario aniadeUsuarioAlumno(Usuario alum) {
@@ -200,7 +189,7 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		
 	//--------------------------------------------------------------------------------------------DELETE
 		
-	/*	@Override
+		@Override
 		public Optional<Usuario> borrarUsuarioPorId(Long id) {
 			
 		    // Busca el usuario por el ID
@@ -220,7 +209,7 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		        return null;
 		    }
 		}
-		*/
+		
 		///----------------------------------------------------
 
 		@Override
@@ -246,22 +235,58 @@ import es.daw.proyectoDAW.repositorio.RepositorioUsuario;
 		         return Optional.empty();
 		    }
 		}
-		
 
-		///----------------------------------------------------
-		///----------------------------------------------------
-		
-		
-		
-		
-		///----------------------------------------------------UPDATE
 
 		@Override
-		public Usuario actualizarUsuarioPorId(Usuario alumProf) {
+		public String obtenerClaseLetraUsuarioRolProfesor(String emailProfesor) {
 			// TODO Auto-generated method stub
 			return null;
 		}
-	
+
+
+		@Override
+		public Usuario actualizarUsuarioPorId(Usuario alumProf) {
+			return null;
+		}
+
+		///----------------------------------------------------
+		@Transactional
+		// anotación para realizar varias operaciones a la vez ya que si eliminamos
+		// debe ser en cascada Usuario + Partida
+		public Optional<Usuario> borrarUsuarioPorNIA(String nia) throws AlumnoNoEncontradoException {
+
+		    // Buscar el usuario por su NIA
+		    Optional<Usuario> usuarioParaEliminar = repoUsuarios.findByNia(nia);
+
+		    if (usuarioParaEliminar.isPresent()) {
+		        Usuario usuario = usuarioParaEliminar.get();
+
+		        // Eliminar las partidas asociadas al usuario
+		        List<Partida> partidas = usuario.getPartidas();
+		        for (Partida partida : partidas) {
+		            partida.setUsuario(null); // Desasociar la partida del usuario
+		        }
+
+		        // Limpiar la relación con la clase (desasociar el usuario de la clase)
+		        usuario.setClase(null);
+
+		        // Eliminar el usuario y sus partidas (las partidas se eliminan si orphanRemoval está activado)
+		        usuario.getPartidas().clear();  // Eliminar las partidas del usuario si orphanRemoval está activado
+
+		        // Eliminar el usuario
+		        repoUsuarios.delete(usuario);
+
+		    } else {
+		        throw new AlumnoNoEncontradoException("No se encontró el alumno en la base de datos");
+		    }
+
+		    return usuarioParaEliminar;
+		}
+//--------------------------------
+		public Optional<Usuario> findByNiaAlumno(String niaAlum) {
+		    return repoUsuarios.findByNiaAlumno(niaAlum);
+		}
+
 		
 
 }///// FIN CLASE ServicioUsuario

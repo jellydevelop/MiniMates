@@ -1,48 +1,49 @@
 package es.daw.proyectoDAW.modelo;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import es.daw.proyectoDAW.errores.UsuarioNoAlumnoException;
-import es.daw.proyectoDAW.errores.UsuarioNoProfesorException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 //************************************************IMPORTS
+import jakarta.persistence.Table;
 
-@Entity(name = "CLASE")
+@Entity
+@Table(name = "CLASE")
 public class Clase {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_Clase;
+    @Column(name = "LETRA_CLASE", columnDefinition = "varchar(3)", nullable = false, unique = true)
+    private String letraClase;
 	
 	
-	@Column(name = "LETRA_CLASE", columnDefinition = "varchar(3)", nullable = false,unique = true)
-	private String letraClase;
 
 	/// -->> RELACIONES
 
-    // Relación con Centro_Educativo
+    // -- Relación con Centro_Educativo
 	@ManyToOne
 	@JoinColumn(name = "id_centro",nullable=false)
+	 // Este lado NO se serializa
+ //evita  recursion infinita entre clase y centro
+	 //objeto de vuelta intifinito al devolver delete usuario
 	private Centro_Educativo centro;
 
-    // Relación con Usuarios (alumnos y profesor)
+    // - Relación con Usuarios (alumnos y profesor)
 
-	@OneToMany(mappedBy = "clase")//es la propiedad en Usuario
-	private List<Usuario> alumnos = new ArrayList<>();
+	@OneToMany(mappedBy = "clase",cascade = CascadeType.ALL)//es la propiedad en Usuario
+	@JsonManagedReference // Este lado se serializa
+	private List<Usuario> usuarios = new ArrayList<>();
 
-	@OneToOne(mappedBy = "claseComoProfesor") // atributo en Usuario 
-    private Usuario profesor; 
 
 	/// -->> CONSTRUCTOR VACÍO
 
@@ -54,14 +55,15 @@ public class Clase {
 	public Clase(String letraClase) {
 	    this.letraClase = letraClase;
 	}
+	
+	/// -->> CONSTRUCTOR COMPLETO
+
+	 public Clase(String letraClase, Centro_Educativo centro) {
+	        this.letraClase = letraClase;
+	        this.centro = centro;
+	    }
 
 	/// -->> GETTERS
-
-
-
-	public Long getIdClase() {
-		return id_Clase;
-	}
 
 	
 	public String getLetraClase() {
@@ -71,12 +73,7 @@ public class Clase {
 	public Centro_Educativo getCentro() {
 		return centro;
 	}
-
 	/// -->> SETTERS
-
-	public void setIdClase(Long idClase) {
-		this.id_Clase = idClase;
-	}
 
 
 	public void setCentro(Centro_Educativo centro) {
@@ -86,42 +83,33 @@ public class Clase {
 	public void setLetraClase(String letraClase) {
 		this.letraClase = letraClase;
 	}
-	
 
 	/// -->> MÉTODOS PROPIOS
+
+	   public void addUsuario(Usuario usuario) {
+		   usuarios.add(usuario);
+	        usuario.setClase(this);
+	    }    
 	
-	//modificar profesor de una clase
-	 public void setProfesor(Usuario profesor) throws UsuarioNoProfesorException {
-	        if (profesor != null && profesor.esProfesor()) {
-	            this.profesor = profesor;
-	        } else {
-	            throw new UsuarioNoProfesorException("El usuario asignado debe tener el rol de profesor.");
-	        }
-	    }
-	  // obtener el usuario con rol 'profesor' de una clase
-	    public Usuario getProfesor() {
-	        return profesor != null && profesor.esProfesor() ? profesor : null;
-	    }
-	    
 	    //lista alumnos  de una clase
 		 public List<Usuario> getAlumnos() {
-		        return alumnos.stream()
+		        return usuarios.stream()
 		                .filter(Usuario::esAlumno)
 		                .collect(Collectors.toList());
 		    }
 		 
 		 //este alumno petenece a esta clase
 		 public boolean contieneAlumno(Usuario alumno) {
-			    return alumnos.contains(alumno);
+			    return usuarios.contains(alumno);
 			}
 		 
-		 //este profesor imparte en esta clase
-		 public String getNombreProfesorTitular() {
-			    return profesor != null ? profesor.obtenerNombreCompleto() : "Sin profesor asignado";
-			}
+		 //obtener lista de profesores
+		  public List<Usuario> obtenerProfesores() {
+		        return usuarios.stream().filter(Usuario::esProfesor).collect(Collectors.toList());
+		    }
 		 //obtener alumno de esta clase por nia
 		 public Usuario obtenerAlumnoPorNIA(String nia) {
-			    return alumnos.stream()
+			    return usuarios.stream()
 			            .filter(alumno -> alumno.esAlumno() && alumno.getNiaAlumno().equals(nia))
 			            .findFirst()
 			            .orElse(null);
@@ -129,7 +117,7 @@ public class Clase {
 		 
 		 //obtener alumnos de esta clase
 		 public List<String> getNombresDeAlumnos() {
-			    return alumnos.stream()
+			    return usuarios.stream()
 			            .filter(Usuario::esAlumno)
 			            .map(Usuario::obtenerNombreCompleto)
 			            .collect(Collectors.toList());
@@ -137,8 +125,8 @@ public class Clase {
 		 
 		 //elimina alumno de esta clase
 		 public void removeAlumno(Usuario alumno) {
-			    if (alumnos.contains(alumno)) {
-			        alumnos.remove(alumno);
+			    if (usuarios.contains(alumno)) {
+			    	usuarios.remove(alumno);
 			        alumno.setClase(null); 
 			    }
 			}
@@ -146,7 +134,7 @@ public class Clase {
 		 //añadir alumno a esta clase
 		 public void addAlumno(Usuario alumno) throws UsuarioNoAlumnoException {
 			    if (alumno != null && alumno.esAlumno()) {
-			        alumnos.add(alumno);
+			    	usuarios.add(alumno);
 			        alumno.setClase(this); 
 			    } else {
 			        throw new UsuarioNoAlumnoException("El usuario asignado debe tener el rol de alumno.");
@@ -163,13 +151,19 @@ public class Clase {
 	        if (alumno == null || !alumno.esAlumno()) {
 	            throw new UsuarioNoAlumnoException("El usuario asignado debe tener el rol de alumno.");
 	        }
-	        alumnos.add(alumno);
+	        usuarios.add(alumno);
 	        alumno.setClase(this); 
 	    }
 
 		public Clase get() {
 			return this;
 		}
+		
+	    public List<Usuario> obtenerAlumnos() {
+	        return usuarios.stream().filter(Usuario::esAlumno).collect(Collectors.toList());
+	    }
+
+	    
 
 
 		

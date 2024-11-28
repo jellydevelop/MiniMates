@@ -28,10 +28,14 @@ public class Partida {
 
 	@Column(name = "DURACION_PARTIDA", nullable = false)
 	private Integer duracionPartida = 15; // Duración máxima en minutos
+	
+	@Column(name = "ESTADO", nullable = false)
+    private String estado;
 
 	/// -->> RELACIONES
-	@OneToMany(mappedBy = "partida")
-	private List<Mundo> mundos;
+	  @ManyToOne
+	    @JoinColumn(name = "mundo_id")
+	    private Mundo mundoActual;
 
 	@ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false) 
@@ -43,6 +47,10 @@ public class Partida {
 	}
 	/// -->> GETTERS
 
+	public String getEstado() {
+        return estado;
+
+	}
 	 public Usuario getUsuario() {
 	        return usuario;
 	    }
@@ -63,17 +71,22 @@ public class Partida {
 		return inicioPartida;
 	}
 
-	public List<Mundo> getMundos() {
-		return mundos;
-	}
+	  public Mundo getMundoActual() {
+	        return mundoActual;
+	    }
+	  
 	/// -->> SETTERS
 
+	  public void setEstado(String estado) {
+		    this.estado = estado;  
+		}
+		
 	public void setDuracionPartida(Integer duracionPartida) {
 		this.duracionPartida = duracionPartida;
 	}
 
-	 public void setUsuario(Usuario usuario) { 
-	        this.usuario = usuario;
+	 public void setUsuario(Usuario usuarioId) { 
+	        this.usuario = usuarioId;
 	    }
 
 	public void setFechaInicio(LocalDateTime fechaInicio) {
@@ -88,9 +101,9 @@ public class Partida {
 		this.inicioPartida = inicioPartida;
 	}
 
-	public void setMundos(List<Mundo> mundos) {
-		this.mundos = mundos;
-	}
+	public void setMundoActual(Mundo mundoActual) {
+        this.mundoActual = mundoActual;
+    }
 	/// -->> MÉTODOS PROPIOS
 
 	// Comprueba si han pasado los 15 minutos desde el inicio de la partida sino se bloquea y redirige a menú
@@ -107,5 +120,9 @@ public class Partida {
 		LocalDateTime limiteMundo = fechaInicio.plusDays(7);
 		return LocalDateTime.now().isBefore(limiteMundo);
 	}
+
+	
+
+	
 
 }

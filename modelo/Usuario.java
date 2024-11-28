@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.hibernate.annotations.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.daw.proyectoDAW.errores.AtributoNuloException;
-import es.daw.proyectoDAW.errores.ClaseNoAsignadaException;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,11 +19,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 //------------------------------------
 //------------------------------------
-@Entity(name = "Usuario")
+@Entity
+@Table(name = "Usuario")
 //@Inheritance(strategy = InheritanceType.JOINED) // HERENCIA --> ESTA CLASE ES PADRE
 @NamedQuery(name = "USUARIO.findByEmailAddress", query = "select u from Usuario u where u.mailUsuario = ?1")
 public  class Usuario {
@@ -45,7 +49,7 @@ public  class Usuario {
 	@Column(name = "NOMBRE_USUARIO", columnDefinition = "varchar(20)", nullable = false)
 	private String nombreUsuario;
 
-	@Column(name = "MAIL_USUARIO", columnDefinition = "varchar(25)", nullable = false)
+	@Column(name = "MAIL_USUARIO", columnDefinition = "varchar(35)", nullable = false)
 	private String mailUsuario;
 
 	@Column(name = "PASS_USUARIO", columnDefinition = "varchar(10)", nullable = false)
@@ -58,32 +62,30 @@ public  class Usuario {
 	@Column(name = "NIA_ALUMNO", nullable = true, columnDefinition = "varchar(8)")
 	private String niaAlumno;
 	
-	/////////////profesor
 	
 
 	// ------ RELACIONES
 	
 	   // Relación con Clase-alumnos
  @ManyToOne
-   @JoinColumn(name = "letra_clase_asignada", nullable = true)  // Únicamente un profesor o un alumno tendrá clase asignada	
+   @JoinColumn(name = "LETRA_CLASE", nullable = true) //FK a clase
+ // Evita la serialización de la clase cuando se consulte el usuario
+ @JsonBackReference
    private Clase clase;
 	
 		  //relación con pa+ida
-	@OneToMany(mappedBy = "usuario")
-    private List<Partida> partidas;
+ @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+ @JsonIgnore // Evita la serialización de las partidas cuando se consulte el usuario
+ private List<Partida> partidas;
 	
-	//para profes
-	@OneToOne
-	@JoinColumn(name = "letra_clase_como_profesor", referencedColumnName = "LETRA_CLASE", nullable = true)
-    private Clase claseComoProfesor;
-
+	
 	// ---- CONSTRUCTOR VACÍO
 	public Usuario() {
 	}
 
 	// ---- CONSTRUCTOR PARA DAR DE ALTA A ALUMNOS
 	public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String primApellidoUsuario,
-            String secApellidoUsuario, String letraClase, String nia, Clase clase) {
+            String secApellidoUsuario, String nia, Clase clase) {
 this.nombreUsuario = nombreUsuario;
 this.mailUsuario = mailUsuario;
 this.passUsuario = passUsuario;
@@ -93,12 +95,15 @@ this.secApellidoUsuario = secApellidoUsuario;
 this.niaAlumno = nia;
 this.clase = clase;
 }
+	// ---- CONSTRUCTOR PARA DAR DE ALTA A ALUMNOS
 
-public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, String letraClase) {
+public Usuario(String nombreUsuario, String mailUsuario, String passUsuario, Clase clase) {
 this.nombreUsuario = nombreUsuario;
 this.mailUsuario = mailUsuario;
 this.passUsuario = passUsuario;
 this.rolUsuario = ROL_PROFESOR;
+this.clase = clase;
+
 }
 
     // ---- CONSTRUCTOR PARA VALIDACIÓN DE LOGIN
@@ -129,7 +134,6 @@ this.rolUsuario = ROL_PROFESOR;
 	}
 	
 	 
-
 	public String getMailUsuario() {
 		return mailUsuario;
 	}
@@ -156,13 +160,22 @@ this.rolUsuario = ROL_PROFESOR;
 	 public void setClaseUsuario(Clase clase) {
 	        this.clase = clase;
 	    }
-	
-	public Clase getClaseComoProfesor() {
-		return claseComoProfesor;
-	}
+
 	
 	public Clase getClase() {
 		return clase;
+	}
+	
+	public List<Partida> getPartidas() {
+		return partidas;
+	}
+	
+	public static String getRolAlumno() {
+		return ROL_ALUMNO;
+	}
+	
+	public static String getRolProfesor() {
+		return ROL_PROFESOR;
 	}
 	
 
@@ -206,6 +219,10 @@ this.rolUsuario = ROL_PROFESOR;
 	public void setClase(Clase clase) {
 		this.clase = clase;
 	}
+	
+	public void setPartidas(List<Partida> partidas) {
+		this.partidas = partidas;
+	}
 
 	// ------ MÉTODOS PROPIOS
 	
@@ -236,26 +253,7 @@ this.rolUsuario = ROL_PROFESOR;
 	public boolean esProfesor() {
 		return "profesor".equals(rolUsuario);
 	}
- //devuelve una clase
-	public Clase getClaseRol() {
-	    if (ROL_ALUMNO.equals(rolUsuario)) {
-	        return clase; // Retorna 'letra_clase_asignada' para el alumno
-	    } else if (ROL_PROFESOR.equals(rolUsuario)) {
-	        return claseComoProfesor; // Retorna 'letra_clase_como_profesor' para el profesor
-	    }
-	    return null; // Si no es ni alumno ni profesor, retorna null
-	}
-
-	 public void asignarClase(String letraClase) throws ClaseNoAsignadaException {
-		 
-	        if (letraClase == null || letraClase.isEmpty()) {
-	            throw new ClaseNoAsignadaException("La letra de la clase no puede estar vacía.");
-	        }
-	        // Suponiendo que letraClase se corresponde a un objeto Clase recuperado
-	        this.clase = new Clase(); // Instancia la clase con la letra obtenida
-	        this.clase.setLetraClase(letraClase);
-	    }
-
+ 
 
 	
 }

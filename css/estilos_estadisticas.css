@@ -31,10 +31,10 @@ body {
 
 /*** BOTON EXIT *******************************/
 #exit {
-     width: 120px; 
+       width: 120px; 
     height: 100px;
      position: absolute;
-    right: 100px;
+    right: 60px;
     top: -0px;
     background-color: transparent;
     border: none;
@@ -45,9 +45,10 @@ body {
 }
 
 #exit img {
-    width: 100%;  /* La imagen se adapta al ancho del botón */
-    height: 100%; /* La imagen se adapta al alto del botón */
-    object-fit: contain; /* Mantiene las proporciones de la imagen */
+  width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+    
     transition: transform 0.5s;
 }
 
@@ -56,27 +57,29 @@ transform: scale(1.3);
 
 }
 /*** BOTON ATRAS *******************************/
-#rediAtras {
-    width: 100px; 
+ #rediAtras {
+    width: 120px; 
     height: 150px;
     position: absolute;
-    left: 100px;
-    top: -25px;
-    background-color: transparent;
+    left: 80px;
+    top: 10px;
     border: none;
-    display: flex;
     justify-content: center;
-    align-items: center;
     cursor: pointer;
+    background-color:transparent;
     overflow: hidden;
         transition: transform 0.5s;
+        z-index: 2;
     
 }
+
+
 
 #rediAtras img {
     width: 100%;  /* La imagen se adapta al ancho del botón */
     height: 100%; /* La imagen se adapta al alto del botón */
-    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    object-fit: contain;
+    background-image: url("/img/flecha_volver.png"); /* Mantiene las proporciones de la imagen */
 }
 
 #rediAtras:hover{
@@ -88,19 +91,39 @@ transform: scale(1.3);
 #divNombre{
 
     position: absolute;
-    left:80px;
+    left:280px;
     top: 170px;
-    width: 400px;
+    width: 100px;
     height: 50px;
-
-    padding: 10px 50px 25px 20px;
+z-index: 3;
+    padding: 25px;
     background-color: #fff;
-    border-radius: 35% 35% 35% 35%;
+    border-radius: 35% ;
     border-width: 10px;
     border-style: solid;
     border-color: rgb(149, 159, 159) ;
 	text-align:center;
 }
+
+#divNombre h2{
+
+    position: relative;
+    top: -10px;
+        font-family: 'Montserrat', sans-serif;
+    
+
+   
+}
+
+img{
+	width: 100px;
+	height: 100px;
+	z-index: 1;
+	 position: absolute;
+    left:100px;
+    top: 170px;
+}
+
 
 /*** BLOQUE MUNDOS *******************************/
 /**eliminamos apariencia predet*/
@@ -154,11 +177,7 @@ transform: scale(1.3);
 	border-color:#808080;
 }
  
-/* 
-Creamos la flecha que aparece a la izquierda del select.
-Realmente este elemento es un cuadrado que sólo tienen
-dos bordes con color y que giramos con transform: rotate(-45deg);
-*/
+
 #divMundos i{
 	position: absolute;
 	right: 20px;
@@ -260,20 +279,20 @@ Creamos la flecha
     top: 430px;
     left:100px;
     
-    
 }
 #tablaInfo table,th,tr,td{
     table-layout: auto;
      width: 200px;
      height:50px;
-     border: 2px solid #636161;
+     border: 4px solid #636161;
      border-color:#db8e00;
      border-spacing: 3px solid;
      background-color:#f2f2f2;
+     
        
 }
 #tablaInfo th{
-	padding: 5px;
+	padding: 10px;
 	
 }
 #tablaInfo tr{
@@ -281,16 +300,23 @@ text-align: center;
 }
 /*** BLOQUE GRAFICA *******************************/
 
-#graph{
-    position: absolute;
-    top:300px;
-    right:80px;
-    width: 700px;
-    height:300px;
-    background-color: white;
 
+#graficasInfo {
+    width: 50%;  /* El contenedor ocupa el 30% del ancho de su contenedor padre */
+    height: 40%;  /* El contenedor ocupa el 60% de su contenedor padre */
+    padding: 0;
+    position:absolute;
+    top:250px;
+    right:150px;
+    background-color: #f5f8f8;
+    box-sizing: border-box;  /* Asegura que padding y border no afecten al tamaño */
 }
 
+canvas {
+    width:  100% ; 
+    height: 100% ; /* Altura 100% también */
+    display: block;  
+}
 /*** BOTONES DE CIERRE *******************************/
 
 
@@ -298,8 +324,8 @@ text-align: center;
 	
 #cierreGraf {
 	position:absolute;
-	top:250px;
-	right:20px;
+	top:180px;
+	right:120px;
     border: 2px solid;
     cursor: pointer;
     font-size: 28px;

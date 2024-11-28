@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
    
+       <!-- BOOTSTRAP-->
+   
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+   
     <!-- FUENTE PARA LA NUBE-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,9 +59,11 @@
 	
 
 <!--ZONA NOMBRE DEL ALUMNO ---------------------------->
+<div>    <img alt="user" src="/img/data_user.png">
+</div>
 
     <div id="divNombre">
-        <h2>LORENA  SANTAMARIA</h2>
+        <h2></h2>
     </div>
 
 <!----------------------------------------------->
@@ -127,14 +133,7 @@
             
           
         </tr>
-        <tr>
-            <td>P3</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            
-        </tr>
+        
         </table>
 </div>
 
@@ -142,8 +141,16 @@
 
 <!--ZONA GRAFICAS ---------------------------->
 
-<div id="graficasInfo" hidden>
-<canvas id="graph" width="400" height="400"></canvas>
+<div id="graficasInfo" class="container mt-4" hidden>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <canvas id="graph"
+            data-mdb-chart="line"
+    data-mdb-dataset-label="Progreso"
+    data-mdb-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
+    data-mdb-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"></canvas>
+        </div>
+    </div>
 </div>
 
 <!----------------------------------------------->
@@ -157,7 +164,7 @@
 
 <!-- ENLACE A JS-->
 <script src="/scripts/script_estadisticas.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 </html>

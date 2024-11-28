@@ -1,166 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-    <!-- FUENTE PARA EL TITULO  -->
 
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-       
-       
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/estilos_datosProfesor.css"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <title>DATOS ALUMNOS</title>
+<!-- FUENTE PARA EL TITULO  -->
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+	rel="stylesheet">
+
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/estilos_datosProfesor.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DATOS ALUMNOS</title>
 
 
 </head>
 <!--ESTILO PARA VALIDAR FORMULARIO -->
 
 <style>
-    :is(input, textarea):invalid {
-    background: rgba(255, 0, 0, 0.468);
-    color: black;
-    }
-    :is(input, textarea):valid {
-    background: rgba(0, 128, 0, 0.542);
-    }
-    </style>
+:is(input, textarea):invalid {
+	background: rgba(255, 0, 0, 0.468);
+	color: black;
+}
+
+:is(input, textarea):valid {
+	background: rgba(0, 128, 0, 0.542);
+}
+</style>
 
 <!--INICIO BODY -->
 
 <body>
-<div class="header">
+	<div class="header">
 
-    <h1>GESTIÓN DE DATOS DE ALUMNOS</h1>
+		<h1>GESTIÓN DE DATOS DE ALUMNOS</h1>
 
-   		 <!--BOTON ATRAS ---------------------------->
-    
-   		 <button title="volver al menú de profesor" id="rediAtras">
-            <img src="/img/flecha_volver.png" alt="atras">
-        </button>
-   		
-  			  
-   		<!--BOTON SALIR DE SESION ---------------------------->
-   		
-   		 <button title="cerrar sesión" id="exit">
-            <img src="/img/exit.png" alt="EXIT">
-        </button>
-        
+		<!--BOTON ATRAS ---------------------------->
+
+		<button title="volver al menú de profesor" id="rediAtras">
+			<img src="/img/flecha_volver.png" alt="atras">
+		</button>
+
+
+		<!--BOTON SALIR DE SESION ---------------------------->
+
+		<button title="cerrar sesión" id="exit">
+			<img src="/img/exit.png" alt="EXIT">
+		</button>
+
 	</div>
 
-    <h3>Por favor marque qué acción desea realizar:</h3>
+	<h3>Por favor marque qué acción desea realizar:</h3>
 
-<!--FORMULARIO ELECCIÓN ---------------------------->
-    <form id="formEleccion"> 
-
-        
-            	<input type="radio"  name="radio" id="radioAlta" value="alta" required> Dar de Alta a un  Alumno 
-       		 <br><br>
-           		 <input type="radio" name="radio"  id="radioBaja" value="baja" required>Dar de Baja a un  Alumno
-            <br><br>
-              	<input type="radio"  name="radio" id="radioMod" value="modif" required>Modificar Datos de un Alumno        	
-    
-        <button id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
-    </form>
-<!----------------------------------------------->
+	<!--FORMULARIO ELECCIÓN ---------------------------->
+	<form id="formEleccion">
 
 
-<!--FORMULARIO ALTA ---------------------------->
-    <form id="formAlta"  action="/aniadiralumno"   method="post" hidden  > 
+		<input type="radio" name="radio" id="radioAlta" value="alta" required>
+		Dar de Alta a un Alumno <br>
+		<br> <input type="radio" name="radio" id="radioBaja" value="baja"
+			required>Dar de Baja a un Alumno <br>
+		<br> <input type="radio" name="radio" id="radioMod" value="modif"
+			required>Modificar Datos de un Alumno
 
-        <h3 class="tituloForm">Dar de alta a un alumno</h3>
-
-		
- 		<label for="niaAlum">NIA</label> 
-        			<input  title="aquí el NIA del alumno" type="text" name="niaAlum" id="niaAlum" placeholder="Nia del alumno" maxlength="8" required/>
-        			
-               <label for="mailAlum">EMAIL</label> 
-                	<input title="aquí el email del tutor" type="email" name="mailAlum" id="mailAlum" placeholder="Mail de usuario" maxlength="20" required />
-                      
-                <label for="nameAlum">NOMBRE</label> 
-        			<input  title="aquí el nombre del alumno" type="text" name="nameAlum" id="nameAlum" placeholder="Nombre del alumno" maxlength="10" required/>
-        			
-        			        			 <label for="primApellidoUsuario">PRIMER APELLIDO</label> 
-        			<input  title="aquí el apellido 1 del alumno" type="text" name="primApellidoUsuario" id="primApellidoUsuario" placeholder="apellido 1 del alumno" maxlength="25" required/>
-        			
-        			<label for="secApellidoUsuario">SEGUNDO APELLIDO</label> 
-        			<input  title="aquí el apellido 2 del alumno" type="text" name="secApellidoUsuario" id="secApellidoUsuario" placeholder="apellido 2 del alumno" maxlength="25" required/>
-        			
-        			
-
-        <button type="submit" id="botonEnviarAlta">DAMOS DE ALTA</button>
-    </form>
-<!----------------------------------------------->
-
-<!--FORMULARIO BAJA ---------------------------->
-    <form id="formBaja"   hidden> 
-        <h3 class="tituloForm">Dar de baja a un alumno</h3>
+		<button id="botonEnviarEleccion">PREPARAMOS TU FORMULARIO</button>
+	</form>
+	<!----------------------------------------------->
 
 
-               <label for="mailAlum">EMAIL </label> 
-                <input title="aquí el email del tutor" type="email" name="mailAlum" id="mailLog" placeholder="Tu mail de usuario" maxlength="20" required>
-                      <!-- >  ID DEL ALUMNO:
-        
-         <input type="text" name="idAlum" id="idAlum" placeholder="ID del alumno" maxlength="20"  >
-               
-         <br><br>  -->
-                <button type="submit" id="botonEnviarBaja">DAMOS DE BAJA</button>
+	<!--FORMULARIO ALTA ---------------------------->
+	<form id="formAlta" action="/aniadiralumno" method="post" hidden='true'>
 
-    </form>
-<!----------------------------------------------->
+		<h3 class="tituloForm">Dar de alta a un alumno</h3>
 
-<!--FORMULARIO MODIFICACIÓN ---------------------------->
-   
 
-<form id="formModificacion" hidden> 
+		<label for="niaAlum">NIA</label> <input title="aquí el NIA del alumno"
+			type="text" name="niaAlum" id="niaAlum" placeholder="Nia del alumno"
+			maxlength="8" pattern="\d{8}"
+			oninput="this.value=this.value.replace(/\D/g, '')" required>
 
-    <h3 class="tituloForm">Modificar datos de un alumno</h3>
+		<label for="mailAlum">EMAIL</label> <input
+			title="aquí el email del tutor" type="email" name="mailAlum"
+			id="mailAlum" placeholder="Mail de usuario" maxlength="50" required />
 
-		 <input title="escribe aquí el mail del tutor"  type="email" name="mailTutor" id="mailTutor" placeholder="MAIL TUTOR" minlength="12"maxlength="25" required>
+		<label for="nameAlum">NOMBRE</label> <input
+			title="aquí el nombre del alumno" type="text" name="nameAlum"
+			id="nameAlum" placeholder="Nombre del alumno" maxlength="10" required />
 
-<!-----------------SELECT--------------------------->
-			
-			<select title="elige qué modificarás" id="opcionesMod">
-			
-        <option >Modificar ...</option>
-        <option value="nombre" id="modificarNombre">Modificar Nombre</option>
-        <option value="email" id="modificarMail">Modificar Email</option>
-      
-   			</select>	    
-    
- 
-     <div id="contenedorOpciones" >
-     
-      <!-----------------CONTENEDO OPCION 1--------------------------->
-     
-     
-     	<div id="actual">
-     	
-		       <label  for="nameAlumUp" > ACTUAL</label> 
-		   		
-		   		 <input  type="text" name="nameAlum" id="actual" placeholder="NOMBRE/MAIL" maxlength="25" required>
-	       
-	     </div>  
- <!-----------------CONTENEDO OPCION 2--------------------------->
-	     
-	  <div id="nuevo">
-	     
-	        <label  for="emailAlumUp"> NUEVO </label> 
-	  
-	   			 <input  type="text" name="emailAlum" id="nuevo" placeholder="NOMBRE/MAIL" maxlength="25" required>
-	
-	 </div>  
-	 <!---------------------------->
-	    <button  type="submit" id="botonEnviarModificacion">MODIFICAR</button>
-	</div>
-</form>
+		<label for="primApellidoUsuario">PRIMER APELLIDO</label> <input
+			title="aquí el apellido 1 del alumno" type="text"
+			name="primApellidoUsuario" id="primApellidoUsuario"
+			placeholder="apellido 1 del alumno" maxlength="25" required /> <label
+			for="secApellidoUsuario">SEGUNDO APELLIDO</label> <input
+			title="aquí el apellido 2 del alumno" type="text"
+			name="secApellidoUsuario" id="secApellidoUsuario"
+			placeholder="apellido 2 del alumno" maxlength="25" required />
 
 
 
-<!-- ENLACE A JS-->
-<script src="scripts/script_datosAlumnoProfesor.js"></script>
+		<button type="submit" id="botonEnviarAlta">DAMOS DE ALTA</button>
+	</form>
+	<!----------------------------------------------->
+
+	<!--FORMULARIO BAJA ---------------------------->
+	<form id="formBaja" hidden='true'>
+		<h3 class="tituloForm">Dar de baja a un alumno</h3>
+
+
+		<label>NIA ALUMNO </label>
+		 <input title="aquí el NIA del alumno"
+			type="text" name="niaAlum" id="niaAlumBaja"
+			placeholder="NIA de 8 números" maxlength="8" pattern="\d{8}"
+			oninput="this.value=this.value.replace(/\D/g, '')" required>
+
+		<button type="submit" id="botonEnviarBaja">DAMOS DE BAJA</button>
+
+	</form>
+	<!----------------------------------------------->
+
+	<!--FORMULARIO MODIFICACIÓN ---------------------------->
+
+
+	<form id="formModificacion" hidden='true'>
+
+		<h3 class="tituloForm">Modificar datos de un alumno</h3>
+
+		<input title="escribe aquí el mail del tutor" type="email"
+			name="mailTutor" id="mailTutor" placeholder="MAIL TUTOR"
+			minlength="12" maxlength="25" required>
+
+		<!-----------------SELECT--------------------------->
+
+		<select title="elige qué modificarás" id="opcionesMod">
+
+			<option>Modificar ...</option>
+			<option value="nombre" id="modificarNombre">Modificar Nombre</option>
+			<option value="email" id="modificarMail">Modificar Email</option>
+
+		</select>
+
+
+		<div id="contenedorOpciones">
+
+			<!-----------------CONTENEDO OPCION 1--------------------------->
+
+
+			<div id="actual">
+
+				<label for="nameAlumUp"> ACTUAL</label> <input type="text"
+					name="nameAlum" id="actual" placeholder="NOMBRE/MAIL"
+					maxlength="25" required>
+
+			</div>
+			<!-----------------CONTENEDO OPCION 2--------------------------->
+
+			<div id="nuevo">
+
+				<label for="emailAlumUp"> NUEVO </label> <input type="text"
+					name="emailAlum" id="nuevo" placeholder="NOMBRE/MAIL"
+					maxlength="25" required>
+
+			</div>
+			<!---------------------------->
+			<button type="submit" id="botonEnviarModificacion">MODIFICAR</button>
+		</div>
+	</form>
+
+
+
+	<!-- ENLACE A JS-->
+	<script src="scripts/script_datosAlumnoProfesor.js"></script>
 </body>
 </html>

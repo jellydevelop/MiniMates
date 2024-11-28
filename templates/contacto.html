@@ -1,106 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
-    <!-- FUENTE PARA LA NUBE-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-    <!-- FUENTE PARA EL TITULO  -->
 
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-       
-       
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/estilos_contacto.css"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- FUENTE PARA LA NUBE-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        <title>CONTACTA</title>
+<!-- FUENTE PARA EL TITULO  -->
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+	rel="stylesheet">
 
 
-    </head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/estilos_contacto.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--ESTILO PARA VALIDAR FORMULARIO -->
+<title>CONTACTA</title>
+
+
+</head>
+
+<!--ESTILO PARA VALIDAR FORMULARIO -->
 
 <style>
-    :is(input, textarea):invalid {
-    background: rgba(255, 0, 0, 0.468);
-    color: black;
-    }
-    :is(input, textarea):valid {
-    background: rgba(0, 128, 0, 0.542);
-    }
-    </style>
+:is(input, textarea):invalid {
+	background: rgba(255, 0, 0, 0.468);
+	color: black;
+}
+
+:is(input, textarea):valid {
+	background: rgba(0, 128, 0, 0.542);
+}
+</style>
 
 <!--INICIO BODY -->
 <body>
- <div class="header">
+	<div class="header">
 
-    <h1>CONTACTA CON NOSOTROS</h1>
+		<h1>CONTACTA CON NOSOTROS</h1>
 
-   		 <!--BOTON ATRAS ---------------------------->
-    
-   		 <button title="volver al menú de alumno" id="rediAtras">
-            <img src="/img/flecha_volver.png" alt="atras">
-        </button>
-   		
-  			  
-   		<!--BOTON SALIR DE SESION ---------------------------->
-   		
-   		 <button title="cerrar sesión" id="exit">
-            <img src="/img/exit.png" alt="EXIT">
-        </button>
-        
+		<!--BOTON ATRAS ---------------------------->
+
+		<button title="volver al menú de alumno" id="rediAtras">
+			<img src="/img/flecha_volver.png" alt="atras">
+		</button>
+
+
+		<!--BOTON SALIR DE SESION ---------------------------->
+
+		<button title="cerrar sesión" id="exit">
+			<img src="/img/exit.png" alt="EXIT">
+		</button>
+
 	</div>
-	
 
-    <h3>Envíanos tu consulta</h3>
 
-<!--BLOQUE FORM CONTACTO ---------------------------->
-    <form id='formC' action="" method="post">
+	<h3>Envíanos tu consulta</h3>
 
-         <label id='dataLabel' for="name">NOMBRE TUTOR </label>
-         
-        	    <input type="text" name="consulta" id="name"
-                 maxlength='15'         
-                 min='3 '
-                  placeholder=" aquí tu nombre" 
-                 autocomplete="off" 
-                 pattern="[A-Z a-z]+"
-                  required>  
-      	
-       	
-         <label id='dataLabel' for="consulta">MENSAJE </label>
-        
-       			 <input type="textarea" name="consulta" id="consulta" 
-                  placeholder=" aquí tu mensaje"
-                   autocomplete="off"
-                   maxlength=100        
-                   minlength=20 
-                   rows=20
-                    required> 
-        
+	<!--BLOQUE FORM CONTACTO ---------------------------->
+	<form id='formC' action="/enviarEmail" method="post">
 
-        <input title="eliminar consulta" type="reset" id="reset" value="BORRAR"> 
+		<label id='dataLabel' for="name">NOMBRE TUTOR </label>
+		 <input
+			type="text" name="nombreTutor" id="name" maxlength='15' min='3 '
+			placeholder=" aquí tu nombre" autocomplete="off" pattern="[A-Z a-z]+"
+			required> 
+			
+			<label id='dataLabel' for="consulta">MENSAJE</label>
+			 <input type="textarea" name="mensajw" id="consulta"
+			placeholder=" aquí tu mensaje" autocomplete="off" maxlength=100
+			minlength=20 rows=20 required> <input
+			title="eliminar consulta" type="reset" id="reset" value="BORRAR">
 
- 
-   		<!--BOTON ENVIAR ---------------------------->
 
-       <button title="enviar consulta" id="send" name="send">
-       
-  			<img src="/img/icono_sobre.png" alt="contacto"> 
-  			
+		<!--BOTON ENVIAR ---------------------------->
+
+		<button title="enviar consulta" id="send" name="send">
+
+			<img src="/img/icono_sobre.png" alt="contacto">
+
 		</button>
 		
+		<!-- CONTENEDOR MENSAJE FLOTANTE -->
+<div id="loadingMessage" style="display: none;">Enviando...</div>
 		
- 
-    </form>
+
+
+
+	</form>
 
 
 
 
-<!-- ENLACE A JS-->
-<script src="/scripts/script_contacto.js"></script>
+	<!-- ENLACE A JS-->
+	<script src="/scripts/script_contacto.js"></script>
 
 </body>
 </html>

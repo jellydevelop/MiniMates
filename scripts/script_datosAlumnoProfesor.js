@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function() {
 
-
-
 	//----- RECOGIDA IDS
 	const miInput = document.querySelector('input');
 
@@ -66,6 +64,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 		bajaForm.hidden = !radioBaja.checked;
 		// Muestra el formulario de modificación si el radioMod está seleccionado
 		updateForm.hidden = !radioMod.checked;
+
+		// Asegurarse de que siempre un formulario está visible
+		if (!radioAlta.checked && !radioBaja.checked && !radioMod.checked) {
+			alert("Por favor, selecciona una acción.");
+		}
 	}
 
 
@@ -139,28 +142,43 @@ document.addEventListener('DOMContentLoaded', async function() {
 		const passAlum = generarPassword(nombreAlumno);
 
 		//preparamos la letra de la clase
-		const letraClaseProfesor = localStorage.getItem('idC'); 
-		console.log(letraClaseProfesor); 
+		const letraClaseProfesor = localStorage.getItem('letraClase');
 
-		if (!letraClaseProfesor) {
+		let letraClase = '';
+
+		if (letraClaseProfesor) {
+			letraClase = letraClaseProfesor;
+		} else {
 			alert('No se ha asignado una clase al alumno.');
 			return;
 		}
 
+
 		// Construimos el objeto con los datos del alumno a enviar al servidor
 		const datosAlumno = {
-			letra_clase_asignada: letraClaseProfesor,
 
 			//el código de centro es fijo xq esta bsdd es para el nismo centro
 			codigoCentro: "28010101",
+
+			//datos del form
 			primApellidoUsuario: primApellidoUsuario,
 			secApellidoUsuario: secApellidoUsuario,
 			nombreUsuario: nombreAlumno,
 			mailUsuario: mailAlumno,
+			niaAlumno: niaAlumno,
+			//rol es fijo
 			rolUsuario: 'alumno',
+			//pass generado por funcion
 			passUsuario: passAlum,
-			niaAlumno: niaAlumno
-		};
+
+			clase: {
+				letraClase: letraClase,
+				centro: {
+					idCentro: "28010101"
+				}
+			}
+		}
+
 
 		console.log(datosAlumno);
 
@@ -174,11 +192,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 				body: JSON.stringify(datosAlumno)
 
 			})
+			
+			// Verificamos si la respuesta es un conflicto (409)
+        if (response.status === 409) {
+            const mensajeError = await response.text();
+            alert(mensajeError); 
+            return;
+        }
 
 			// Validamos respuesta
 			if (!response.ok) throw new Error('Error en la respuesta del servidor');
-
-
 
 
 			// Obtenemos los datos del alumno que han sido añadidos
@@ -186,228 +209,138 @@ document.addEventListener('DOMContentLoaded', async function() {
 			console.log(datosAlumnoRespuesta);
 
 
-			alert(`El alumno ${datosAlumno.nombreUsuario} ha sido añadido correctamente`);
+			alert(`El alumno ${datosAlumnoRespuesta.niaAlumno} ha sido añadido correctamente`);
 
 
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Error al procesar la solicitud');
 		}
-
-
-		////*********************** BAJA POR ID ******************************************** */
-
-		/* bajaForm.addEventListener("submit", function(event) {
-					   event.preventDefault(); // Evita que se envíe el formulario de forma predeterminada
-		 
-		  // Captura el ID del formulario
-		  let idAlum = document.getElementById("idAlum").value;
-		 
-		 
-		  // Realiza la solicitud AJAX al servidor para eliminar al alumno por su ID
-		   fetch('/borrar_usuario/' + idAlum, {
-			  method: 'DELETE'
-		  })
-		  .then(response => {
-			  if (!response.ok) {
-				  throw new Error('Error al dar de baja al alumno');
-			  }
-			  return response.json();
-		  })
-		  .then(data => {
-			  console.log(data);
-			  alert('Alumno dado de baja correctamente');
-		  })
-		  .catch(error => {
-			  console.error('Error:', error);
-			  alert('Hubo un error al dar de baja al alumno');
-		  });
-		});
-		/*
-		 
-		////*********************** BAJA POR MAIL ******************************************** */
-
-
-		if (bajaForm) {
-
-			// el listener se activa cuanddo se activa el formulario de baja y el contenido del input
-			bajaForm.addEventListener("submit", function(event) {
-
-				event.preventDefault(); // Evita que se envíe el formulario de forma predeterminada
-
-				// Captura el valor del campo de entrada
-				let mailAlumBaja = document.getElementById("mailLog").value; // Cambia mailLog por el ID correcto
-				console.log(mailAlumBaja);
-
-				//validamos
-
-				if (!mailAlumBaja) {
-					alert("Por favor, ingresa un correo electrónico.");
-					return;
-				}
-
-				//----- PETICION
-
-				// Realiza la solicitud AJAX al servidor para eliminar al alumno por su ID
-				fetch(`/borrar_usuario_mail/${encodeURIComponent(mailAlumBaja)}`,
-					{
-						method: 'DELETE'
-					})
-
-					.then(response => {
-						if (!response.ok) {
-							throw new Error('Error al dar de baja al alumno');
-						}
-						return response.json();
-					})
-
-					.then(data => {
-						console.log(data);
-						alert(`Alumno ${data.nombreUsuario} ha sido dado de baja correctamente`);
-					})
-
-					.catch(error => {
-						console.error('Error:', error);
-						alert('Hubo un error al dar de baja al alumno');
-					});
-			});
-		}
-
-
-
-		////*********************** UPDATE ******************************************** */
-		const formModificacion = document.getElementById("formModificacion");
-
-		if (formModificacion) {
-
-
-			//----- LISTENER PARA MODIFICAR EL TIPO DE INPUT SEGUN LA ELECCION DEL SELECT
-			//-- ESTE DATO SERÁ EL QUE SE MANDE A SERVIDOR PARA CAMBIAR
-
-			const selectMod = document.getElementById('opcionesMod');
-			selectMod.addEventListener('change', function() {
-
-
-				// Obtenemos el valor de lo seleccionado
-				let opcionSeleccionada = this.value;
-
-				// Obtenemos los inputs de actual y nuevo 
-				let inputActual = document.querySelector('#actual input');
-				let inputNuevo = document.querySelector('#nuevo input');
-
-				if (opcionSeleccionada === 'email') {
-
-					// Cambiamos los tipos de input a "email"
-					inputActual.setAttribute('type', 'email');
-					inputNuevo.setAttribute('type', 'email');
-
-
-				} else if (opcionSeleccionada === 'nombre') {
-
-					// Cambiamos los tipos de input a "text"
-					inputActual.setAttribute('type', 'text');
-					inputNuevo.setAttribute('type', 'text');
-				}
-			});
-
-			//----- LISTENER PARA ENVIAR LA INFORMACIÓN A SERVER Y ASÍ REALIZAR LA MODIFICACION
-
-			formModificacion.addEventListener("submit", function(event) {
-
-				// Evita que se envíe el formulario de forma predeterminada
-				event.preventDefault();
-
-
-				// ---------------------------------IDS
-
-				const mailUsuario = document.getElementById('mailTutor').value;
-				const opcionModificacion = document.getElementById('opcionesMod').value;
-				const actual = document.querySelector('#actual input').value;
-				const nuevo = document.querySelector('#nuevo input').value;
-
-				//  objeto JSON con la información que se quiere modificar
-				let datosModificacion = {};
-
-				// campo de los datos del usuario vamos a modificar
-				if (opcionModificacion === 'nombre') {
-
-					// Si estamos modificando el nombre
-					datosModificacion.nombreUsuario = nuevo;
-
-				} else if (opcionModificacion === 'email') {
-
-					// Si estamos modificando el email
-					datosModificacion.mailUsuario = nuevo;
-				}
-
-				console.log(datosModificacion);
-
-				//----- PETICION
-
-				fetch(`/modificamos_datos_usuario/${mailUsuario}`,
-					{
-						method: 'PUT',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-
-						body: JSON.stringify(datosModificacion) // Convertimos los datos a formato JSON
-
-					})
-
-
-					.then(response => {
-
-						if (response.ok) {
-
-							console.log(response);
-
-							alert('Datos de ' + mailUsuario + ' modificados con éxito');
-							return response.json();
-
-						} else {
-							throw new Error('Error en la modificación de los datos');
-						}
-					})
-
-					.then(data => {
-
-						console.log('Datos modificados con éxito', data);
-						alert('Datos de modificados con éxito');
-					})
-					.catch(error => {
-						console.error('Error:', error);
-						if (error.response) {
-							console.error('Error Response:', error.response.data);
-						}
-						alert('Hubo un error al modificar los datos');
-					});
-			});
-		}
-
 });
 
-		//----- LISTENERS GENERALS
+////*********************** BAJA POR NIA ******************************************** */
 
-		///Muestra los formularios segun la eleccion del profesor al pulsar el boton 
-		radioForm.addEventListener('submit', gestionarRadioBtns);
+		document.getElementById('formBaja').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevenir el comportamiento por defecto (enviar formulario)
+    console.log("Formulario de baja enviado");
 
-		// Quita la validación mientras escribes
-		miInput.addEventListener('input', validacionTrue);
+    // Captura el valor del NIA
+    let niaAlumBaja = document.getElementById("niaAlumBaja").value;
+    console.log(`NIA a eliminar: ${niaAlumBaja}`);
 
-		// Muestra el mensaje de validación
-		miInput.addEventListener('invalid', validacionFalse);
+    // Validación del NIA
+    if (!niaAlumBaja || niaAlumBaja.length !== 8) {
+        alert("Por favor, ingresa un NIA válido.");
+        return;
+    }
+    let url = `/borrar_usuario_nia/${encodeURIComponent(niaAlumBaja)}`;
+    console.log("URL de la solicitud: ", url);
 
-		// Quita los espacios al principio y al final
-		miInput.addEventListener('blur', limpiaEspacios);
-
-		//Redirige a la página anterior--> menu
-		botonAtras.addEventListener('click', rediMenuProfesor);
-
-		//cierra la sesión--> login
-		botonExit.addEventListener('click', salirSesion);
-
+    // Realiza la solicitud AJAX al servidor para eliminar al alumno por su NIA
+    fetch(url, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al dar de baja al alumno');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        if (data) {
+            alert(`Alumno eliminado correctamente: \nNombre: ${data.nombreUsuario}\nCorreo: ${data.mailUsuario}`);
+        } else {
+            alert("No se encontró un alumno con ese NIA.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al dar de baja al alumno');
+    });
+});
 	
+	////*********************** UPDATE ******************************************** */
+formModificacion.addEventListener("submit", function(event) {
+    // Evita que se envíe el formulario de forma predeterminada
+    event.preventDefault();
+
+    // ---------------------------------IDS
+    const mailUsuario = document.getElementById('mailTutor').value;
+    const opcionModificacion = document.getElementById('opcionesMod').value;
+    const actual = document.querySelector('#actual input').value;
+    const nuevo = document.querySelector('#nuevo input').value;
+
+    // Objeto JSON con la información que se quiere modificar
+    let datosModificacion = {};
+
+    // Campo de los datos del usuario vamos a modificar
+    if (opcionModificacion === 'nombre') {
+        // Si estamos modificando el nombre
+        datosModificacion.nombreUsuario = nuevo;
+    } else if (opcionModificacion === 'email') {
+        // Si estamos modificando el email
+        datosModificacion.mailUsuario = nuevo;
+    }
+
+    console.log(datosModificacion);
+
+    //----- PETICION
+    fetch(`/modificamos_datos_usuario/${mailUsuario}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datosModificacion) // Convertimos los datos a formato JSON
+    })
+    .then(response => {
+            if (response.ok) {
+                return response.json(); // Procesa la respuesta como JSON
+            } else if (response.status === 404) {
+                throw new Error('Usuario no encontrado');
+            } else {
+                throw new Error('Error en la modificación de los datos');
+            }
+        })
+    .then(data => {
+        console.log('Datos modificados con éxito', data);
+        alert('Datos de modificados con éxito');
+        
+         let mensaje = "";
+        if (opcionModificacion === 'nombre') {
+            mensaje = `El dato inicial del nombre: ${actual} ha sido modificado a: ${data.nombreUsuario}`;
+        } else if (opcionModificacion === 'email') {
+            mensaje = `El dato inicial del email: ${actual} ha sido modificado a: ${data.mailUsuario}`;
+        }
+        
+        alert(mensaje);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        if (error.response) {
+ alert(error.message || 'Hubo un error al modificar los datos');        }
+    });
+});
+	//----- LISTENERS GENERALS
+
+	///Muestra los formularios segun la eleccion del profesor al pulsar el boton 
+	radioForm.addEventListener('submit', gestionarRadioBtns);
+
+	// Quita la validación mientras escribes
+	miInput.addEventListener('input', validacionTrue);
+
+	// Muestra el mensaje de validación
+	miInput.addEventListener('invalid', validacionFalse);
+
+	// Quita los espacios al principio y al final
+	miInput.addEventListener('blur', limpiaEspacios);
+
+	//Redirige a la página anterior--> menu
+	botonAtras.addEventListener('click', rediMenuProfesor);
+
+	//cierra la sesión--> login
+	botonExit.addEventListener('click', salirSesion);
+
+
 
 
 });
